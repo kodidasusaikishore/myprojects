@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +9,12 @@
         :root {
             --bg-color: #0d0e15;
             --text-color: #e0e6ed;
-            --accent-primary: #00ff9d; /* Neon Green */
-            --accent-secondary: #ff00ff; /* Neon Pink */
-            --accent-danger: #ff2a2a; /* Red */
+            --accent-primary: #00ff9d;
+            /* Neon Green */
+            --accent-secondary: #ff00ff;
+            /* Neon Pink */
+            --accent-danger: #ff2a2a;
+            /* Red */
             --font-main: 'Courier New', Courier, monospace;
         }
 
@@ -20,7 +24,8 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             font-family: var(--font-main);
-            overflow: hidden; /* Prevent scrolling */
+            overflow: hidden;
+            /* Prevent scrolling */
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -51,11 +56,13 @@
             box-shadow: 0 0 5px var(--accent-primary);
         }
 
-        #score-display span, #level-display span, #lives-display span {
+        #score-display span,
+        #level-display span,
+        #lives-display span {
             font-weight: bold;
             color: var(--accent-primary);
         }
-        
+
         #lives-display span {
             color: var(--accent-danger);
         }
@@ -81,7 +88,7 @@
             border-radius: 4px;
             transition: transform 0.1s;
         }
-        
+
         .word-node.locked {
             border: 1px solid var(--accent-secondary);
             box-shadow: 0 0 10px var(--accent-secondary);
@@ -89,7 +96,8 @@
         }
 
         .matched-chars {
-            color: var(--accent-primary); /* Green for typed part */
+            color: var(--accent-primary);
+            /* Green for typed part */
             text-shadow: 0 0 8px var(--accent-primary);
         }
 
@@ -97,7 +105,7 @@
             color: #fff;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
-        
+
         /* Danger Line */
         #danger-line {
             position: absolute;
@@ -112,8 +120,10 @@
         /* Overlays */
         .overlay {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(13, 14, 21, 0.9);
             display: flex;
             flex-direction: column;
@@ -153,34 +163,42 @@
             color: #000;
             box-shadow: 0 0 30px var(--accent-secondary);
         }
-        
+
         .particles {
             position: absolute;
             pointer-events: none;
         }
-        
+
         .particle {
             position: absolute;
-            width: 4px; 
+            width: 4px;
             height: 4px;
             background: var(--accent-primary);
             border-radius: 50%;
             animation: pop 0.5s ease-out forwards;
         }
-        
-        @keyframes pop {
-            0% { transform: translate(0,0) scale(1); opacity: 1; }
-            100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
-        }
 
+        @keyframes pop {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(var(--dx), var(--dy)) scale(0);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <div id="ui-layer">
         <div class="stat-box" id="score-display">Score: <span>0</span></div>
         <div class="stat-box" id="level-display">Level: <span>1</span></div>
         <div class="stat-box" id="lives-display">Lives: <span>5</span></div>
+        <button id="pause-btn" style="font-size: 1rem; padding: 5px 15px;">II</button>
     </div>
 
     <div id="game-container">
@@ -195,43 +213,147 @@
         <button id="start-btn">Initialize</button>
     </div>
 
+    <!-- Pause Screen -->
+    <div id="pause-screen" class="overlay hidden">
+        <h1>PAUSED</h1>
+        <button id="resume-btn">Resume</button>
+    </div>
+
     <!-- Game Over Screen -->
     <div id="game-over-screen" class="overlay hidden">
-        <h1 style="color: var(--accent-danger); text-shadow: 0 0 20px var(--accent-danger);">System Failure</h1>
+        <h1 style="color: var(--accent-danger); text-shadow: 0 0 20px var(--accent-danger);">Game Over</h1>
         <p style="margin-bottom: 20px; font-size: 1.5rem;">Final Score: <span id="final-score">0</span></p>
-        <button id="restart-btn">Reboot</button>
+        <p style="margin-bottom: 20px; font-size: 1.2rem; color: var(--accent-primary);">Speed: <span
+                id="final-kps">0.00</span> Key Strokes Per Second</p>
+        <button id="restart-btn">Try Again</button>
     </div>
 
     <script>
         const WORD_LIST = [
-            "code", "data", "link", "node", "byte", "loop", "grid", "hack", "wifi", "chip",
-            "pixel", "array", "logic", "cache", "server", "script", "vector", "socket", "binary", "system",
-            "python", "react", "docker", "config", "deploy", "future", "matrix", "cipher", "global", "module",
-            "function", "variable", "constant", "terminal", "debugger", "compiler", "database", "sequence", "protocol", "algorithm",
-            "encryption", "connection", "bandwidth", "mainframe", "interface", "processor", "resolution", "simulation", "cyberpunk", "navigation",
-            "asynchronous", "architecture", "intelligence", "cryptography", "optimization", "virtualization", "authentication", "initialization", "decentralized"
+            // 3 letters
+            "api", "app", "bit", "bug", "bus", "cpu", "css", "csv", "dev", "dns", "doc", "dom", "exe", "ftp", "git", "gui", "hub",
+            "ide", "int", "ios", "jar", "key", "lan", "log", "mac", "map", "nav", "net", "npm", "obj", "php", "png", "ptr", "ram",
+            "rar", "rom", "run", "sdk", "seo", "sip", "sql", "src", "ssh", "ssl", "svg", "tab", "tag", "tar", "tcp", "tls", "tmp",
+            "try", "tty", "udp", "uri", "url", "usb", "var", "vim", "vpn", "vps", "vue", "wan", "web", "xml", "zip",
+
+            // 4 letters
+            "ajax", "args", "atom", "auth", "auto", "back", "base", "bash", "beta", "bios", "blob", "bool", "boot", "byte", "call",
+            "case", "char", "chat", "code", "core", "cron", "curl", "data", "date", "demo", "diff", "disk", "docs", "done", "down",
+            "drag", "drop", "echo", "edge", "edit", "else", "enum", "eval", "exit", "file", "find", "fire", "flag", "flow", "font",
+            "fork", "form", "free", "func", "game", "gate", "gems", "gist", "grid", "hack", "hash", "head", "heap", "help", "hook",
+            "host", "href", "html", "http", "icon", "info", "init", "java", "jobs", "json", "keys", "lang", "less", "libc", "libs",
+            "line", "link", "lint", "list", "load", "lock", "loop", "main", "make", "mask", "math", "menu", "meta", "mime", "mode",
+            "move", "nano", "neon", "node", "none", "null", "open", "pass", "path", "perl", "ping", "pipe", "play", "plug", "plus",
+            "port", "post", "push", "pyro", "qbit", "query", "quit", "raid", "read", "real", "rect", "repo", "rest", "root", "ruby",
+            "rust", "sass", "save", "scan", "scsi", "send", "show", "site", "size", "skip", "slug", "snap", "soft", "sort", "span",
+            "spin", "stat", "step", "stop", "sudo", "swap", "sync", "tags", "task", "temp", "term", "test", "text", "this", "time",
+            "todo", "tool", "tree", "true", "type", "unit", "unix", "user", "utf8", "uuid", "view", "void", "wait", "warn", "wifi",
+            "wiki", "wire", "word", "work", "yaml", "yarn", "zone", "zoom",
+
+            // 5 letters
+            "abort", "about", "admin", "agent", "alert", "alias", "align", "alpha", "array", "arrow", "ascii", "async", "await", "azure",
+            "badge", "basic", "batch", "binary", "block", "board", "boost", "break", "build", "bytes", "cache", "chart", "check", "child",
+            "class", "clean", "click", "clock", "clone", "cloud", "cobol", "codec", "color", "const", "count", "crash", "crawl", "crypt",
+            "cyber", "cycle", "debug", "defer", "delta", "depth", "digit", "drive", "dummy", "email", "embed", "enter", "entry", "error",
+            "event", "excel", "exist", "false", "fetch", "field", "files", "filter", "final", "flash", "float", "flood", "focus", "force",
+            "forum", "frame", "front", "glitch", "gnome", "graph", "group", "guard", "guest", "guide", "hacker", "hello", "hover", "image",
+            "index", "input", "intel", "issue", "items", "julia", "label", "laser", "layer", "level", "limit", "linux", "local", "logic",
+            "login", "loops", "macro", "match", "media", "merge", "micro", "mixin", "model", "modem", "mount", "mouse", "mutex", "mysql",
+            "named", "nodes", "noise", "nonce", "numpy", "oauth", "owner", "panel", "param", "parse", "patch", "pause", "phone", "photo",
+            "pixel", "plane", "point", "popup", "power", "press", "print", "proto", "proxy", "purge", "queue", "quick", "radio", "range",
+            "ratio", "react", "ready", "realm", "redis", "redux", "regex", "remix", "reply", "reset", "retry", "robot", "route", "scala",
+            "scene", "scope", "score", "script", "scrum", "search", "secure", "server", "setup", "shader", "share", "shell", "shift",
+            "short", "slice", "slide", "smart", "smile", "sound", "source", "space", "speed", "split", "sprint", "stack", "stage",
+            "start", "state", "stats", "store", "stream", "style", "suite", "super", "swift", "swing", "switch", "synth", "table",
+            "target", "theme", "throw", "title", "toast", "token", "tools", "touch", "trace", "track", "trade", "trait", "trust",
+            "tuple", "turbo", "types", "unity", "unzip", "users", "valid", "value", "video", "views", "virus", "visit", "voice",
+            "watch", "webgl", "while", "white", "width", "world", "write", "xhtml", "yield",
+
+            // 6+ letters (Mixed)
+            "access", "action", "active", "adapter", "add-on", "address", "advance", "advice", "agile", "alert", "amazon", "analog",
+            "anchor", "android", "angular", "animate", "answer", "apache", "append", "applet", "archive", "arduino", "argument", "assert",
+            "assets", "assign", "atomic", "attach", "attack", "attrib", "audio", "author", "auto", "avatar", "backup", "banner", "beacon",
+            "binary", "bitmap", "blender", "bluetooth", "boolean", "border", "bottom", "bounce", "branch", "bridge", "browser", "buffer",
+            "builder", "button", "bypass", "caching", "camera", "canvas", "captcha", "capture", "carbon", "catalog", "catch", "center",
+            "change", "channel", "charge", "charts", "check", "chrome", "circle", "circuit", "client", "cluster", "coding", "column",
+            "command", "comment", "commit", "common", "compile", "compute", "config", "confirm", "connect", "console", "content", "context",
+            "control", "convert", "cookie", "copy", "core", "count", "create", "crypto", "cursor", "custom", "daemon", "danger", "database",
+            "debug", "decode", "default", "define", "delete", "deploy", "design", "detail", "detect", "device", "dialog", "digital",
+            "direct", "disable", "display", "django", "docker", "domain", "double", "download", "driver", "droplet", "dynamic", "eclipse",
+            "editor", "effect", "element", "enable", "encode", "engine", "entity", "error", "escape", "eslint", "events", "except",
+            "execute", "expand", "expert", "export", "extend", "extract", "factor", "failed", "failure", "family", "feature", "fedora",
+            "fetch", "fields", "figure", "filter", "finder", "finish", "firewall", "folder", "follow", "footer", "format", "forward",
+            "fragment", "friend", "function", "future", "gallery", "gateway", "gentoo", "getter", "gigabyte", "github", "gitlab", "global",
+            "google", "gradle", "graphic", "grid", "groovy", "ground", "group", "grunt", "guard", "guide", "gulp", "hacker", "handle",
+            "handler", "hardware", "header", "height", "helper", "hidden", "history", "holder", "hosting", "hover", "hybrid", "ignore",
+            "import", "include", "index", "inline", "input", "insert", "install", "integer", "intent", "invoke", "ionic", "iphone",
+            "issue", "item", "iterator", "javadocs", "javascript", "jekyll", "jenkins", "jquery", "json", "jupyter", "kernel", "keyframe",
+            "keyword", "kindle", "kotlin", "label", "lambda", "laptop", "large", "laravel", "latency", "launch", "layout", "leader",
+            "legacy", "length", "lesson", "letter", "level", "library", "license", "linear", "linker", "linux", "listen", "loader",
+            "loading", "local", "locate", "locked", "logger", "logout", "lookup", "loop", "machine", "magnet", "mailto", "manage",
+            "manager", "manual", "margin", "marker", "markup", "master", "match", "matrix", "matter", "maximize", "measure", "media",
+            "member", "memory", "menu", "message", "method", "metric", "middle", "minify", "minimum", "mirror", "mobile", "mockup",
+            "model", "modem", "modern", "modify", "module", "moment", "monitor", "motion", "mouse", "movie", "multiple", "music",
+            "mutable", "mysql", "native", "navigate", "network", "newline", "nexus", "night", "nodejs", "nodemon", "normal", "notify",
+            "number", "object", "offline", "offset", "online", "opacity", "open", "opera", "option", "oracle", "orange", "order",
+            "organ", "origin", "output", "packet", "padding", "page", "paint", "panel", "paper", "parameter", "parent", "parser",
+            "passwd", "password", "paste", "patch", "pause", "payload", "payment", "perform", "phantom", "phase", "phone", "photo",
+            "picker", "picture", "pixel", "place", "plain", "plane", "planet", "platform", "player", "plugin", "plurals", "pocket",
+            "point", "pointer", "policy", "polygon", "popup", "portal", "poster", "power", "prefer", "prefix", "preload", "preset",
+            "press", "preview", "price", "print", "privacy", "private", "problem", "process", "product", "profile", "program", "project",
+            "promise", "prompt", "protect", "proto", "public", "publish", "python", "query", "queue", "quick", "quiet", "quote",
+            "radio", "rails", "raise", "random", "range", "rapid", "ratio", "react", "reader", "readme", "ready", "realtime",
+            "reason", "reboot", "recall", "record", "recurse", "recycle", "reddit", "redhat", "redis", "reduce", "refresh", "regex",
+            "region", "reject", "release", "reload", "remote", "remove", "rename", "render", "repair", "repeat", "replace", "replay",
+            "report", "request", "require", "reset", "resize", "resolve", "resource", "respond", "restart", "restore", "result",
+            "resume", "return", "reveal", "revert", "review", "reward", "right", "ripple", "robot", "rocket", "rotate", "router",
+            "routine", "routing", "rowspan", "rubbish", "runtime", "safari", "safety", "sample", "sandbox", "scale", "scanner",
+            "scene", "schema", "scheme", "screen", "script", "scroll", "search", "secret", "secure", "select", "sender", "sensor",
+            "server", "service", "session", "setter", "setting", "shadow", "shape", "share", "shell", "shift", "short", "sidebar",
+            "signal", "signup", "silent", "simple", "single", "sketch", "skill", "skin", "slack", "slash", "slave", "sleep",
+            "slider", "smart", "smile", "smooth", "sniff", "snippet", "socket", "software", "solid", "solution", "solver", "sonic",
+            "sound", "source", "space", "spacer", "span", "spark", "speak", "speed", "spider", "spike", "spinner", "spirit",
+            "splash", "splice", "split", "spotify", "sprite", "sprint", "sqlite", "square", "stable", "stack", "stage", "start",
+            "static", "status", "stderr", "stdin", "stdout", "sticky", "stop", "store", "stream", "string", "stripe", "strong",
+            "struct", "studio", "style", "submit", "subset", "substr", "success", "suffix", "super", "supply", "support", "surface",
+            "switch", "symbol", "syntax", "syslog", "system", "table", "tablet", "target", "taskId", "tcpip", "teams", "teaser",
+            "techie", "telnet", "template", "term", "terminal", "tester", "texture", "theme", "thread", "threat", "thrift", "thumbs",
+            "ticket", "timer", "title", "toast", "toggle", "token", "toolbar", "tools", "touch", "trace", "track", "traffic",
+            "trail", "train", "traits", "trans", "trash", "trigger", "trojan", "troll", "truck", "trust", "tuple", "turbo",
+            "tweet", "twitch", "twitter", "type", "typeof", "ubuntu", "uglify", "ultra", "under", "undo", "union", "unity",
+            "unix", "unkown", "unlock", "unset", "update", "upload", "upper", "uptime", "usage", "user", "utils", "valid",
+            "value", "valve", "vector", "vendor", "verify", "version", "vertex", "video", "view", "views", "vinyl", "virtual",
+            "virus", "visit", "visual", "voice", "volume", "vote", "vowel", "vuln", "wait", "wallet", "warning", "watch",
+            "water", "wave", "webkit", "webrtc", "websoc", "weight", "where", "while", "white", "widget", "width", "window",
+            "wired", "wizard", "worker", "world", "wrapper", "writer", "www", "xcode", "xhtml", "xmlhtt", "xpath", "xterm",
+            "yahoo", "yammer", "yield", "youtube", "zebra", "zero", "zigbee", "zone", "zoom"
         ];
 
         // Game State
         const state = {
             isPlaying: false,
+            isPaused: false,
             score: 0,
             level: 1,
             lives: 5,
             words: [], // { id, text, x, y, speed, element, typedIndex }
             nextSpawnTime: 0,
             lastFrameTime: 0,
-            activeWordId: null // The word currently being typed
+            activeWordId: null, // The word currently being typed
+            correctKeystrokes: 0,
+            gameStartTime: 0,
+            totalPausedTime: 0,
+            pauseStartTime: 0
         };
 
         // Configuration
         const CONFIG = {
-            baseSpeed: 50, // Pixels per second
+            baseSpeed: 20, // Reduced base speed for Level 1
             spawnInterval: 2000, // ms
-            levelThreshold: 1000, // Points to level up
+            levelThreshold: 100, // Points to level up
             dangerZone: window.innerHeight - 80 // Y position where word hits "bottom"
         };
-        
+
         let animationFrameId;
 
         // DOM Elements
@@ -242,15 +364,24 @@
         const startScreen = document.getElementById('start-screen');
         const gameOverScreen = document.getElementById('game-over-screen');
         const finalScoreDisplay = document.getElementById('final-score');
+        const finalKpsDisplay = document.getElementById('final-kps');
         const startBtn = document.getElementById('start-btn');
         const restartBtn = document.getElementById('restart-btn');
+        const pauseBtn = document.getElementById('pause-btn');
+        const resumeBtn = document.getElementById('resume-btn');
+        const pauseScreen = document.getElementById('pause-screen');
 
         // --- Game Logic ---
 
         function init() {
             startBtn.addEventListener('click', startGame);
             restartBtn.addEventListener('click', startGame);
-            window.addEventListener('keydown', handleInput);
+            pauseBtn.addEventListener('click', togglePause);
+            resumeBtn.addEventListener('click', togglePause);
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') togglePause();
+                else handleInput(e);
+            });
             window.addEventListener('resize', () => {
                 CONFIG.dangerZone = window.innerHeight - 80;
             });
@@ -264,6 +395,9 @@
             state.lives = 5;
             state.words = [];
             state.activeWordId = null;
+            state.correctKeystrokes = 0;
+            state.gameStartTime = performance.now();
+            state.totalPausedTime = 0;
             state.lastFrameTime = performance.now();
             state.nextSpawnTime = state.lastFrameTime + 500;
 
@@ -271,6 +405,8 @@
             container.innerHTML = '<div id="danger-line"></div>';
             startScreen.classList.add('hidden');
             gameOverScreen.classList.add('hidden');
+            pauseScreen.classList.add('hidden');
+            state.isPaused = false;
             updateUI();
 
             // Start Loop
@@ -278,14 +414,36 @@
             animationFrameId = requestAnimationFrame(gameLoop);
         }
 
+        function togglePause() {
+            if (!state.isPlaying) return;
+
+            state.isPaused = !state.isPaused;
+
+            if (state.isPaused) {
+                pauseScreen.classList.remove('hidden');
+                pauseBtn.textContent = '▶';
+                state.pauseStartTime = performance.now();
+            } else {
+                pauseScreen.classList.add('hidden');
+                pauseBtn.textContent = 'II';
+                state.lastFrameTime = performance.now();
+                state.totalPausedTime += (performance.now() - state.pauseStartTime);
+            }
+        }
+
         function gameLoop(timestamp) {
             if (!state.isPlaying) return;
+
+            if (state.isPaused) {
+                animationFrameId = requestAnimationFrame(gameLoop);
+                return;
+            }
 
             const dt = (timestamp - state.lastFrameTime) / 1000; // Delta time in seconds
             state.lastFrameTime = timestamp;
 
             update(dt, timestamp);
-            
+
             animationFrameId = requestAnimationFrame(gameLoop);
         }
 
@@ -294,19 +452,21 @@
             if (timestamp > state.nextSpawnTime) {
                 spawnWord();
                 // Decrease spawn interval as level increases, clamp at 500ms
-                const interval = Math.max(500, CONFIG.spawnInterval - (state.level * 150));
+                const interval = Math.max(500, CONFIG.spawnInterval - (state.level * 100));
                 state.nextSpawnTime = timestamp + interval;
             }
 
             // 2. Moving Words
-            // Speed increases with level
-            const currentSpeed = CONFIG.baseSpeed + (state.level * 15);
-            
+            // Speed increases with level.
+            // Level 1: 20 + 20 = 40
+            // Level 2: 20 + 40 = 60
+            const currentSpeed = CONFIG.baseSpeed + (state.level * 20);
+
             // Iterate backwards to safely remove
             for (let i = state.words.length - 1; i >= 0; i--) {
                 const word = state.words[i];
                 word.y += currentSpeed * dt;
-                
+
                 // Update DOM position
                 word.element.style.transform = `translate(${word.x}px, ${word.y}px)`;
 
@@ -318,7 +478,19 @@
         }
 
         function spawnWord() {
-            const text = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
+            // Filter words based on level (length ~ level)
+            // Level 1: max length 4
+            // Level 2: max length 5, etc.
+            const maxLen = 3 + state.level;
+
+            // To ensure we don't run out of words at high levels or have too few at low levels
+            // We'll take words <= maxLen.
+            let eligibleWords = WORD_LIST.filter(w => w.length <= maxLen);
+
+            // Fallback if list is empty (shouldn't happen with current list but safe practice)
+            if (eligibleWords.length === 0) eligibleWords = WORD_LIST;
+
+            const text = eligibleWords[Math.floor(Math.random() * eligibleWords.length)];
             const wordWidth = text.length * 15; // Approx width
             const maxX = window.innerWidth - wordWidth - 40;
             const x = Math.random() * (maxX - 20) + 20;
@@ -340,8 +512,8 @@
         }
 
         function handleInput(e) {
-            if (!state.isPlaying) return;
-            
+            if (!state.isPlaying || state.isPaused) return;
+
             const key = e.key.toLowerCase();
             // Ignore non-character keys (shift, ctrl, etc) unless they are printable? 
             // Simplified: just check if key length is 1
@@ -350,7 +522,7 @@
             // Strategy:
             // If we have an active locked word, check against that.
             // If not, search for a word that starts with this key.
-            
+
             if (state.activeWordId) {
                 const word = state.words.find(w => w.id === state.activeWordId);
                 // If word dissapeared (e.g. hit bottom) while typing, reset active
@@ -361,7 +533,7 @@
                     // Fall through to find new word
                 } else {
                     checkChar(word, key);
-                    return; 
+                    return;
                 }
             }
 
@@ -381,8 +553,9 @@
 
         function checkChar(word, key) {
             const expectedChar = word.text[word.typedIndex];
-            
+
             if (key === expectedChar) {
+                state.correctKeystrokes++;
                 word.typedIndex++;
                 word.element.innerHTML = renderWordHTML(word.text, word.typedIndex);
 
@@ -405,7 +578,7 @@
 
             // Remove from array
             state.words.splice(idx, 1);
-            
+
             // Remove from DOM
             if (wordVal.element.parentNode) {
                 wordVal.element.parentNode.removeChild(wordVal.element);
@@ -415,7 +588,7 @@
             createExplosion(wordVal.x + (wordVal.text.length * 8), wordVal.y);
 
             // Update Score
-            addScore(wordVal.text.length * 10);
+            addScore(wordVal.text.length * 1);
 
             // Unlock if this was active
             if (state.activeWordId === wordVal.id) {
@@ -425,24 +598,24 @@
 
         function handleMiss(index) {
             const word = state.words[index];
-            
+
             // Remove
             state.words.splice(index, 1);
             if (word.element.parentNode) word.element.parentNode.removeChild(word.element);
-            
+
             // Unlock if active
             if (state.activeWordId === word.id) {
                 state.activeWordId = null;
             }
 
             // Screen Shake effect
-            document.body.style.transform = `translate(${Math.random()*10-5}px, ${Math.random()*10-5}px)`;
+            document.body.style.transform = `translate(${Math.random() * 10 - 5}px, ${Math.random() * 10 - 5}px)`;
             setTimeout(() => document.body.style.transform = 'none', 50);
 
             // Lose Life
             state.lives--;
             updateUI();
-            
+
             if (state.lives <= 0) {
                 triggerGameOver();
             }
@@ -450,14 +623,20 @@
 
         function addScore(points) {
             state.score += points;
-            
-            // Level Up Check
-            const requiredScore = state.level * CONFIG.levelThreshold;
-            if (state.score > requiredScore) {
-                state.level++;
+
+            // Calculate Level: Level 2 at 300, Level 3 at 600...
+            // Formula: Math.floor(score / 300) + 1
+            const newLevel = Math.floor(state.score / CONFIG.levelThreshold) + 1;
+
+            if (newLevel > state.level) {
+                state.level = newLevel;
                 // Visual feedback for level up
-                uiLevel.style.color = '#fff'; 
-                setTimeout(() => uiLevel.style.color = 'var(--accent-primary)', 500);
+                uiLevel.style.color = '#fff';
+                uiLevel.style.textShadow = '0 0 20px #fff';
+                setTimeout(() => {
+                    uiLevel.style.color = 'var(--accent-primary)';
+                    uiLevel.style.textShadow = 'none';
+                }, 500);
             }
             updateUI();
         }
@@ -471,6 +650,12 @@
         function triggerGameOver() {
             state.isPlaying = false;
             finalScoreDisplay.textContent = state.score;
+
+            const now = performance.now();
+            const duration = (now - state.gameStartTime - state.totalPausedTime) / 1000;
+            const kps = duration > 0 ? (state.correctKeystrokes / duration) : 0;
+            finalKpsDisplay.textContent = kps.toFixed(2);
+
             gameOverScreen.classList.remove('hidden');
         }
 
@@ -481,9 +666,9 @@
             const remaining = text.substring(typedIndex);
             return `<span class="matched-chars">${matched}</span><span class="remaining-chars">${remaining}</span>`;
         }
-        
+
         function createExplosion(x, y) {
-            for(let i=0; i<8; i++) {
+            for (let i = 0; i < 8; i++) {
                 const p = document.createElement('div');
                 p.className = 'particle';
                 p.style.left = x + 'px';
@@ -496,10 +681,10 @@
                 p.style.setProperty('--dx', dx);
                 p.style.setProperty('--dy', dy);
                 container.appendChild(p);
-                
+
                 // Cleanup
                 setTimeout(() => {
-                    if(p.parentNode) p.parentNode.removeChild(p);
+                    if (p.parentNode) p.parentNode.removeChild(p);
                 }, 600);
             }
         }
@@ -509,4 +694,5 @@
 
     </script>
 </body>
+
 </html>
