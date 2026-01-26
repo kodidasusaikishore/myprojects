@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEON TYPE RACER</title>
+    <style>
+        :root {
+            --bg-color: #0d0e15;
+            --text-color: #e0e6ed;
+            --accent-primary: #00ff9d; /* Neon Green */
+            --accent-secondary: #ff00ff; /* Neon Pink */
+            --accent-danger: #ff2a2a; /* Red */
+            --font-main: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            overflow: hidden; /* Prevent scrolling */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+        }
+
+        /* UI Header */
+        #ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+            z-index: 10;
+        }
+
+        .stat-box {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border: 1px solid var(--accent-primary);
+            border-radius: 4px;
+            box-shadow: 0 0 5px var(--accent-primary);
+        }
+
+        #score-display span, #level-display span, #lives-display span {
+            font-weight: bold;
+            color: var(--accent-primary);
+        }
+        
+        #lives-display span {
+            color: var(--accent-danger);
+        }
+
+        /* Game Area */
+        #game-container {
+            position: relative;
+            flex-grow: 1;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Falling Words */
+        .word-node {
+            position: absolute;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            /* white-space: nowrap; */
+            padding: 5px 10px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 4px;
+            transition: transform 0.1s;
+        }
+        
+        .word-node.locked {
+            border: 1px solid var(--accent-secondary);
+            box-shadow: 0 0 10px var(--accent-secondary);
+            z-index: 5;
+        }
+
+        .matched-chars {
+            color: var(--accent-primary); /* Green for typed part */
+            text-shadow: 0 0 8px var(--accent-primary);
+        }
+
+        .remaining-chars {
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Danger Line */
+        #danger-line {
+            position: absolute;
+            bottom: 50px;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-danger), transparent);
+            box-shadow: 0 0 15px var(--accent-danger);
+            opacity: 0.7;
+        }
+
+        /* Overlays */
+        .overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(13, 14, 21, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin: 0 0 20px 0;
+            color: var(--accent-primary);
+            text-shadow: 0 0 20px var(--accent-primary);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        button {
+            background: transparent;
+            color: var(--accent-secondary);
+            font-family: var(--font-main);
+            font-size: 2rem;
+            padding: 15px 40px;
+            border: 2px solid var(--accent-secondary);
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.2s;
+            box-shadow: 0 0 10px var(--accent-secondary);
+        }
+
+        button:hover {
+            background: var(--accent-secondary);
+            color: #000;
+            box-shadow: 0 0 30px var(--accent-secondary);
+        }
+        
+        .particles {
+            position: absolute;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px; 
+            height: 4px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            animation: pop 0.5s ease-out forwards;
+        }
+        
+        @keyframes pop {
+            0% { transform: translate(0,0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="ui-layer">
+        <div class="stat-box" id="score-display">Score: <span>0</span></div>
+        <div class="stat-box" id="level-display">Level: <span>1</span></div>
+        <div class="stat-box" id="lives-display">Lives: <span>5</span></div>
+    </div>
+
+    <div id="game-container">
+        <div id="danger-line"></div>
+        <!-- Words will be injected here -->
+    </div>
+
+    <!-- Start Screen -->
+    <div id="start-screen" class="overlay">
+        <h1>Neon Rain</h1>
+        <p style="margin-bottom: 40px; font-size: 1.2rem;">Type the words before they hit the red line.</p>
+        <button id="start-btn">Initialize</button>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="game-over-screen" class="overlay hidden">
+        <h1 style="color: var(--accent-danger); text-shadow: 0 0 20px var(--accent-danger);">System Failure</h1>
+        <p style="margin-bottom: 20px; font-size: 1.5rem;">Final Score: <span id="final-score">0</span></p>
+        <button id="restart-btn">Reboot</button>
+    </div>
+
+    <script>
+        const WORD_LIST = [
+            "code", "data", "link", "node", "byte", "loop", "grid", "hack", "wifi", "chip",
+            "pixel", "array", "logic", "cache", "server", "script", "vector", "socket", "binary", "system",
+            "python", "react", "docker", "config", "deploy", "future", "matrix", "cipher", "global", "module",
+            "function", "variable", "constant", "terminal", "debugger", "compiler", "database", "sequence", "protocol", "algorithm",
+            "encryption", "connection", "bandwidth", "mainframe", "interface", "processor", "resolution", "simulation", "cyberpunk", "navigation",
+            "asynchronous", "architecture", "intelligence", "cryptography", "optimization", "virtualization", "authentication", "initialization", "decentralized"
+        ];
+
+        // Game State
+        const state = {
+            isPlaying: false,
+            score: 0,
+            level: 1,
+            lives: 5,
+            words: [], // { id, text, x, y, speed, element, typedIndex }
+            nextSpawnTime: 0,
+            lastFrameTime: 0,
+            activeWordId: null // The word currently being typed
+        };
+
+        // Configuration
+        const CONFIG = {
+            baseSpeed: 50, // Pixels per second
+            spawnInterval: 2000, // ms
+            levelThreshold: 1000, // Points to level up
+            dangerZone: window.innerHeight - 80 // Y position where word hits "bottom"
+        };
+        
+        let animationFrameId;
+
+        // DOM Elements
+        const container = document.getElementById('game-container');
+        const uiScore = document.querySelector('#score-display span');
+        const uiLevel = document.querySelector('#level-display span');
+        const uiLives = document.querySelector('#lives-display span');
+        const startScreen = document.getElementById('start-screen');
+        const gameOverScreen = document.getElementById('game-over-screen');
+        const finalScoreDisplay = document.getElementById('final-score');
+        const startBtn = document.getElementById('start-btn');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // --- Game Logic ---
+
+        function init() {
+            startBtn.addEventListener('click', startGame);
+            restartBtn.addEventListener('click', startGame);
+            window.addEventListener('keydown', handleInput);
+            window.addEventListener('resize', () => {
+                CONFIG.dangerZone = window.innerHeight - 80;
+            });
+        }
+
+        function startGame() {
+            // Reset State
+            state.isPlaying = true;
+            state.score = 0;
+            state.level = 1;
+            state.lives = 5;
+            state.words = [];
+            state.activeWordId = null;
+            state.lastFrameTime = performance.now();
+            state.nextSpawnTime = state.lastFrameTime + 500;
+
+            // Reset UI
+            container.innerHTML = '<div id="danger-line"></div>';
+            startScreen.classList.add('hidden');
+            gameOverScreen.classList.add('hidden');
+            updateUI();
+
+            // Start Loop
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = requestAnimationFrame(gameLoop);
+        }
+
+        function gameLoop(timestamp) {
+            if (!state.isPlaying) return;
+
+            const dt = (timestamp - state.lastFrameTime) / 1000; // Delta time in seconds
+            state.lastFrameTime = timestamp;
+
+            update(dt, timestamp);
+            
+            animationFrameId = requestAnimationFrame(gameLoop);
+        }
+
+        function update(dt, timestamp) {
+            // 1. Spawning
+            if (timestamp > state.nextSpawnTime) {
+                spawnWord();
+                // Decrease spawn interval as level increases, clamp at 500ms
+                const interval = Math.max(500, CONFIG.spawnInterval - (state.level * 150));
+                state.nextSpawnTime = timestamp + interval;
+            }
+
+            // 2. Moving Words
+            // Speed increases with level
+            const currentSpeed = CONFIG.baseSpeed + (state.level * 15);
+            
+            // Iterate backwards to safely remove
+            for (let i = state.words.length - 1; i >= 0; i--) {
+                const word = state.words[i];
+                word.y += currentSpeed * dt;
+                
+                // Update DOM position
+                word.element.style.transform = `translate(${word.x}px, ${word.y}px)`;
+
+                // Check collision
+                if (word.y > CONFIG.dangerZone) {
+                    handleMiss(i);
+                }
+            }
+        }
+
+        function spawnWord() {
+            const text = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
+            const wordWidth = text.length * 15; // Approx width
+            const maxX = window.innerWidth - wordWidth - 40;
+            const x = Math.random() * (maxX - 20) + 20;
+
+            const el = document.createElement('div');
+            el.className = 'word-node';
+            el.innerHTML = renderWordHTML(text, 0);
+            el.style.transform = `translate(${x}px, -40px)`;
+            container.appendChild(el);
+
+            state.words.push({
+                id: Date.now() + Math.random(),
+                text: text,
+                x: x,
+                y: -40,
+                typedIndex: 0,
+                element: el
+            });
+        }
+
+        function handleInput(e) {
+            if (!state.isPlaying) return;
+            
+            const key = e.key.toLowerCase();
+            // Ignore non-character keys (shift, ctrl, etc) unless they are printable? 
+            // Simplified: just check if key length is 1
+            if (key.length !== 1) return;
+
+            // Strategy:
+            // If we have an active locked word, check against that.
+            // If not, search for a word that starts with this key.
+            
+            if (state.activeWordId) {
+                const word = state.words.find(w => w.id === state.activeWordId);
+                // If word dissapeared (e.g. hit bottom) while typing, reset active
+                if (!word) {
+                    state.activeWordId = null;
+                    // Try to find a new match with this key immediately?
+                    // Let's recurse once or just fall through.
+                    // Fall through to find new word
+                } else {
+                    checkChar(word, key);
+                    return; 
+                }
+            }
+
+            // No active word, find one
+            // We find the lowest (highest Y) word that matches to prioritize urgent ones? 
+            // Or just any? Let's prioritize closest to bottom.
+            const candidates = state.words.filter(w => w.text[0] === key);
+            if (candidates.length > 0) {
+                // Sort by Y descending (closest to bottom first)
+                candidates.sort((a, b) => b.y - a.y);
+                const target = candidates[0];
+                state.activeWordId = target.id;
+                target.element.classList.add('locked');
+                checkChar(target, key);
+            }
+        }
+
+        function checkChar(word, key) {
+            const expectedChar = word.text[word.typedIndex];
+            
+            if (key === expectedChar) {
+                word.typedIndex++;
+                word.element.innerHTML = renderWordHTML(word.text, word.typedIndex);
+
+                // Word Complete
+                if (word.typedIndex === word.text.length) {
+                    destroyWord(word);
+                }
+            } else {
+                // Mistake? Optional: Penalty or just ignore.
+                // For this style, maybe visually flash red?
+                // word.element.style.color = 'red';
+                // setTimeout(() => word.element.style.color = 'white', 100);
+            }
+        }
+
+        function destroyWord(wordVal) {
+            // Find index again just in case
+            const idx = state.words.findIndex(w => w.id === wordVal.id);
+            if (idx === -1) return;
+
+            // Remove from array
+            state.words.splice(idx, 1);
+            
+            // Remove from DOM
+            if (wordVal.element.parentNode) {
+                wordVal.element.parentNode.removeChild(wordVal.element);
+            }
+
+            // Create explosion at position
+            createExplosion(wordVal.x + (wordVal.text.length * 8), wordVal.y);
+
+            // Update Score
+            addScore(wordVal.text.length * 10);
+
+            // Unlock if this was active
+            if (state.activeWordId === wordVal.id) {
+                state.activeWordId = null;
+            }
+        }
+
+        function handleMiss(index) {
+            const word = state.words[index];
+            
+            // Remove
+            state.words.splice(index, 1);
+            if (word.element.parentNode) word.element.parentNode.removeChild(word.element);
+            
+            // Unlock if active
+            if (state.activeWordId === word.id) {
+                state.activeWordId = null;
+            }
+
+            // Screen Shake effect
+            document.body.style.transform = `translate(${Math.random()*10-5}px, ${Math.random()*10-5}px)`;
+            setTimeout(() => document.body.style.transform = 'none', 50);
+
+            // Lose Life
+            state.lives--;
+            updateUI();
+            
+            if (state.lives <= 0) {
+                triggerGameOver();
+            }
+        }
+
+        function addScore(points) {
+            state.score += points;
+            
+            // Level Up Check
+            const requiredScore = state.level * CONFIG.levelThreshold;
+            if (state.score > requiredScore) {
+                state.level++;
+                // Visual feedback for level up
+                uiLevel.style.color = '#fff'; 
+                setTimeout(() => uiLevel.style.color = 'var(--accent-primary)', 500);
+            }
+            updateUI();
+        }
+
+        function updateUI() {
+            uiScore.textContent = state.score;
+            uiLevel.textContent = state.level;
+            uiLives.textContent = state.lives;
+        }
+
+        function triggerGameOver() {
+            state.isPlaying = false;
+            finalScoreDisplay.textContent = state.score;
+            gameOverScreen.classList.remove('hidden');
+        }
+
+        // --- Helpers ---
+
+        function renderWordHTML(text, typedIndex) {
+            const matched = text.substring(0, typedIndex);
+            const remaining = text.substring(typedIndex);
+            return `<span class="matched-chars">${matched}</span><span class="remaining-chars">${remaining}</span>`;
+        }
+        
+        function createExplosion(x, y) {
+            for(let i=0; i<8; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = x + 'px';
+                p.style.top = y + 'px';
+                // Random direction
+                const angle = Math.random() * Math.PI * 2;
+                const dist = 50 + Math.random() * 50;
+                const dx = Math.cos(angle) * dist + 'px';
+                const dy = Math.sin(angle) * dist + 'px';
+                p.style.setProperty('--dx', dx);
+                p.style.setProperty('--dy', dy);
+                container.appendChild(p);
+                
+                // Cleanup
+                setTimeout(() => {
+                    if(p.parentNode) p.parentNode.removeChild(p);
+                }, 600);
+            }
+        }
+
+        // Initialize
+        init();
+
+    </script>
+</body>
+</html>
