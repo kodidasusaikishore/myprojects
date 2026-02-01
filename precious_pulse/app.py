@@ -1,0 +1,407 @@
+import streamlit as st
+import yfinance as yf
+import pandas as pd
+import numpy as np
+import plotly.graph_objs as go
+import feedparser
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from sklearn.preprocessing import MinMaxScaler
+from datetime import datetime, timedelta
+
+# Page Config
+st.set_page_config(page_title="PreciousPulse", layout="wide", page_icon="💎")
+
+# Download VADER lexicon
+try:
+    nltk.data.find('vader_lexicon')
+except LookupError:
+    nltk.download('vader_lexicon')
+
+# --- Custom Premium Dark CSS ---
+st.markdown("""
+<style>
+    /* Gradient Background */
+    .stApp {
+        background: #000000;
+        background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+        color: white;
+    }
+    
+    /* Sidebar Glassmorphism */
+    section[data-testid="stSidebar"] {
+        background-color: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(15px);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Sidebar Text Fix - Universal */
+    section[data-testid="stSidebar"] .stMarkdown h1, 
+    section[data-testid="stSidebar"] .stMarkdown h2, 
+    section[data-testid="stSidebar"] .stMarkdown h3, 
+    section[data-testid="stSidebar"] .stMarkdown p, 
+    section[data-testid="stSidebar"] label,
+    section[data-testid="stSidebar"] .stRadio div[role='radiogroup'] p,
+    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] div[data-testid="stMarkdownContainer"] p,
+    section[data-testid="stSidebar"] div[data-testid="stMarkdownContainer"] h2 {
+        color: white !important;
+    }
+
+    /* Sidebar Toggle Arrow (Open & Closed) - Super Aggressive */
+    [data-testid="stSidebarCollapsedControl"] {
+        color: white !important;
+    }
+    [data-testid="stSidebarCollapsedControl"] svg,
+    [data-testid="stSidebarCollapsedControl"] i {
+        color: white !important;
+        fill: white !important;
+    }
+    [data-testid="stSidebarCollapsedControl"] svg path {
+        fill: white !important;
+        stroke: white !important;
+    }
+    
+    [data-testid="stSidebarExpandedControl"] {
+        color: white !important;
+    }
+    [data-testid="stSidebarExpandedControl"] svg path {
+        fill: white !important;
+        stroke: white !important;
+    }
+    div[data-testid="stSidebarNav"] svg {
+        fill: white !important;
+    }
+    
+    /* Hide Streamlit Top Header/Navigation Bar */
+    header[data-testid="stHeader"] {
+        background-color: rgba(0,0,0,0);
+        backdrop-filter: blur(0px);
+    }    
+    /* Fix Selectbox Input Background/Text */
+    div[data-baseweb="select"] > div {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        color: white !important;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    div[data-baseweb="select"] span {
+        color: white !important;
+    }
+    
+    /* Fix Radio Button Text (Global) */
+    .stRadio label {
+        color: white !important;
+        font-weight: 600;
+        font-size: 16px;
+    }
+    .stRadio div[role='radiogroup'] > label {
+        color: white !important;
+    }
+    div[data-testid="stMarkdownContainer"] p {
+        color: white !important;
+    }
+
+    /* Title Styling */
+    h1 {
+        background: linear-gradient(to right, #00c6ff, #0072ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800;
+        letter-spacing: 1px;
+    }
+
+    /* Metric Cards */
+    div[data-testid="stMetricValue"] {
+        color: #00e5ff;
+        font-weight: 700;
+    }
+    
+    /* Force White Label Text - Super Aggressive */
+    div[data-testid="stMetricLabel"] {
+        color: #ffffff !important;
+    }
+    div[data-testid="stMetricLabel"] * {
+        color: #ffffff !important;
+    }
+    label[data-testid="stMetricLabel"] {
+        color: #ffffff !important;
+    }
+    div[data-testid="stMetric"] label {
+        color: #ffffff !important;
+    }
+
+    /* Tabs */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 10px;
+        background-color: transparent;
+    }
+    .stTabs [data-baseweb="tab"] {
+        height: 40px;
+        white-space: pre-wrap;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        color: white;
+        font-size: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(90deg, #00c6ff, #0072ff);
+        border: none;
+        color: white;
+    }
+    
+    /* Buttons */
+    .stButton>button {
+        background: linear-gradient(90deg, #1D976C 0%, #93F9B9 100%);
+        color: #000;
+        font-weight: bold;
+        border: none;
+        border-radius: 20px;
+        transition: transform 0.2s;
+    }
+    .stButton>button:hover {
+        transform: scale(1.05);
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# --- Header ---
+st.title("💎 PreciousPulse")
+st.markdown("### AI-Powered Bullion Tracker & Predictor")
+
+# --- Sidebar Configuration ---
+st.sidebar.header("⚙️ Market Config")
+metal_choice = st.sidebar.radio("Select Asset", ["Gold 🟡", "Silver ⚪", "Copper 🟠"])
+period = st.sidebar.selectbox("History Period", ["1mo", "3mo", "6mo", "1y", "5y"], index=3)
+
+# Mapping
+tickers = {
+    "Gold 🟡": "GC=F", 
+    "Silver ⚪": "SI=F",
+    "Copper 🟠": "HG=F"
+}
+ticker_symbol = tickers[metal_choice]
+
+# --- Helper Functions ---
+
+@st.cache_data(ttl=300)
+def get_price_data(ticker, period):
+    data = yf.download(ticker, period=period)
+    if isinstance(data.columns, pd.MultiIndex):
+        data.columns = data.columns.get_level_values(0)
+    return data
+
+@st.cache_data(ttl=300)
+def get_exchange_rate():
+    try:
+        # Fetch USD to INR rate
+        ticker = "INR=X"
+        data = yf.download(ticker, period="1d")
+        if isinstance(data.columns, pd.MultiIndex):
+            data.columns = data.columns.get_level_values(0)
+        return data['Close'].iloc[-1]
+    except:
+        return 83.0 # Fallback
+
+@st.cache_data(ttl=600)
+def get_news_sentiment(query):
+    # Fetch News
+    clean_query = query.split(" ")[0] # Remove emoji
+    url = f"https://news.google.com/rss/search?q={clean_query}+price+market&hl=en-US&gl=US&ceid=US:en"
+    feed = feedparser.parse(url)
+    entries = feed.entries[:10]
+    
+    # Analyze Sentiment
+    sia = SentimentIntensityAnalyzer()
+    sentiments = []
+    for item in entries:
+        text = item.title + " " + item.description
+        score = sia.polarity_scores(text)
+        sentiments.append(score['compound'])
+    
+    avg_score = sum(sentiments) / len(sentiments) if sentiments else 0
+    return entries, avg_score
+
+# --- Main Logic ---
+
+data = get_price_data(ticker_symbol, period)
+exchange_rate = get_exchange_rate() # Get INR rate
+news_items, sentiment_score = get_news_sentiment(metal_choice)
+
+# Display Exchange Rate in Sidebar
+st.sidebar.markdown("---")
+st.sidebar.metric("USD/INR Rate", f"₹{exchange_rate:.2f}")
+
+# Convert DataFrame to INR (Approximate for display)
+# Note: Using current exchange rate for historical data is an approximation for visualization consistency
+data_inr = data.copy()
+for col in ['Open', 'High', 'Low', 'Close']:
+    data_inr[col] = data_inr[col] * exchange_rate
+
+# --- Top Metrics Row ---
+col1, col2, col3, col4 = st.columns(4)
+
+current_price_inr = data_inr['Close'].iloc[-1]
+prev_price_inr = data_inr['Close'].iloc[-2]
+price_diff_inr = current_price_inr - prev_price_inr
+pct_diff = (price_diff_inr / prev_price_inr) * 100
+
+# Calculate Day Range
+day_high = data_inr['High'].iloc[-1]
+day_low = data_inr['Low'].iloc[-1]
+
+sentiment_label = "Neutral ⚖️"
+sentiment_color = "off"
+if sentiment_score > 0.05:
+    sentiment_label = "Bullish 🚀"
+    sentiment_color = "normal"
+elif sentiment_score < -0.05:
+    sentiment_label = "Bearish 📉"
+    sentiment_color = "inverse"
+
+with col1:
+    st.metric(f"{metal_choice} Price (₹)", f"₹{current_price_inr:,.2f}", f"{pct_diff:.2f}%")
+with col2:
+    st.metric("Market Sentiment", sentiment_label, f"Score: {sentiment_score:.2f}", delta_color=sentiment_color)
+with col3:
+    st.metric("Day High (₹)", f"₹{day_high:,.2f}")
+with col4:
+    st.metric("Day Low (₹)", f"₹{day_low:,.2f}")
+
+# --- Tabs for Charts & AI ---
+# Use Session State to persist active tab
+if "active_tab" not in st.session_state:
+    st.session_state["active_tab"] = "📈 Market Charts"
+
+# Custom Tab Selection using Radio (Styled as Horizontal Tabs if desired, or just use st.radio)
+# For now, to solve the reset issue, we can use st.radio instead of st.tabs which rerenders content cleanly
+# OR we rely on st.tabs but move the button logic outside? No, that's hard.
+# Let's switch to st.radio for navigation to guarantee persistence.
+
+tab_options = ["📈 Market Charts", "🤖 AI Prediction", "📰 News Feed"]
+# Use a key that doesn't conflict
+selected_tab = st.radio("", tab_options, horizontal=True, label_visibility="collapsed", key="nav_radio")
+
+st.markdown("---")
+
+if selected_tab == "📈 Market Charts":
+    st.subheader(f"Price Action: {metal_choice} (USD)")
+    st.caption("Charts are displayed in **USD** (Global Spot Price) for technical accuracy. Metrics above are in **INR (₹)**.")
+    
+    # Candlestick Chart (Using original USD data)
+    fig = go.Figure()
+    fig.add_trace(go.Candlestick(x=data.index,
+                    open=data['Open'], high=data['High'],
+                    low=data['Low'], close=data['Close'], name='OHLC'))
+    
+    # Add Moving Averages
+    data['MA20'] = data['Close'].rolling(window=20).mean()
+    data['MA50'] = data['Close'].rolling(window=50).mean()
+    fig.add_trace(go.Scatter(x=data.index, y=data['MA20'], line=dict(color='orange', width=1), name='MA 20'))
+    fig.add_trace(go.Scatter(x=data.index, y=data['MA50'], line=dict(color='cyan', width=1), name='MA 50'))
+
+    fig.layout.update(template="plotly_dark", xaxis_rangeslider_visible=False, 
+                      paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', 
+                      height=500, margin=dict(l=20, r=20, t=20, b=20))
+    st.plotly_chart(fig, use_container_width=True)
+
+elif selected_tab == "🤖 AI Prediction":
+    st.subheader("🔮 Live AI Price Prediction")
+    st.markdown("Click the button below to train a **Lightweight LSTM Neural Network** on the live data and predict the next potential closing price.")
+    
+    # Check if we have a stored prediction for this session/metal
+    pred_key = f"pred_{metal_choice}_{period}"
+    
+    if st.button("🚀 Run Live Prediction"):
+        with st.spinner("Initializing TensorFlow & Training Model..."):
+            try:
+                import tensorflow as tf
+                from tensorflow.keras.models import Sequential
+                from tensorflow.keras.layers import Dense, LSTM, Dropout
+                
+                # Preprocessing (Use INR Data)
+                dataset = data_inr['Close'].values.reshape(-1, 1)
+                scaler = MinMaxScaler(feature_range=(0, 1))
+                scaled_data = scaler.fit_transform(dataset)
+                
+                # Create small sequences (Lightweight)
+                seq_len = 30 
+                if len(dataset) < seq_len + 10:
+                    st.error("Not enough data. Please select a longer history period.")
+                    st.stop()
+
+                x_train, y_train = [], []
+                for i in range(seq_len, len(scaled_data)):
+                    x_train.append(scaled_data[i-seq_len:i, 0])
+                    y_train.append(scaled_data[i, 0])
+                
+                x_train, y_train = np.array(x_train), np.array(y_train)
+                x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1], 1))
+                
+                # Build Lightweight Model
+                model = Sequential()
+                model.add(LSTM(units=32, return_sequences=False, input_shape=(x_train.shape[1], 1)))
+                model.add(Dense(units=1))
+                model.compile(optimizer='adam', loss='mean_squared_error')
+                
+                # Fast Training
+                model.fit(x_train, y_train, batch_size=16, epochs=5, verbose=0)
+                
+                # Predict Next Day
+                last_sequence = scaled_data[-seq_len:]
+                last_sequence = last_sequence.reshape(1, seq_len, 1)
+                predicted_price_scaled = model.predict(last_sequence)
+                predicted_price_inr = scaler.inverse_transform(predicted_price_scaled)[0][0]
+                
+                # Store result in session state
+                delta_inr = predicted_price_inr - current_price_inr
+                st.session_state[pred_key] = {
+                    "price": predicted_price_inr,
+                    "delta": delta_inr
+                }
+                
+            except Exception as e:
+                st.error(f"Prediction failed: {e}")
+
+    # Display Result if available
+    if pred_key in st.session_state:
+        res = st.session_state[pred_key]
+        st.success("Prediction Complete!")
+        
+        col_p1, col_p2 = st.columns(2)
+        
+        with col_p1:
+            st.metric("Current Price", f"₹{current_price_inr:,.2f}")
+        
+        with col_p2:
+            delta_val = res['delta']
+            if delta_val < 0:
+                delta_str = f"-₹{abs(delta_val):,.2f}"
+            else:
+                delta_str = f"+₹{delta_val:,.2f}"
+                
+            st.metric("AI Predicted Price (Next Close)", f"₹{res['price']:,.2f}", delta_str, 
+                      delta_color="normal")
+
+        # Sentiment Impact Logic
+        st.markdown("---")
+        st.markdown("#### 🧠 Sentiment Integration")
+        
+        delta_inr = res['delta']
+        if sentiment_score > 0.1 and delta_inr < 0:
+            st.warning(f"**Conflict Detected:** AI Technicals suggest a drop, but News Sentiment is **Bullish**. The price might not drop as much as predicted.")
+        elif sentiment_score < -0.1 and delta_inr > 0:
+            st.warning(f"**Conflict Detected:** AI Technicals suggest a rise, but News Sentiment is **Bearish**. Proceed with caution.")
+        elif sentiment_score > 0.1 and delta_inr > 0:
+            st.success("**Strong Signal:** Both AI Technicals and News Sentiment are **Bullish**! 🚀")
+        elif sentiment_score < -0.1 and delta_inr < 0:
+            st.error("**Strong Signal:** Both AI Technicals and News Sentiment are **Bearish**! 📉")
+        else:
+            st.info("Sentiment is Neutral. Rely primarily on Technical Levels.")
+
+elif selected_tab == "📰 News Feed":
+    st.subheader("Global Headlines")
+    for item in news_items:
+        with st.expander(item.title):
+            st.write(f"**Published:** {item.published}")
+            st.write(item.link)
