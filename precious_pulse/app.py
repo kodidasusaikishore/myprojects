@@ -196,9 +196,17 @@ st.markdown("""
         margin-bottom: 5px !important;
         border-color: rgba(255,255,255,0.1);
     }
-    .stSubheader {
-        margin-top: 0px !important;
+    div[data-testid="stVerticalBlock"] > div.stSubheader {
+        margin-top: -20px !important;
         padding-top: 0px !important;
+    }
+    /* Nuclear fix for gap reduction */
+    .stRadio + div {
+        margin-top: -30px !important;
+    }
+    /* Move main content up */
+    .block-container {
+        padding-top: 2rem !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -221,6 +229,28 @@ tickers = {
 ticker_symbol = tickers[metal_choice]
 
 # --- Helper Functions ---
+
+def convert_to_indian_standards(price_usd, metal, exchange_rate):
+    # Conversion Factors
+    # 1 Troy Ounce = 31.1034768 grams
+    # 1 Pound = 0.453592 kg
+    
+    price_inr = price_usd * exchange_rate
+    
+    if "Gold" in metal:
+        # Convert Price/Oz to Price/10g
+        # (Price / 31.1035) * 10
+        return (price_inr / 31.1034768) * 10
+    elif "Silver" in metal:
+        # Convert Price/Oz to Price/1kg
+        # (Price / 31.1035) * 1000
+        return (price_inr / 31.1034768) * 1000
+    elif "Copper" in metal:
+        # Convert Price/Lbs to Price/1kg
+        # Price / 0.453592
+        return price_inr / 0.453592
+    
+    return price_inr
 
 @st.cache_data(ttl=300)
 def get_price_data(ticker, period):
@@ -273,20 +303,37 @@ st.sidebar.metric("USD/INR Rate", f"₹{exchange_rate:.2f}")
 # Convert DataFrame to INR (Approximate for display)
 # Note: Using current exchange rate for historical data is an approximation for visualization consistency
 data_inr = data.copy()
-for col in ['Open', 'High', 'Low', 'Close']:
-    data_inr[col] = data_inr[col] * exchange_rate
+# We won't use this whole dataframe for charts anymore (charts are USD), 
+# but we need it for metrics and calculations.
+# Applying weight conversion to the *latest* values primarily.
 
 # --- Top Metrics Row ---
 col1, col2, col3, col4 = st.columns(4)
 
-current_price_inr = data_inr['Close'].iloc[-1]
-prev_price_inr = data_inr['Close'].iloc[-2]
+# Latest USD Prices
+current_price_usd = data['Close'].iloc[-1]
+prev_price_usd = data['Close'].iloc[-2]
+day_high_usd = data['High'].iloc[-1]
+day_low_usd = data['Low'].iloc[-1]
+
+# Convert to Indian Standard Weights
+current_price_inr = convert_to_indian_standards(current_price_usd, metal_choice, exchange_rate)
+prev_price_inr = convert_to_indian_standards(prev_price_usd, metal_choice, exchange_rate)
+day_high_inr = convert_to_indian_standards(day_high_usd, metal_choice, exchange_rate)
+day_low_inr = convert_to_indian_standards(day_low_usd, metal_choice, exchange_rate)
+
 price_diff_inr = current_price_inr - prev_price_inr
 pct_diff = (price_diff_inr / prev_price_inr) * 100
 
-# Calculate Day Range
-day_high = data_inr['High'].iloc[-1]
-day_low = data_inr['Low'].iloc[-1]
+# Unit Label
+if "Gold" in metal_choice:
+    unit = "₹/10g"
+elif "Silver" in metal_choice:
+    unit = "₹/1kg"
+elif "Copper" in metal_choice:
+    unit = "₹/1kg"
+else:
+    unit = "₹"
 
 sentiment_label = "Neutral ⚖️"
 sentiment_color = "off"
@@ -298,13 +345,13 @@ elif sentiment_score < -0.05:
     sentiment_color = "inverse"
 
 with col1:
-    st.metric(f"{metal_choice} Price (₹)", f"₹{current_price_inr:,.2f}", f"{pct_diff:.2f}%")
+    st.metric(f"{metal_choice} ({unit})", f"₹{current_price_inr:,.2f}", f"{pct_diff:.2f}%")
 with col2:
     st.metric("Market Sentiment", sentiment_label, f"{sentiment_score:.2f}", delta_color="normal")
 with col3:
-    st.metric("Day High (₹)", f"₹{day_high:,.2f}")
+    st.metric(f"Day High ({unit})", f"₹{day_high_inr:,.2f}")
 with col4:
-    st.metric("Day Low (₹)", f"₹{day_low:,.2f}")
+    st.metric(f"Day Low ({unit})", f"₹{day_low_inr:,.2f}")
 
 # --- Tabs for Charts & AI ---
 # Use Session State to persist active tab
@@ -333,7 +380,7 @@ if selected_tab == "📈 Market Charts":
     """, unsafe_allow_html=True)
     
     st.subheader(f"Price Action: {metal_choice} (USD)")
-    st.caption("Charts are displayed in **USD** (Global Spot Price) for technical accuracy. Metrics above are in **INR (₹)**.")
+    st.caption(f"Charts are displayed in **USD** (Global Spot Price) for technical accuracy. Metrics above are in **{unit}**.")
     
     # 1. Candlestick Chart
     st.markdown("#### 🕯️ Candlestick Chart")
@@ -393,8 +440,8 @@ elif selected_tab == "🤖 AI Prediction":
                 from tensorflow.keras.models import Sequential
                 from tensorflow.keras.layers import Dense, LSTM, Dropout
                 
-                # Preprocessing (Use INR Data)
-                dataset = data_inr['Close'].values.reshape(-1, 1)
+                # Preprocessing (Use USD Data for Model Training)
+                dataset = data['Close'].values.reshape(-1, 1)
                 scaler = MinMaxScaler(feature_range=(0, 1))
                 scaled_data = scaler.fit_transform(dataset)
                 
@@ -425,7 +472,10 @@ elif selected_tab == "🤖 AI Prediction":
                 last_sequence = scaled_data[-seq_len:]
                 last_sequence = last_sequence.reshape(1, seq_len, 1)
                 predicted_price_scaled = model.predict(last_sequence)
-                predicted_price_inr = scaler.inverse_transform(predicted_price_scaled)[0][0]
+                predicted_price_usd = scaler.inverse_transform(predicted_price_scaled)[0][0]
+                
+                # Convert Prediction to Indian Standard
+                predicted_price_inr = convert_to_indian_standards(predicted_price_usd, metal_choice, exchange_rate)
                 
                 # Store result in session state
                 delta_inr = predicted_price_inr - current_price_inr
