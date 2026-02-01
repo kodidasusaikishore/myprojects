@@ -169,17 +169,18 @@ st.markdown("""
         color: white;
     }
     
-    /* Buttons */
-    .stButton>button {
+    /* Buttons & Download Button */
+    .stButton>button, .stDownloadButton>button {
         background: linear-gradient(90deg, #1D976C 0%, #93F9B9 100%);
-        color: #000;
+        color: #000000 !important;
         font-weight: bold;
         border: none;
         border-radius: 20px;
         transition: transform 0.2s;
     }
-    .stButton>button:hover {
+    .stButton>button:hover, .stDownloadButton>button:hover {
         transform: scale(1.05);
+        color: #000000 !important;
     }
 </style>
 """, unsafe_allow_html=True)
