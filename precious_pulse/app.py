@@ -48,26 +48,45 @@ st.markdown("""
         color: white !important;
     }
 
-    /* Sidebar Toggle Arrow (Open & Closed) - Super Aggressive */
-    [data-testid="stSidebarCollapsedControl"] {
+    /* Header Elements (Deploy, Stop, Menu, Running Man) */
+    header[data-testid="stHeader"] {
+        background-color: transparent !important;
+    }
+    header[data-testid="stHeader"] * {
         color: white !important;
     }
-    [data-testid="stSidebarCollapsedControl"] svg,
-    [data-testid="stSidebarCollapsedControl"] i {
-        color: white !important;
-        fill: white !important;
-    }
-    [data-testid="stSidebarCollapsedControl"] svg path {
+    header[data-testid="stHeader"] svg {
         fill: white !important;
         stroke: white !important;
     }
     
-    [data-testid="stSidebarExpandedControl"] {
+    /* Running Animation Status */
+    div[data-testid="stStatusWidget"] {
         color: white !important;
     }
-    [data-testid="stSidebarExpandedControl"] svg path {
+    div[data-testid="stStatusWidget"] svg {
         fill: white !important;
-        stroke: white !important;
+    }
+
+    /* Sidebar Toggle Arrow (Open & Closed) - Nuclear */
+    button[kind="header"] svg,
+    [data-testid="stSidebarCollapsedControl"] svg,
+    [data-testid="stSidebarExpandedControl"] svg {
+        fill: #ffffff !important;
+        stroke: #ffffff !important;
+        color: #ffffff !important;
+    }
+    
+    /* Just in case it's an icon font */
+    [data-testid="stSidebarCollapsedControl"] i,
+    [data-testid="stSidebarExpandedControl"] i {
+        color: #ffffff !important;
+    }
+    
+    /* Force background transparent to see white arrow */
+    [data-testid="stSidebarCollapsedControl"] {
+        background: rgba(0,0,0,0.2) !important;
+        border-radius: 50%;
     }
     div[data-testid="stSidebarNav"] svg {
         fill: white !important;
