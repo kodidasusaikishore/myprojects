@@ -169,18 +169,19 @@ st.markdown("""
         color: white;
     }
     
-    /* Buttons & Download Button */
-    .stButton>button, .stDownloadButton>button {
-        background: linear-gradient(90deg, #1D976C 0%, #93F9B9 100%);
-        color: #000000 !important;
-        font-weight: bold;
-        border: none;
-        border-radius: 20px;
-        transition: transform 0.2s;
+    /* Reduce Gap between Radio and Content */
+    div[class*="stRadio"] {
+        margin-bottom: -25px !important;
+        padding-bottom: 0px !important;
     }
-    .stButton>button:hover, .stDownloadButton>button:hover {
-        transform: scale(1.05);
-        color: #000000 !important;
+    hr {
+        margin-top: 5px !important;
+        margin-bottom: 5px !important;
+        border-color: rgba(255,255,255,0.1);
+    }
+    .stSubheader {
+        margin-top: 0px !important;
+        padding-top: 0px !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -282,7 +283,7 @@ elif sentiment_score < -0.05:
 with col1:
     st.metric(f"{metal_choice} Price (₹)", f"₹{current_price_inr:,.2f}", f"{pct_diff:.2f}%")
 with col2:
-    st.metric("Market Sentiment", sentiment_label, f"Score: {sentiment_score:.2f}", delta_color=sentiment_color)
+    st.metric("Market Sentiment", sentiment_label, f"{sentiment_score:.2f}", delta_color="normal")
 with col3:
     st.metric("Day High (₹)", f"₹{day_high:,.2f}")
 with col4:
@@ -305,6 +306,15 @@ selected_tab = st.radio("", tab_options, horizontal=True, label_visibility="coll
 st.markdown("---")
 
 if selected_tab == "📈 Market Charts":
+    # Custom CSS to reduce top spacing
+    st.markdown("""
+        <style>
+            div[data-testid="stVerticalBlock"] > div:nth-child(5) {
+                margin-top: -20px;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+    
     st.subheader(f"Price Action: {metal_choice} (USD)")
     st.caption("Charts are displayed in **USD** (Global Spot Price) for technical accuracy. Metrics above are in **INR (₹)**.")
     
@@ -323,7 +333,8 @@ if selected_tab == "📈 Market Charts":
 
     fig.layout.update(template="plotly_dark", xaxis_rangeslider_visible=False, 
                       paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', 
-                      height=500, margin=dict(l=20, r=20, t=20, b=20))
+                      height=500, margin=dict(l=20, r=20, t=20, b=20),
+                      legend=dict(font=dict(color="white")))
     st.plotly_chart(fig, use_container_width=True)
 
     # 2. Time Series Line Chart
@@ -332,7 +343,8 @@ if selected_tab == "📈 Market Charts":
     fig_line.add_trace(go.Scatter(x=data.index, y=data['Close'], mode='lines', name='Close Price', line=dict(color='#00c6ff', width=2)))
     fig_line.layout.update(template="plotly_dark", xaxis_rangeslider_visible=True,
                            paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
-                           height=400, margin=dict(l=20, r=20, t=20, b=20))
+                           height=400, margin=dict(l=20, r=20, t=20, b=20),
+                           legend=dict(font=dict(color="white")))
     st.plotly_chart(fig_line, use_container_width=True)
 
     # 3. Raw Data Table & Export
