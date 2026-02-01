@@ -307,7 +307,8 @@ if selected_tab == "📈 Market Charts":
     st.subheader(f"Price Action: {metal_choice} (USD)")
     st.caption("Charts are displayed in **USD** (Global Spot Price) for technical accuracy. Metrics above are in **INR (₹)**.")
     
-    # Candlestick Chart (Using original USD data)
+    # 1. Candlestick Chart
+    st.markdown("#### 🕯️ Candlestick Chart")
     fig = go.Figure()
     fig.add_trace(go.Candlestick(x=data.index,
                     open=data['Open'], high=data['High'],
@@ -323,6 +324,30 @@ if selected_tab == "📈 Market Charts":
                       paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', 
                       height=500, margin=dict(l=20, r=20, t=20, b=20))
     st.plotly_chart(fig, use_container_width=True)
+
+    # 2. Time Series Line Chart
+    st.markdown("#### 📉 Time Series Line Chart")
+    fig_line = go.Figure()
+    fig_line.add_trace(go.Scatter(x=data.index, y=data['Close'], mode='lines', name='Close Price', line=dict(color='#00c6ff', width=2)))
+    fig_line.layout.update(template="plotly_dark", xaxis_rangeslider_visible=True,
+                           paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
+                           height=400, margin=dict(l=20, r=20, t=20, b=20))
+    st.plotly_chart(fig_line, use_container_width=True)
+
+    # 3. Raw Data Table & Export
+    st.markdown("#### 📄 Raw Historical Data (USD)")
+    
+    # Show dataframe
+    st.dataframe(data.sort_index(ascending=False), height=300, use_container_width=True)
+    
+    # CSV Download Button
+    csv = data.to_csv().encode('utf-8')
+    st.download_button(
+        label="📥 Download Data as CSV",
+        data=csv,
+        file_name=f"{metal_choice.split()[0]}_price_data.csv",
+        mime='text/csv',
+    )
 
 elif selected_tab == "🤖 AI Prediction":
     st.subheader("🔮 Live AI Price Prediction")
