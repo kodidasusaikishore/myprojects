@@ -149,11 +149,28 @@ st.markdown("""
         color: #ffffff !important;
     }
 
-    /* Tabs */
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 10px;
-        background-color: transparent;
+    /* Buttons & Download Button - Super Aggressive */
+    .stButton > button, 
+    div[data-testid="stDownloadButton"] > button {
+        background: linear-gradient(90deg, #1D976C 0%, #93F9B9 100%) !important;
+        color: #000000 !important;
+        font-weight: bold !important;
+        border: none !important;
+        border-radius: 20px !important;
+        transition: transform 0.2s;
     }
+    .stButton > button:hover, 
+    div[data-testid="stDownloadButton"] > button:hover {
+        transform: scale(1.05);
+        color: #000000 !important;
+    }
+    
+    /* Ensure child elements (like p tags inside button) inherit color */
+    .stButton > button *, 
+    div[data-testid="stDownloadButton"] > button * {
+        color: #000000 !important;
+    }
+
     .stTabs [data-baseweb="tab"] {
         height: 40px;
         white-space: pre-wrap;
