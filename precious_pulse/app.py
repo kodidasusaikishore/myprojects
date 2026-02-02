@@ -214,6 +214,7 @@ st.markdown("""
 # --- Header ---
 st.title("💎 PreciousPulse")
 st.markdown("### AI-Powered Bullion Tracker & Predictor")
+st.info(f"ℹ️ **Note:** Prices in the metrics section are estimated by converting the Global Spot Rate (USD) to **{unit}** using real-time FX rates. Actual local market prices (MCX/Retail) may vary slightly due to import duties and taxes.")
 
 # --- Sidebar Configuration ---
 st.sidebar.header("⚙️ Market Config")
