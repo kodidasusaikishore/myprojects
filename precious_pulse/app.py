@@ -214,12 +214,23 @@ st.markdown("""
 # --- Header ---
 st.title("💎 PreciousPulse")
 st.markdown("### AI-Powered Bullion Tracker & Predictor")
-st.info(f"ℹ️ **Note:** Prices in the metrics section are estimated by converting the Global Spot Rate (USD) to **{unit}** using real-time FX rates. Actual local market prices (MCX/Retail) may vary slightly due to import duties and taxes.")
 
 # --- Sidebar Configuration ---
 st.sidebar.header("⚙️ Market Config")
 metal_choice = st.sidebar.radio("Select Asset", ["Gold 🟡", "Silver ⚪", "Copper 🟠"])
 period = st.sidebar.selectbox("History Period", ["1mo", "3mo", "6mo", "1y", "5y"], index=3)
+
+# Unit Label Logic (Moved Up)
+if "Gold" in metal_choice:
+    unit = "₹/10g"
+elif "Silver" in metal_choice:
+    unit = "₹/1kg"
+elif "Copper" in metal_choice:
+    unit = "₹/1kg"
+else:
+    unit = "₹"
+
+st.info(f"ℹ️ **Note:** Prices in the metrics section are estimated by converting the Global Spot Rate (USD) to **{unit}** using real-time FX rates. Actual local market prices (MCX/Retail) may vary slightly due to import duties and taxes.")
 
 # Mapping
 tickers = {
@@ -325,16 +336,6 @@ day_low_inr = convert_to_indian_standards(day_low_usd, metal_choice, exchange_ra
 
 price_diff_inr = current_price_inr - prev_price_inr
 pct_diff = (price_diff_inr / prev_price_inr) * 100
-
-# Unit Label
-if "Gold" in metal_choice:
-    unit = "₹/10g"
-elif "Silver" in metal_choice:
-    unit = "₹/1kg"
-elif "Copper" in metal_choice:
-    unit = "₹/1kg"
-else:
-    unit = "₹"
 
 sentiment_label = "Neutral ⚖️"
 sentiment_color = "off"
