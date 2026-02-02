@@ -279,9 +279,17 @@ def get_exchange_rate():
         data = yf.download(ticker, period="1d")
         if isinstance(data.columns, pd.MultiIndex):
             data.columns = data.columns.get_level_values(0)
-        return data['Close'].iloc[-1]
+        
+        rate = data['Close'].iloc[-1]
+        
+        # Sanity check: If rate is anomalously high or low (yfinance sometimes returns crazy data)
+        # e.g., if it returns 4000, it's wrong. Range should be 80-90.
+        if rate < 50 or rate > 100:
+             return 86.5 # Safe fallback
+             
+        return rate
     except:
-        return 83.0 # Fallback
+        return 86.5 # Fallback
 
 @st.cache_data(ttl=600)
 def get_news_sentiment(query):
