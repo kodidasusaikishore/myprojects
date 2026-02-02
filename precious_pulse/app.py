@@ -215,16 +215,12 @@ st.markdown("""
 st.title("💎 PreciousPulse")
 st.markdown("### AI-Powered Bullion Tracker & Predictor")
 
-# Disclaimer in a clean expander to save space
-with st.expander("ℹ️ How are these prices calculated?"):
-    st.caption(f"Prices in the metrics section are estimated by converting the Global Spot Rate (USD) to **{unit}** using real-time FX rates. Actual local market prices (MCX/Retail) may vary slightly due to import duties and taxes.")
-
-# --- Sidebar Configuration ---
+# --- Sidebar Configuration (Moved up so variables are available) ---
 st.sidebar.header("⚙️ Market Config")
 metal_choice = st.sidebar.radio("Select Asset", ["Gold 🟡", "Silver ⚪", "Copper 🟠"])
 period = st.sidebar.selectbox("History Period", ["1mo", "3mo", "6mo", "1y", "5y"], index=3)
 
-# Unit Label Logic (Moved Up)
+# Unit Label Logic
 if "Gold" in metal_choice:
     unit = "₹/10g"
 elif "Silver" in metal_choice:
@@ -233,6 +229,10 @@ elif "Copper" in metal_choice:
     unit = "₹/1kg"
 else:
     unit = "₹"
+
+# Disclaimer in a clean expander
+with st.expander("ℹ️ How are these prices calculated?"):
+    st.caption(f"Prices in the metrics section are estimated by converting the Global Spot Rate (USD) to **{unit}** using real-time FX rates. Actual local market prices (MCX/Retail) may vary slightly due to import duties and taxes.")
 
 # Clean up old duplicate
 # st.info(...) removed
