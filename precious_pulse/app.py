@@ -215,6 +215,10 @@ st.markdown("""
 st.title("💎 PreciousPulse")
 st.markdown("### AI-Powered Bullion Tracker & Predictor")
 
+# Disclaimer in a clean expander to save space
+with st.expander("ℹ️ How are these prices calculated?"):
+    st.caption(f"Prices in the metrics section are estimated by converting the Global Spot Rate (USD) to **{unit}** using real-time FX rates. Actual local market prices (MCX/Retail) may vary slightly due to import duties and taxes.")
+
 # --- Sidebar Configuration ---
 st.sidebar.header("⚙️ Market Config")
 metal_choice = st.sidebar.radio("Select Asset", ["Gold 🟡", "Silver ⚪", "Copper 🟠"])
@@ -230,7 +234,8 @@ elif "Copper" in metal_choice:
 else:
     unit = "₹"
 
-st.info(f"ℹ️ **Note:** Prices in the metrics section are estimated by converting the Global Spot Rate (USD) to **{unit}** using real-time FX rates. Actual local market prices (MCX/Retail) may vary slightly due to import duties and taxes.")
+# Clean up old duplicate
+# st.info(...) removed
 
 # Mapping
 tickers = {
