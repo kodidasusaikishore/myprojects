@@ -200,6 +200,16 @@ st.markdown("""
         margin-top: -20px !important;
         padding-top: 0px !important;
     }
+    
+    /* Expander Spacing Fix */
+    div[data-testid="stExpander"] {
+        margin-bottom: 20px !important;
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 8px;
+    }
+    .streamlit-expanderHeader {
+        background-color: rgba(0,0,0,0.2);
+    }
     /* Nuclear fix for gap reduction */
     .stRadio + div {
         margin-top: -30px !important;
