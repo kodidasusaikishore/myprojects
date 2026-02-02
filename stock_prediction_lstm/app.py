@@ -88,7 +88,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.title("📈 Stock Price Prediction using LSTM")
-st.markdown("Predicting **Stock** prices using Long Short-Term Memory (LSTM) neural networks.")
+st.markdown(f"Predicting **{ticker}** stock prices using Long Short-Term Memory (LSTM) neural networks.")
 
 # Sidebar
 st.sidebar.header("⚙️ Configuration")
