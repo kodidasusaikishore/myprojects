@@ -98,24 +98,35 @@ end_date = st.sidebar.date_input("End Date", pd.to_datetime("today"))
 epochs = st.sidebar.slider("Training Epochs", min_value=1, max_value=50, value=10)
 
 # Fetch Data
-@st.cache_data
+@st.cache_data(ttl=300) # Cache for 5 mins to prevent rate limiting
 def load_data(ticker, start, end):
-    data = yf.download(ticker, start=start, end=end)
-    # Flatten MultiIndex columns if present (common in new yfinance)
-    if isinstance(data.columns, pd.MultiIndex):
-        data.columns = data.columns.get_level_values(0)
-    return data
+    try:
+        # Ensure dates are strings for yfinance stability
+        start_str = start.strftime("%Y-%m-%d")
+        end_str = end.strftime("%Y-%m-%d")
+        
+        data = yf.download(ticker, start=start_str, end=end_str, progress=False)
+        
+        # Flatten MultiIndex columns if present (common in new yfinance)
+        if isinstance(data.columns, pd.MultiIndex):
+            data.columns = data.columns.get_level_values(0)
+            
+        return data
+    except Exception as e:
+        return pd.DataFrame()
+
+# Manual Refresh Button
+if st.sidebar.button("🔄 Refresh Data"):
+    st.cache_data.clear()
+    st.rerun()
 
 data_load_state = st.text('Loading data...')
-try:
-    data = load_data(ticker, start_date, end_date)
-    data_load_state.text('Loading data... done!')
-except Exception as e:
-    data_load_state.text(f"Error loading data: {e}")
-    st.stop()
+data = load_data(ticker, start_date, end_date)
+data_load_state.text('Loading data... done!')
 
 if data.empty:
-    st.error("No data found. Please check the ticker or date range.")
+    st.error(f"No data found for **{ticker}** from {start_date} to {end_date}.")
+    st.warning("Possible reasons:\n1. Invalid Ticker Symbol.\n2. Yahoo Finance API Rate Limit (Try again in 1 min).\n3. Weekend/Holiday gaps (Try adjusting dates).")
     st.stop()
 
 # Display Raw Data
