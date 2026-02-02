@@ -87,15 +87,15 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.title("📈 Stock Price Prediction using LSTM")
-st.markdown(f"Predicting **{ticker}** stock prices using Long Short-Term Memory (LSTM) neural networks.")
-
 # Sidebar
 st.sidebar.header("⚙️ Configuration")
 ticker = st.sidebar.text_input("Stock Ticker", "RELIANCE.NS")
 start_date = st.sidebar.date_input("Start Date", pd.to_datetime("2015-01-01"))
 end_date = st.sidebar.date_input("End Date", pd.to_datetime("today"))
 epochs = st.sidebar.slider("Training Epochs", min_value=1, max_value=50, value=10)
+
+st.title("📈 Stock Price Prediction using LSTM")
+st.markdown(f"Predicting **{ticker}** stock prices using Long Short-Term Memory (LSTM) neural networks.")
 
 # Fetch Data
 @st.cache_data(ttl=300) # Cache for 5 mins to prevent rate limiting
