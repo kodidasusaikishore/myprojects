@@ -28,11 +28,11 @@ st.markdown("""
         color: white;
     }
     
-    /* Sidebar Glassmorphism */
-    section[data-testid="stSidebar"] {
-        background-color: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(15px);
-        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    /* Force Sidebar Vertical Spacing */
+    div[data-testid="stSidebarUserContent"] div[role="radiogroup"] {
+        margin-bottom: 40px !important;
+        padding-bottom: 20px !important;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
     }
     
     /* Sidebar Text Fix - Universal */
