@@ -228,6 +228,10 @@ st.markdown("### AI-Powered Bullion Tracker & Predictor")
 # --- Sidebar Configuration (Moved up so variables are available) ---
 st.sidebar.header("⚙️ Market Config")
 metal_choice = st.sidebar.radio("Select Asset", ["Gold 🟡", "Silver ⚪", "Copper 🟠"])
+
+# Add spacing
+st.sidebar.markdown("##")
+
 period = st.sidebar.selectbox("History Period", ["1mo", "3mo", "6mo", "1y", "5y"], index=3)
 
 # Unit Label Logic
