@@ -28,11 +28,21 @@ st.markdown("""
         color: white;
     }
     
-    /* Force Sidebar Vertical Spacing */
+    /* Force Sidebar Vertical Spacing - Nuclear */
     div[data-testid="stSidebarUserContent"] div[role="radiogroup"] {
-        margin-bottom: 5px !important;
-        padding-bottom: 5px !important;
+        margin-bottom: 2px !important;
+        padding-bottom: 2px !important;
         border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    /* Pull Selectbox Up */
+    div[data-testid="stSidebarUserContent"] div[data-baseweb="select"] {
+        margin-top: -10px !important;
+    }
+    
+    /* Remove padding from headers/labels in sidebar */
+    section[data-testid="stSidebar"] div[class*="stSelectbox"] label {
+        margin-bottom: 0px !important;
     }
     
     /* Sidebar Text Fix - Universal */
