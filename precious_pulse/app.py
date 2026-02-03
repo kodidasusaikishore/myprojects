@@ -30,14 +30,19 @@ st.markdown("""
     
     /* Force Sidebar Vertical Spacing - Nuclear */
     div[data-testid="stSidebarUserContent"] div[role="radiogroup"] {
-        margin-bottom: 2px !important;
-        padding-bottom: 2px !important;
+        margin-bottom: 0px !important;
+        padding-bottom: 0px !important;
         border-bottom: 1px solid rgba(255,255,255,0.1);
     }
     
-    /* Pull Selectbox Up */
+    /* Pull Selectbox Up - Super Aggressive */
     div[data-testid="stSidebarUserContent"] div[data-baseweb="select"] {
-        margin-top: -10px !important;
+        margin-top: -20px !important;
+    }
+    
+    /* Hide the label for History Period entirely to save space if needed, or pull it up */
+    section[data-testid="stSidebar"] div[class*="stSelectbox"] {
+        margin-top: -15px !important;
     }
     
     /* Remove padding from headers/labels in sidebar */
