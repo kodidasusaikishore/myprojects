@@ -229,8 +229,8 @@ st.markdown("### AI-Powered Bullion Tracker & Predictor")
 st.sidebar.header("⚙️ Market Config")
 metal_choice = st.sidebar.radio("Select Asset", ["Gold 🟡", "Silver ⚪", "Copper 🟠"])
 
-# Add spacing
-st.sidebar.markdown("##")
+# Add LARGE spacing to force separation
+st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
 
 period = st.sidebar.selectbox("History Period", ["1mo", "3mo", "6mo", "1y", "5y"], index=3)
 
