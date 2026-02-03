@@ -30,8 +30,8 @@ st.markdown("""
     
     /* Force Sidebar Vertical Spacing */
     div[data-testid="stSidebarUserContent"] div[role="radiogroup"] {
-        margin-bottom: 20px !important;
-        padding-bottom: 10px !important;
+        margin-bottom: 5px !important;
+        padding-bottom: 5px !important;
         border-bottom: 1px solid rgba(255,255,255,0.1);
     }
     
