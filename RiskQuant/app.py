@@ -95,9 +95,13 @@ st.markdown("""
         border: none !important;
     }
     
-    /* Checkbox - Force visibility */
+    /* Checkbox - Force visibility and icon contrast */
     .stCheckbox label span {
         color: #000000 !important;
+        font-weight: 600 !important;
+    }
+    .stCheckbox input {
+        border-color: #4a5568 !important;
     }
 </style>
 """, unsafe_allow_html=True)
