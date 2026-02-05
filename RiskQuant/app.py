@@ -8,6 +8,9 @@ from scipy.stats import norm
 import tensorflow as tf
 from tensorflow import keras
 import os
+import feedparser
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import nltk
 
 # --- Load Pre-trained AI Model (Lazy Load) ---
 @st.cache_resource
@@ -19,6 +22,29 @@ def load_ai_model():
     return None
 
 ai_model = load_ai_model()
+
+# Download VADER
+try:
+    nltk.data.find('vader_lexicon')
+except LookupError:
+    nltk.download('vader_lexicon')
+
+# --- Sentiment Helper ---
+@st.cache_data(ttl=600)
+def get_live_sentiment(ticker_symbol):
+    try:
+        clean_query = ticker_symbol.split('.')[0] 
+        url = f"https://news.google.com/rss/search?q={clean_query}+stock+market&hl=en-US&gl=US&ceid=US:en"
+        feed = feedparser.parse(url)
+        news = feed.entries[:10]
+        
+        if not news: return 0.0
+        
+        sia = SentimentIntensityAnalyzer()
+        scores = [sia.polarity_scores(item.title)['compound'] for item in news]
+        return sum(scores) / len(scores) if scores else 0.0
+    except:
+        return 0.0
 
 # --- Page Config ---
 st.set_page_config(page_title="RiskQuant Dashboard", layout="wide", page_icon="📉")
@@ -33,23 +59,13 @@ st.markdown("""
     }
     
     /* Input Fields */
-    .stTextInput input, .stNumberInput input {
+    .stTextInput input, .stNumberInput input, .stSelectbox div[data-baseweb="select"] {
         background-color: #ffffff;
         color: #2d3748;
         border: 1px solid #e2e8f0;
     }
     
-    /* Input Labels (Sliders, Text Inputs, Number Inputs) - Force BLACK */
-    .stTextInput label, 
-    .stNumberInput label, 
-    .stSlider label, 
-    .stRadio label,
-    div[data-testid="stMarkdownContainer"] p {
-        color: #000000 !important;
-        font-weight: 600 !important;
-    }
-    
-    /* Metrics - Force BLACK */
+    /* Metrics - Force BLACK for Light Theme */
     div[data-testid="stMetricValue"] {
         color: #000000 !important;
     }
@@ -88,6 +104,15 @@ st.markdown("""
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     
+    /* Cards */
+    .metric-card {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        border: 1px solid #e2e8f0;
+    }
+    
     /* Buttons (Run Simulation & Download) */
     .stButton > button, .stDownloadButton > button {
         color: white !important;
@@ -115,19 +140,20 @@ st.markdown("""
 
 st.title("📉 RiskQuant: Derivatives & Risk Analytics")
 
-# --- TABS ---
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "📊 Options Pricing (Black-Scholes)", 
-    "🧠 AI Options Pricer (Neural Network)",
-    "⚠️ VaR / CVaR Analysis", 
-    "🎲 Monte Carlo Stress Test", 
-    "⚖️ Portfolio Comparison"
+# --- SIDEBAR NAV ---
+st.sidebar.header("Navigation")
+nav = st.sidebar.radio("Select Module", [
+    "Options Pricing (Black-Scholes)", 
+    "AI Options Pricer (Neural Network)", 
+    "VaR / CVaR Analysis", 
+    "Monte Carlo Stress Test", 
+    "Portfolio Comparison"
 ])
 
 # ==========================================
 # TAB 1: BLACK-SCHOLES PRICING
 # ==========================================
-with tab1:
+if nav == "Options Pricing (Black-Scholes)":
     st.header("Option Pricing & Greeks")
     
     col1, col2 = st.columns([1, 2])
@@ -220,80 +246,110 @@ with tab1:
         st.plotly_chart(fig, use_container_width=True)
 
 # ==========================================
-# TAB 2: AI OPTIONS PRICER
+# TAB: AI OPTIONS PRICER
 # ==========================================
-with tab2:
-    st.header("🧠 AI-Powered Options Pricing")
-    st.markdown("This module uses a **Neural Network** trained on market data to predict Option Prices, incorporating **Market Sentiment** which standard Black-Scholes ignores.")
+elif nav == "AI Options Pricer (Neural Network)":
+    st.header("🧠 AI-Powered Real-Time Pricing")
+    st.markdown("This module fetches **Live Option Chains** and uses AI + Sentiment to find mispriced opportunities.")
     
     col_ai1, col_ai2 = st.columns([1, 2])
     
     with col_ai1:
-        st.subheader("Model Inputs")
-        S_ai = st.number_input("Spot Price ($)", value=150.0)
-        K_ai = st.number_input("Strike Price ($)", value=155.0)
-        T_ai = st.slider("Time to Expiry (Years)", 0.1, 2.0, 0.5)
-        r_ai = st.number_input("Risk-Free Rate (%)", value=4.5) / 100
-        sigma_ai = st.slider("Volatility (IV) %", 10, 100, 25) / 100
+        st.subheader("Select Asset")
+        ticker = st.text_input("Ticker", "SPY", key="ai_ticker")
+        expiry = st.date_input("Target Expiry Date (Approx)", pd.to_datetime("today") + pd.Timedelta(days=30))
         
-        st.markdown("---")
-        st.markdown("**The Alpha Factor**")
-        sentiment = st.slider("Market Sentiment Score", -1.0, 1.0, 0.0, help="-1 (Extreme Bearish) to +1 (Extreme Bullish)")
-        
+        # Fetch Real Data
+        if st.button("Fetch Market Data"):
+            with st.spinner("Fetching Live Options & Sentiment..."):
+                try:
+                    tk = yf.Ticker(ticker)
+                    current_price = tk.history(period="1d")['Close'].iloc[-1]
+                    
+                    # Get Option Chain
+                    expirations = tk.options
+                    # Find closest expiry
+                    target_date = expiry.strftime("%Y-%m-%d")
+                    # Simple logic: pick first expiry after target
+                    chosen_exp = expirations[0] 
+                    for exp in expirations:
+                        if exp >= target_date:
+                            chosen_exp = exp
+                            break
+                            
+                    opt_chain = tk.option_chain(chosen_exp)
+                    calls = opt_chain.calls
+                    
+                    # Get Sentiment
+                    sentiment = get_live_sentiment(ticker)
+                    
+                    st.session_state['ai_data'] = {
+                        'spot': current_price,
+                        'calls': calls,
+                        'expiry': chosen_exp,
+                        'sentiment': sentiment
+                    }
+                    st.success(f"Loaded Data for {chosen_exp}")
+                    
+                except Exception as e:
+                    st.error(f"Error fetching data: {e}")
+    
     with col_ai2:
-        if ai_model:
-            # Prepare Input Vector: [S, K, T, r, sigma, sentiment]
-            input_vector = np.array([[S_ai, K_ai, T_ai, r_ai, sigma_ai, sentiment]])
+        if 'ai_data' in st.session_state:
+            data = st.session_state['ai_data']
+            spot = data['spot']
+            sentiment = data['sentiment']
             
-            # Predict
-            ai_price = ai_model.predict(input_vector)[0][0]
+            st.metric("Live Spot Price", f"${spot:.2f}")
+            st.metric("Live Sentiment Score", f"{sentiment:.2f}", 
+                      "Bullish" if sentiment > 0.05 else "Bearish" if sentiment < -0.05 else "Neutral")
             
-            # Calculate Traditional BS Price for Comparison
-            bs_price = black_scholes(S_ai, K_ai, T_ai, r_ai, sigma_ai, "call")
+            # Filter Calls near the money
+            calls = data['calls']
+            near_money = calls[(calls['strike'] > spot * 0.9) & (calls['strike'] < spot * 1.1)].copy()
             
-            diff = ai_price - bs_price
-            diff_pct = (diff / bs_price) * 100 if bs_price != 0 else 0
-            
-            st.subheader("Pricing Model Comparison")
-            
-            m1, m2, m3 = st.columns(3)
-            m1.metric("Black-Scholes Price", f"${bs_price:.2f}", help="Standard Mathematical Model")
-            m2.metric("AI Neural Net Price", f"${ai_price:.2f}", f"{diff_pct:.1f}% vs BS", delta_color="off")
-            m3.metric("Sentiment Premium", f"${diff:.2f}", help="Extra value priced in due to Market Sentiment")
-            
-            st.info(f"Analysis: The AI Model prices this option **${abs(diff):.2f} {'higher' if diff > 0 else 'lower'}** than Black-Scholes due to the Sentiment Score of **{sentiment}**.")
-            
-            # Scenario Analysis Chart
-            st.subheader("Price Prediction vs Sentiment")
-            
-            sent_range = np.linspace(-1, 1, 50)
-            # Create batch input for efficiency
-            batch_inputs = np.zeros((50, 6))
-            batch_inputs[:, 0] = S_ai
-            batch_inputs[:, 1] = K_ai
-            batch_inputs[:, 2] = T_ai
-            batch_inputs[:, 3] = r_ai
-            batch_inputs[:, 4] = sigma_ai
-            batch_inputs[:, 5] = sent_range
-            
-            predicted_prices = ai_model.predict(batch_inputs).flatten()
-            bs_constant = np.full_like(predicted_prices, bs_price)
-            
-            fig_ai = go.Figure()
-            fig_ai.add_trace(go.Scatter(x=sent_range, y=predicted_prices, name="AI Price", line=dict(color='#00f260', width=3)))
-            fig_ai.add_trace(go.Scatter(x=sent_range, y=bs_constant, name="Black-Scholes (Static)", line=dict(color='gray', dash='dash')))
-            
-            fig_ai.update_layout(title="Impact of Sentiment on Option Premium", xaxis_title="Sentiment Score (-1 to +1)", yaxis_title="Option Price ($)", template="plotly_dark")
-            st.plotly_chart(fig_ai, use_container_width=True)
-            
+            if not near_money.empty:
+                st.subheader(f"AI Valuation Analysis ({data['expiry']})")
+                
+                # Predict AI Prices for these strikes
+                # T approx
+                days_to_exp = (pd.to_datetime(data['expiry']) - pd.to_datetime("today")).days
+                T = days_to_exp / 365.0
+                r = 0.045 # Risk free approx
+                
+                ai_prices = []
+                bs_prices = []
+                
+                for idx, row in near_money.iterrows():
+                    K = row['strike']
+                    sigma = row['impliedVolatility']
+                    
+                    # AI Input: [S, K, T, r, sigma, sentiment]
+                    input_vec = np.array([[spot, K, T, r, sigma, sentiment]])
+                    ai_p = ai_model.predict(input_vec)[0][0] if ai_model else 0
+                    bs_p = black_scholes(spot, K, T, r, sigma, "call")
+                    
+                    ai_prices.append(ai_p)
+                    bs_prices.append(bs_p)
+                
+                near_money['AI Fair Value'] = ai_prices
+                near_money['Black-Scholes'] = bs_prices
+                near_money['Difference'] = near_money['AI Fair Value'] - near_money['lastPrice']
+                
+                # Show Table
+                display_cols = ['strike', 'lastPrice', 'AI Fair Value', 'Black-Scholes', 'Difference', 'impliedVolatility']
+                st.dataframe(near_money[display_cols].style.format("{:.2f}"))
+                
+                st.info("💡 **Positive Difference** means AI thinks the option is **Undervalued** (Good Buy). **Negative** means **Overvalued**.")
+            else:
+                st.warning("No Near-the-Money options found.")
         else:
-            st.error("⚠️ AI Model not found. Please run 'train_options_ai.py' to generate the model first.")
-            st.code("python RiskQuant/train_options_ai.py", language="bash")
+            st.info("Enter Ticker and Click 'Fetch Market Data'")
 
 # ==========================================
-# TAB 3: VaR / CVaR Analysis
+# TAB 2: VaR / CVaR Analysis
 # ==========================================
-with tab3:
+elif nav == "VaR / CVaR Analysis":
     st.header("Value at Risk (VaR) & Expected Shortfall (CVaR)")
     
     col_var1, col_var2 = st.columns([1, 2])
@@ -366,9 +422,9 @@ with tab3:
             st.error(f"Error calculating Risk Metrics: {e}")
 
 # ==========================================
-# TAB 4: MONTE CARLO STRESS TEST
+# TAB 3: MONTE CARLO STRESS TEST
 # ==========================================
-with tab4:
+elif nav == "Monte Carlo Stress Test":
     st.header("Monte Carlo Stress Testing")
     
     col_mc1, col_mc2 = st.columns([1, 2])
@@ -453,7 +509,7 @@ with tab4:
 # ==========================================
 # TAB 5: PORTFOLIO COMPARISON
 # ==========================================
-with tab5:
+elif nav == "Portfolio Comparison":
     st.header("Portfolio Risk Comparison")
     
     col_p1, col_p2 = st.columns([1, 3])
