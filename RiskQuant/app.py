@@ -266,8 +266,8 @@ with tab2:
         if st.button("Fetch Market Data"):
             with st.spinner("Fetching Live Options & Sentiment..."):
                 try:
-                    # Use cache to prevent spamming
-                    @st.cache_data(ttl=300)
+                    # REMOVED CACHE DECORATOR to avoid serialization errors with yf.Ticker object
+                    # Fallback Logic remains robust
                     def get_options_chain(ticker):
                         try:
                             # 1. Try Yahoo Finance
@@ -281,10 +281,7 @@ with tab2:
                         except:
                             pass
                             
-                        # 2. Fallback to Simulated Mode (Robustness)
-                        # Since we can't easily get real OPTION CHAINS from Google Finance without complex scraping,
-                        # we will simulate a realistic option chain based on a mock spot price.
-                        
+                        # 2. Fallback to Simulated Mode
                         mock_spot = 500.0 # Default fallback
                         if ticker == "SPY": mock_spot = 520.0
                         elif ticker == "AAPL": mock_spot = 175.0
