@@ -5,6 +5,7 @@ import numpy as np
 import plotly.graph_objs as go
 import matplotlib.pyplot as plt
 import nltk
+import feedparser
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 # Set page config immediately
@@ -198,13 +199,17 @@ with tab3:
     st.plotly_chart(fig_tech, use_container_width=True)
 
 # --- Sentiment Analysis Section ---
-st.subheader("📰 AI Sentiment Analysis (yfinance News)")
+st.subheader("📰 AI Sentiment Analysis (Google News)")
 
 @st.cache_data(ttl=600)
 def get_stock_sentiment(ticker_symbol):
     try:
-        stock = yf.Ticker(ticker_symbol)
-        news = stock.news
+        # Extract company name from ticker for better search results
+        # E.g., RELIANCE.NS -> Reliance
+        clean_query = ticker_symbol.split('.')[0] 
+        url = f"https://news.google.com/rss/search?q={clean_query}+stock+market&hl=en-US&gl=US&ceid=US:en"
+        feed = feedparser.parse(url)
+        news = feed.entries[:10]
         
         if not news:
             return None, 0
@@ -214,10 +219,9 @@ def get_stock_sentiment(ticker_symbol):
         news_with_scores = []
         
         for item in news:
-            title = item.get('title', '')
-            link = item.get('link', '')
-            publisher = item.get('publisher', 'Unknown')
-            # Pubtime is usually timestamp
+            title = item.title
+            link = item.link
+            publisher = item.source.title if hasattr(item, 'source') else 'Google News'
             
             score = sia.polarity_scores(title)['compound']
             sentiments.append(score)
