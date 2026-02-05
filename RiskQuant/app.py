@@ -88,8 +88,8 @@ st.markdown("""
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     
-    /* Buttons (Run Simulation etc) */
-    .stButton > button {
+    /* Buttons (Run Simulation & Download) */
+    .stButton > button, .stDownloadButton > button {
         color: white !important;
         background-color: #2b6cb0 !important;
         border: none !important;
