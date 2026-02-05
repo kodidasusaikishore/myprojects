@@ -269,14 +269,35 @@ if st.button('Train Model'):
         train = data[:training_data_len]
         valid = data[training_data_len:]
         valid['Predictions'] = predictions
-
+        
+        # --- Future Forecasting (Next 3 Days) ---
+        last_60_days = scaled_data[-sequence_length:]
+        current_batch = last_60_days.reshape((1, sequence_length, 1))
+        future_predictions = []
+        
+        for i in range(3): # Predict next 3 days
+            next_pred = model.predict(current_batch)
+            future_predictions.append(next_pred[0,0])
+            # Append prediction to batch and remove first element to slide window
+            current_batch = np.append(current_batch[:,1:,:], [[next_pred[0]]], axis=1)
+            
+        future_predictions = scaler.inverse_transform(np.array(future_predictions).reshape(-1, 1))
+        
+        # Create Future Dates Index
+        last_date = data.index[-1]
+        future_dates = [last_date + pd.Timedelta(days=i) for i in range(1, 4)]
+        
+        # Plot Everything
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=train.index, y=train['Close'], name='Training Data', line=dict(color='#888888')))
         fig2.add_trace(go.Scatter(x=valid.index, y=valid['Close'], name='Actual Price', line=dict(color='#00C9FF')))
         fig2.add_trace(go.Scatter(x=valid.index, y=valid['Predictions'], name='Predicted Price', line=dict(color='#FF4B4B')))
         
+        # Add Future Line
+        fig2.add_trace(go.Scatter(x=future_dates, y=future_predictions.flatten(), name='Future Forecast (3 Days)', line=dict(color='#FFD700', dash='dot')))
+        
         fig2.layout.update(
-            title_text='Model Predictions vs Actual', 
+            title_text='Model Predictions + Future Forecast', 
             xaxis_rangeslider_visible=True,
             template='plotly_dark',
             paper_bgcolor='rgba(0,0,0,0)',
@@ -287,3 +308,7 @@ if st.button('Train Model'):
 
         st.subheader("Predicted Prices vs Actual Prices")
         st.write(valid[['Close', 'Predictions']].tail(10))
+        
+        st.subheader("🔮 Future Forecast")
+        future_df = pd.DataFrame(data=future_predictions, index=future_dates, columns=['Forecasted Price'])
+        st.dataframe(future_df)
