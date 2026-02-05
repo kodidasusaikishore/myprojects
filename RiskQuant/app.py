@@ -140,20 +140,19 @@ st.markdown("""
 
 st.title("📉 RiskQuant: Derivatives & Risk Analytics")
 
-# --- SIDEBAR NAV ---
-st.sidebar.header("Navigation")
-nav = st.sidebar.radio("Select Module", [
-    "Options Pricing (Black-Scholes)", 
-    "AI Options Pricer (Neural Network)", 
-    "VaR / CVaR Analysis", 
-    "Monte Carlo Stress Test", 
-    "Portfolio Comparison"
+# --- TABS ---
+tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    "📊 Options Pricing (Black-Scholes)", 
+    "🧠 AI Options Pricer (Neural Network)",
+    "⚠️ VaR / CVaR Analysis", 
+    "🎲 Monte Carlo Stress Test", 
+    "⚖️ Portfolio Comparison"
 ])
 
 # ==========================================
 # TAB 1: BLACK-SCHOLES PRICING
 # ==========================================
-if nav == "Options Pricing (Black-Scholes)":
+with tab1:
     st.header("Option Pricing & Greeks")
     
     col1, col2 = st.columns([1, 2])
@@ -246,11 +245,11 @@ if nav == "Options Pricing (Black-Scholes)":
         st.plotly_chart(fig, use_container_width=True)
 
 # ==========================================
-# TAB: AI OPTIONS PRICER
+# TAB 2: AI OPTIONS PRICER
 # ==========================================
-elif nav == "AI Options Pricer (Neural Network)":
-    st.header("🧠 AI-Powered Real-Time Pricing")
-    st.markdown("This module fetches **Live Option Chains** and uses AI + Sentiment to find mispriced opportunities.")
+with tab2:
+    st.header("🧠 AI-Powered Options Pricing")
+    st.markdown("This module uses a **Neural Network** trained on market data to predict Option Prices, incorporating **Market Sentiment** which standard Black-Scholes ignores.")
     
     col_ai1, col_ai2 = st.columns([1, 2])
     
@@ -341,15 +340,81 @@ elif nav == "AI Options Pricer (Neural Network)":
                 st.dataframe(near_money[display_cols].style.format("{:.2f}"))
                 
                 st.info("💡 **Positive Difference** means AI thinks the option is **Undervalued** (Good Buy). **Negative** means **Overvalued**.")
+                
+                # --- NEW GRAPHICAL ANALYSIS ---
+                st.subheader("Price Divergence: AI vs Market vs Black-Scholes")
+                fig_ai_chart = go.Figure()
+                
+                # Market Price (Last Traded)
+                fig_ai_chart.add_trace(go.Scatter(
+                    x=near_money['strike'], y=near_money['lastPrice'],
+                    mode='lines+markers', name='Market Price (Last)',
+                    line=dict(color='yellow', width=2)
+                ))
+                
+                # Black-Scholes Price
+                fig_ai_chart.add_trace(go.Scatter(
+                    x=near_money['strike'], y=near_money['Black-Scholes'],
+                    mode='lines', name='Black-Scholes (Theoretical)',
+                    line=dict(color='gray', dash='dash')
+                ))
+                
+                # AI Predicted Price
+                fig_ai_chart.add_trace(go.Scatter(
+                    x=near_money['strike'], y=near_money['AI Fair Value'],
+                    mode='lines+markers', name='AI Fair Value (Sentiment Adjusted)',
+                    line=dict(color='#00f260', width=3)
+                ))
+                
+                fig_ai_chart.update_layout(
+                    title="Option Pricing Model Comparison (Near-the-Money)",
+                    xaxis_title="Strike Price ($)",
+                    yaxis_title="Option Premium ($)",
+                    template="plotly_dark",
+                    height=450
+                )
+                st.plotly_chart(fig_ai_chart, use_container_width=True)
+
+                # Sentiment Sensitivity Chart
+                st.subheader("Sentiment Impact Projection")
+                
+                # Pick the At-The-Money Strike for analysis
+                atm_strike = near_money.iloc[(near_money['strike'] - spot).abs().argsort()[:1]]
+                K_atm = atm_strike['strike'].values[0]
+                sigma_atm = atm_strike['impliedVolatility'].values[0]
+                
+                sent_range = np.linspace(-1, 1, 50)
+                batch_inputs = np.zeros((50, 6))
+                batch_inputs[:, 0] = spot
+                batch_inputs[:, 1] = K_atm
+                batch_inputs[:, 2] = T
+                batch_inputs[:, 3] = r
+                batch_inputs[:, 4] = sigma_atm
+                batch_inputs[:, 5] = sent_range
+                
+                predicted_prices_sent = ai_model.predict(batch_inputs).flatten() if ai_model else np.zeros(50)
+                
+                fig_sent = go.Figure()
+                fig_sent.add_trace(go.Scatter(x=sent_range, y=predicted_prices_sent, name=f"Call {K_atm} Price", line=dict(color='cyan', width=3)))
+                fig_sent.add_vline(x=sentiment, line_dash="dash", line_color="white", annotation_text="Current Sentiment")
+                
+                fig_sent.update_layout(
+                    title=f"Projected Premium for Strike ${K_atm} vs Sentiment Shift",
+                    xaxis_title="Sentiment Score (-1 Bearish to +1 Bullish)",
+                    yaxis_title="Predicted Option Price ($)",
+                    template="plotly_dark"
+                )
+                st.plotly_chart(fig_sent, use_container_width=True)
+                
             else:
                 st.warning("No Near-the-Money options found.")
         else:
             st.info("Enter Ticker and Click 'Fetch Market Data'")
 
 # ==========================================
-# TAB 2: VaR / CVaR Analysis
+# TAB 3: VaR / CVaR Analysis
 # ==========================================
-elif nav == "VaR / CVaR Analysis":
+with tab3:
     st.header("Value at Risk (VaR) & Expected Shortfall (CVaR)")
     
     col_var1, col_var2 = st.columns([1, 2])
@@ -422,9 +487,9 @@ elif nav == "VaR / CVaR Analysis":
             st.error(f"Error calculating Risk Metrics: {e}")
 
 # ==========================================
-# TAB 3: MONTE CARLO STRESS TEST
+# TAB 4: MONTE CARLO STRESS TEST
 # ==========================================
-elif nav == "Monte Carlo Stress Test":
+with tab4:
     st.header("Monte Carlo Stress Testing")
     
     col_mc1, col_mc2 = st.columns([1, 2])
@@ -509,7 +574,7 @@ elif nav == "Monte Carlo Stress Test":
 # ==========================================
 # TAB 5: PORTFOLIO COMPARISON
 # ==========================================
-elif nav == "Portfolio Comparison":
+with tab5:
     st.header("Portfolio Risk Comparison")
     
     col_p1, col_p2 = st.columns([1, 3])
