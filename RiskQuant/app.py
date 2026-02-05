@@ -95,13 +95,20 @@ st.markdown("""
         border: none !important;
     }
     
-    /* Checkbox - Force visibility and icon contrast */
+    /* Checkbox - Force visibility */
     .stCheckbox label span {
         color: #000000 !important;
         font-weight: 600 !important;
     }
-    .stCheckbox input {
-        border-color: #4a5568 !important;
+    
+    /* Force checkbox square itself to look normal */
+    div[data-testid="stCheckbox"] > label > div[role="checkbox"] {
+        background-color: #ffffff !important;
+        border: 1px solid #a0aec0 !important;
+    }
+    div[data-testid="stCheckbox"] > label > div[role="checkbox"][aria-checked="true"] {
+        background-color: #2b6cb0 !important;
+        border-color: #2b6cb0 !important;
     }
 </style>
 """, unsafe_allow_html=True)
