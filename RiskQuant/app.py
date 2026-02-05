@@ -37,12 +37,14 @@ st.markdown("""
         border: 1px solid #e2e8f0;
     }
     
-    /* Metrics */
+    /* Metrics - Pure White */
     div[data-testid="stMetricValue"] {
         color: #2d3748;
     }
     div[data-testid="stMetricLabel"] {
-        color: #4a5568 !important;
+        color: #000000 !important;
+        font-weight: 700 !important;
+        font-size: 1rem !important;
     }
     
     /* Headers */
