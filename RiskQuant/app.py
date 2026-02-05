@@ -39,20 +39,20 @@ st.markdown("""
         border: 1px solid #e2e8f0;
     }
     
-    /* Metrics - Pure White Force */
+    /* Metrics - Force BLACK for Light Theme */
     div[data-testid="stMetricValue"] {
-        color: white !important;
+        color: #000000 !important;
     }
     div[data-testid="stMetricLabel"] {
-        color: #ffffff !important;
+        color: #000000 !important;
         font-weight: 700 !important;
-        font-size: 1rem !important;
+        font-size: 1.1rem !important;
     }
     label[data-testid="stMetricLabel"] {
-        color: #ffffff !important;
+        color: #000000 !important;
     }
     div[data-testid="stMetric"] label {
-        color: #ffffff !important;
+        color: #000000 !important;
     }
     
     /* Headers */
