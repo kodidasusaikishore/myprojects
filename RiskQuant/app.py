@@ -266,33 +266,45 @@ with tab2:
         if st.button("Fetch Market Data"):
             with st.spinner("Fetching Live Options & Sentiment..."):
                 try:
-                    tk = yf.Ticker(ticker)
-                    current_price = tk.history(period="1d")['Close'].iloc[-1]
+                    # Use cache to prevent spamming
+                    @st.cache_data(ttl=300)
+                    def get_options_chain(ticker):
+                        tk = yf.Ticker(ticker)
+                        # Add delay to respect rate limit if needed, but cache is better
+                        hist = tk.history(period="1d")
+                        if hist.empty: return None, None, None
+                        
+                        price = hist['Close'].iloc[-1]
+                        exps = tk.options
+                        return tk, price, exps
+
+                    tk, current_price, expirations = get_options_chain(ticker)
                     
-                    # Get Option Chain
-                    expirations = tk.options
-                    # Find closest expiry
-                    target_date = expiry.strftime("%Y-%m-%d")
-                    # Simple logic: pick first expiry after target
-                    chosen_exp = expirations[0] 
-                    for exp in expirations:
-                        if exp >= target_date:
-                            chosen_exp = exp
-                            break
-                            
-                    opt_chain = tk.option_chain(chosen_exp)
-                    calls = opt_chain.calls
-                    
-                    # Get Sentiment
-                    sentiment = get_live_sentiment(ticker)
-                    
-                    st.session_state['ai_data'] = {
-                        'spot': current_price,
-                        'calls': calls,
-                        'expiry': chosen_exp,
-                        'sentiment': sentiment
-                    }
-                    st.success(f"Loaded Data for {chosen_exp}")
+                    if tk is None:
+                        st.error("Rate Limited or Invalid Ticker. Try again later.")
+                    else:
+                        # Find closest expiry
+                        target_date = expiry.strftime("%Y-%m-%d")
+                        chosen_exp = expirations[0] 
+                        for exp in expirations:
+                            if exp >= target_date:
+                                chosen_exp = exp
+                                break
+                        
+                        # Fetch specific chain (uncached to get real-time price)
+                        opt_chain = tk.option_chain(chosen_exp)
+                        calls = opt_chain.calls
+                        
+                        # Get Sentiment
+                        sentiment = get_live_sentiment(ticker)
+                        
+                        st.session_state['ai_data'] = {
+                            'spot': current_price,
+                            'calls': calls,
+                            'expiry': chosen_exp,
+                            'sentiment': sentiment
+                        }
+                        st.success(f"Loaded Data for {chosen_exp}")
                     
                 except Exception as e:
                     st.error(f"Error fetching data: {e}")
