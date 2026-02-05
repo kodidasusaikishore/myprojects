@@ -4,9 +4,17 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objs as go
 import matplotlib.pyplot as plt
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 # Set page config immediately
 st.set_page_config(page_title="Stock Price Prediction", layout="wide", page_icon="📈")
+
+# Download VADER lexicon
+try:
+    nltk.data.find('vader_lexicon')
+except LookupError:
+    nltk.download('vader_lexicon')
 
 # Custom CSS for Premium Look
 st.markdown("""
@@ -188,6 +196,71 @@ with tab3:
         hovermode='x unified'
     )
     st.plotly_chart(fig_tech, use_container_width=True)
+
+# --- Sentiment Analysis Section ---
+st.subheader("📰 AI Sentiment Analysis (yfinance News)")
+
+@st.cache_data(ttl=600)
+def get_stock_sentiment(ticker_symbol):
+    try:
+        stock = yf.Ticker(ticker_symbol)
+        news = stock.news
+        
+        if not news:
+            return None, 0
+        
+        sia = SentimentIntensityAnalyzer()
+        sentiments = []
+        news_with_scores = []
+        
+        for item in news:
+            title = item.get('title', '')
+            link = item.get('link', '')
+            publisher = item.get('publisher', 'Unknown')
+            # Pubtime is usually timestamp
+            
+            score = sia.polarity_scores(title)['compound']
+            sentiments.append(score)
+            
+            news_with_scores.append({
+                'title': title,
+                'link': link,
+                'publisher': publisher,
+                'score': score
+            })
+            
+        avg_sentiment = sum(sentiments) / len(sentiments) if sentiments else 0
+        return news_with_scores, avg_sentiment
+    except Exception as e:
+        st.error(f"Error fetching news: {e}")
+        return None, 0
+
+news_data, sentiment_score = get_stock_sentiment(ticker)
+
+if news_data:
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        sentiment_label = "Neutral 😐"
+        sentiment_color = "gray"
+        if sentiment_score > 0.05:
+            sentiment_label = "Bullish 🚀"
+            sentiment_color = "green"
+        elif sentiment_score < -0.05:
+            sentiment_label = "Bearish 📉"
+            sentiment_color = "red"
+            
+        st.metric("Market Sentiment Score", f"{sentiment_score:.2f}", sentiment_label)
+        st.progress((sentiment_score + 1) / 2) # Normalize -1..1 to 0..1
+        
+    with col2:
+        with st.expander("Recent News Headlines", expanded=True):
+            for n in news_data[:5]: # Show top 5
+                s_icon = "🟢" if n['score'] > 0.05 else "🔴" if n['score'] < -0.05 else "⚪"
+                st.markdown(f"{s_icon} [{n['title']}]({n['link']}) - *{n['publisher']}*")
+
+else:
+    st.info("No recent news found for this ticker to analyze.")
 
 # Data Preprocessing
 st.subheader('Model Training & Prediction')
