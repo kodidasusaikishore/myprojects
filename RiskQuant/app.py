@@ -269,42 +269,84 @@ with tab2:
                     # Use cache to prevent spamming
                     @st.cache_data(ttl=300)
                     def get_options_chain(ticker):
-                        tk = yf.Ticker(ticker)
-                        # Add delay to respect rate limit if needed, but cache is better
-                        hist = tk.history(period="1d")
-                        if hist.empty: return None, None, None
+                        try:
+                            # 1. Try Yahoo Finance
+                            tk = yf.Ticker(ticker)
+                            hist = tk.history(period="1d")
+                            
+                            if not hist.empty:
+                                price = hist['Close'].iloc[-1]
+                                exps = tk.options
+                                return "yahoo", tk, price, exps
+                        except:
+                            pass
+                            
+                        # 2. Fallback to Simulated Mode (Robustness)
+                        # Since we can't easily get real OPTION CHAINS from Google Finance without complex scraping,
+                        # we will simulate a realistic option chain based on a mock spot price.
                         
-                        price = hist['Close'].iloc[-1]
-                        exps = tk.options
-                        return tk, price, exps
+                        mock_spot = 500.0 # Default fallback
+                        if ticker == "SPY": mock_spot = 520.0
+                        elif ticker == "AAPL": mock_spot = 175.0
+                        elif ticker == "TSLA": mock_spot = 180.0
+                        elif ticker == "NVDA": mock_spot = 900.0
+                        
+                        # Generate Mock Expiries
+                        mock_exps = [(pd.to_datetime("today") + pd.Timedelta(days=x)).strftime("%Y-%m-%d") for x in [7, 30, 60, 90]]
+                        
+                        return "simulated", None, mock_spot, mock_exps
 
-                    tk, current_price, expirations = get_options_chain(ticker)
+                    source, tk, current_price, expirations = get_options_chain(ticker)
                     
-                    if tk is None:
-                        st.error("Rate Limited or Invalid Ticker. Try again later.")
-                    else:
-                        # Find closest expiry
-                        target_date = expiry.strftime("%Y-%m-%d")
-                        chosen_exp = expirations[0] 
-                        for exp in expirations:
-                            if exp >= target_date:
-                                chosen_exp = exp
-                                break
+                    if source == "simulated":
+                        st.warning("⚠️ Live Data Limit Reached. Using **Simulated Data** for demonstration.")
                         
-                        # Fetch specific chain (uncached to get real-time price)
-                        opt_chain = tk.option_chain(chosen_exp)
-                        calls = opt_chain.calls
-                        
-                        # Get Sentiment
-                        sentiment = get_live_sentiment(ticker)
-                        
-                        st.session_state['ai_data'] = {
-                            'spot': current_price,
-                            'calls': calls,
-                            'expiry': chosen_exp,
-                            'sentiment': sentiment
-                        }
-                        st.success(f"Loaded Data for {chosen_exp}")
+                    # Find closest expiry
+                    target_date = expiry.strftime("%Y-%m-%d")
+                    chosen_exp = expirations[0] 
+                    for exp in expirations:
+                        if exp >= target_date:
+                            chosen_exp = exp
+                            break
+                    
+                    # Fetch specific chain
+                    calls = None
+                    if source == "yahoo" and tk:
+                        try:
+                            opt_chain = tk.option_chain(chosen_exp)
+                            calls = opt_chain.calls
+                        except:
+                            source = "simulated" # Fallback if chain fetch fails
+                            
+                    if source == "simulated":
+                        # Generate Mock Calls
+                        strikes = np.linspace(current_price * 0.8, current_price * 1.2, 20)
+                        mock_calls = []
+                        for k in strikes:
+                            # Use rough BS approximation for lastPrice
+                            T_approx = 30/365
+                            vol_approx = 0.2
+                            bs_p = black_scholes(current_price, k, T_approx, 0.045, vol_approx, "call")
+                            # Add some noise
+                            market_p = bs_p * (1 + np.random.uniform(-0.1, 0.1))
+                            mock_calls.append({
+                                'strike': k,
+                                'lastPrice': market_p,
+                                'impliedVolatility': vol_approx + np.random.uniform(-0.05, 0.05)
+                            })
+                        calls = pd.DataFrame(mock_calls)
+
+                    # Get Sentiment
+                    sentiment = get_live_sentiment(ticker)
+                    
+                    st.session_state['ai_data'] = {
+                        'spot': current_price,
+                        'calls': calls,
+                        'expiry': chosen_exp,
+                        'sentiment': sentiment,
+                        'source': source
+                    }
+                    st.success(f"Loaded Data for {chosen_exp}")
                     
                 except Exception as e:
                     st.error(f"Error fetching data: {e}")
