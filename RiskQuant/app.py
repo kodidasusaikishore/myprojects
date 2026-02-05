@@ -12,8 +12,10 @@ import os
 # --- Load Pre-trained AI Model (Lazy Load) ---
 @st.cache_resource
 def load_ai_model():
-    if os.path.exists("option_pricing_model.keras"):
-        return keras.models.load_model("option_pricing_model.keras")
+    # Use absolute path relative to this script
+    model_path = os.path.join(os.path.dirname(__file__), "option_pricing_model.keras")
+    if os.path.exists(model_path):
+        return keras.models.load_model(model_path)
     return None
 
 ai_model = load_ai_model()
@@ -37,14 +39,20 @@ st.markdown("""
         border: 1px solid #e2e8f0;
     }
     
-    /* Metrics - Pure White */
+    /* Metrics - Pure White Force */
     div[data-testid="stMetricValue"] {
-        color: #2d3748;
+        color: white !important;
     }
     div[data-testid="stMetricLabel"] {
-        color: #000000 !important;
+        color: #ffffff !important;
         font-weight: 700 !important;
         font-size: 1rem !important;
+    }
+    label[data-testid="stMetricLabel"] {
+        color: #ffffff !important;
+    }
+    div[data-testid="stMetric"] label {
+        color: #ffffff !important;
     }
     
     /* Headers */
