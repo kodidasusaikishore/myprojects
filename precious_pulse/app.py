@@ -216,7 +216,7 @@ st.markdown("""
         padding-top: 0px !important;
     }
     
-    /* Expander Spacing Fix */
+    /* Expander Spacing Fix - Header */
     div[data-testid="stExpander"] {
         margin-bottom: 20px !important;
         border: 1px solid rgba(255,255,255,0.2);
@@ -225,22 +225,23 @@ st.markdown("""
     .streamlit-expanderHeader {
         background-color: rgba(0,0,0,0.2);
     }
-    /* Nuclear fix for gap reduction */
-    .stRadio + div {
-        margin-top: -30px !important;
-    }
-    /* Move main content up */
-    .block-container {
-        padding-top: 2rem !important;
+    
+    /* Global Background Fix */
+    .stApp {
+        background: #000000;
+        background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+        color: white;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # --- Header ---
 st.title("💎 PreciousPulse")
-st.markdown("### AI-Powered Bullion Tracker & Predictor")
 
-# --- Sidebar Configuration (Moved up so variables are available) ---
+# Metric cards container (moved UP)
+metric_container = st.container()
+
+# --- Sidebar Configuration ---
 st.sidebar.header("⚙️ Market Config")
 metal_choice = st.sidebar.radio("Select Asset", ["Gold 🟡", "Silver ⚪", "Copper 🟠"])
 
@@ -259,9 +260,14 @@ elif "Copper" in metal_choice:
 else:
     unit = "₹"
 
-# Disclaimer in a clean expander
-with st.expander("ℹ️ How are these prices calculated?"):
-    st.caption(f"Prices in the metrics section are estimated by converting the Global Spot Rate (USD) to **{unit}** using real-time FX rates. Actual local market prices (MCX/Retail) may vary slightly due to import duties and taxes.")
+with metric_container:
+    st.markdown("### AI-Powered Bullion Tracker & Predictor")
+    
+    # Disclaimer in a clean expander
+    with st.expander("ℹ️ How are these prices calculated?", expanded=True):
+        st.caption(f"Prices in the metrics section are estimated by converting the Global Spot Rate (USD) to **{unit}** using real-time FX rates. Actual local market prices (MCX/Retail) may vary slightly due to import duties and taxes.")
+        
+    st.markdown("") # Tiny spacer
 
 # Clean up old duplicate
 # st.info(...) removed
