@@ -25,11 +25,11 @@ A collection of AI, Finance, and Web Development projects showcasing full-stack 
 *   **Forecast:** Generates a 3-Day future price projection.
 *   **Sentiment:** Analyzes news headlines to gauge market confidence.
 
-### 4. [AURA - QA Dashboard 🛡️](https://github.com/kodidasusaikishore/myprojects/tree/main/qa_dashboard)
-**Automated Unified Recon Analytics**
-*   **Full Stack:** React (Vite) Frontend + Django Backend.
-*   **Features:** Visualizes Autosys job health, Golem Reconciliation status, and Prod vs Stg data integrity.
-*   **UI:** Premium "Cyberpunk/Glow" aesthetic with interactive data visualization.
+### 4. [Personal Portfolio Website 🚀](https://kodidasusaikishore.github.io/portfolio/)
+**Interactive Developer Showcase**
+*   **Tech:** React, TailwindCSS, Framer Motion.
+*   **Design:** Futuristic "Glassmorphism" UI with smooth animations.
+*   **Features:** Responsive layout, dynamic project gallery, and interactive "Contact Me" section.
 
 ---
 *Built with ❤️ using Python, React, and AI.*
