@@ -58,14 +58,18 @@ st.markdown("""
         color: #1a202c;
     }
     
-    /* Input Fields */
-    .stTextInput input, .stNumberInput input, .stSelectbox div[data-baseweb="select"] {
-        background-color: #ffffff;
-        color: #2d3748;
-        border: 1px solid #e2e8f0;
+    /* Input Labels (Sliders, Text Inputs, Number Inputs) - Force BLACK */
+    .stTextInput label, 
+    .stNumberInput label, 
+    .stSlider label, 
+    .stRadio label,
+    .stDateInput label,
+    div[data-testid="stMarkdownContainer"] p {
+        color: #000000 !important;
+        font-weight: 600 !important;
     }
     
-    /* Metrics - Force BLACK for Light Theme */
+    /* Metrics - Force BLACK */
     div[data-testid="stMetricValue"] {
         color: #000000 !important;
     }
