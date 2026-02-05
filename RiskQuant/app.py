@@ -88,13 +88,16 @@ st.markdown("""
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     
-    /* Cards */
-    .metric-card {
-        background: white;
-        border-radius: 8px;
-        padding: 15px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        border: 1px solid #e2e8f0;
+    /* Buttons (Run Simulation etc) */
+    .stButton > button {
+        color: white !important;
+        background-color: #2b6cb0 !important;
+        border: none !important;
+    }
+    
+    /* Checkbox - Force visibility */
+    .stCheckbox label span {
+        color: #000000 !important;
     }
 </style>
 """, unsafe_allow_html=True)
