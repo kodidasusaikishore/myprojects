@@ -39,7 +39,17 @@ st.markdown("""
         border: 1px solid #e2e8f0;
     }
     
-    /* Metrics - Force BLACK for Light Theme */
+    /* Input Labels (Sliders, Text Inputs, Number Inputs) - Force BLACK */
+    .stTextInput label, 
+    .stNumberInput label, 
+    .stSlider label, 
+    .stRadio label,
+    div[data-testid="stMarkdownContainer"] p {
+        color: #000000 !important;
+        font-weight: 600 !important;
+    }
+    
+    /* Metrics - Force BLACK */
     div[data-testid="stMetricValue"] {
         color: #000000 !important;
     }
