@@ -1,0 +1,1796 @@
+[
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Select the first visible cell in the sheet (or bottom-right of freeze panes)",
+    "Keys": "Ctrl+Home",
+    "Mac": "Fn+Ctrl+\u2190"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Select the last used cell in the sheet",
+    "Keys": "Ctrl+End",
+    "Mac": "Fn+Ctrl+\u2192"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Select first cell in the row of the active cell",
+    "Keys": "Home",
+    "Mac": "Fn+\u2190"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Turn on End Mode (similar to Ctrl+Arrow Keys)",
+    "Keys": "End",
+    "Mac": "Fn+\u2192"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Select the first/last cell of a region (non-blank cells) moving up",
+    "Keys": "Ctrl+\u2191",
+    "Mac": "Ctrl+\u2191"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Select the first/last cell of a region (non-blank cells) moving right",
+    "Keys": "Ctrl+\u2192",
+    "Mac": "Ctrl+\u2192"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Select the first/last cell of a region (non-blank cells) moving down",
+    "Keys": "Ctrl+\u2193",
+    "Mac": "Ctrl+\u2193"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Select the first/last cell of a region (non-blank cells) moving left",
+    "Keys": "Ctrl+\u2190",
+    "Mac": "Ctrl+\u2190"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Select cell one screen down from the active cell",
+    "Keys": "PgDn",
+    "Mac": "Fn+\u2193"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Select cell one screen up from the active cell",
+    "Keys": "PgUp",
+    "Mac": "Fn+\u2191"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Select cell one screen to the right of the active cell",
+    "Keys": "Alt+PgDn",
+    "Mac": "Fn+Alt+\u2193"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Select cell one screen to the left of the active cell",
+    "Keys": "Alt+PgUp",
+    "Mac": "Fn+Alt+\u2191"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Move one cell up ",
+    "Keys": "\u2191",
+    "Mac": "\u2191"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Move one cell right ",
+    "Keys": "\u2192",
+    "Mac": "\u2192"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Move one cell down ",
+    "Keys": "\u2193",
+    "Mac": "\u2193"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Move one cell left ",
+    "Keys": "\u2190",
+    "Mac": "\u2190"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Go back to hyperlink",
+    "Keys": "Ctrl+G,Enter",
+    "Mac": "Ctrl+G,Return"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Open the Find window",
+    "Keys": "Ctrl+F",
+    "Mac": "Cmd+F"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Open the Find & Replace window",
+    "Keys": "Ctrl+H",
+    "Mac": "Ctrl+H"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Find next match",
+    "Keys": "Shift+F4",
+    "Mac": "Cmd+G"
+  },
+  {
+    "Category": "Cells & Ranges: Navigation",
+    "Action": "Find previous match",
+    "Keys": "Ctrl+Shift+F4",
+    "Mac": "Cmd+Shift+G"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Begin entering a formula",
+    "Keys": "= OR +",
+    "Mac": "= OR +"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Insert function into formula with autocomplete",
+    "Keys": "Tab",
+    "Mac": "\u2193Tab"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Edit the active cell",
+    "Keys": "F2",
+    "Mac": "Ctrl+U"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Toggle Enter and Edit modes while editing formula",
+    "Keys": "F2",
+    "Mac": "Ctrl+U"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Exit cell edit mode",
+    "Keys": "Esc",
+    "Mac": "Esc"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Toggle absolute and relative references",
+    "Keys": "F4",
+    "Mac": "Cmd+T"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "AutoSum",
+    "Keys": "Alt+=",
+    "Mac": "Cmd+Shift+T"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Open Function Arguments window (when text cursor is inside function)",
+    "Keys": "Ctrl+A",
+    "Mac": "Ctrl+A"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Open the Insert Function window",
+    "Keys": "Shift+F3",
+    "Mac": "Fn+Shift+F3"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Show Formulas instead of Values in cells (toggle) Ctrl+` or",
+    "Keys": "Ctrl+ or Ctrl+~",
+    "Mac": "Ctrl+`"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Expand or collapse the formula bar",
+    "Keys": "Ctrl+Shift+U",
+    "Mac": "Ctrl+Shift+U"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Calculate worksheets",
+    "Keys": "F9",
+    "Mac": "Fn+F9"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Calculate active worksheet",
+    "Keys": "Shift+F9",
+    "Mac": "Fn+Shift+F9"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Calculate entire workbook",
+    "Keys": "Ctrl+Alt+F9",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Insert name into formula",
+    "Keys": "F3",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Open Name Manager window",
+    "Keys": "Ctrl+F3",
+    "Mac": "Fn+Ctrl+F3"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Open Create Names From Selection window",
+    "Keys": "Ctrl+Shift+F3",
+    "Mac": "Fn+Ctrl+Shift+F3"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Set focus on Name Box",
+    "Keys": "Alt+F3",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Enter array formula",
+    "Keys": "Ctrl+Shift+Enter",
+    "Mac": "Ctrl+Shift+Return"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Evaluate selected text in a formula",
+    "Keys": "F9",
+    "Mac": "Fn+F9"
+  },
+  {
+    "Category": "Cells & Ranges: Formulas",
+    "Action": "Insert function arguments",
+    "Keys": "Ctrl+Shift+A",
+    "Mac": "Ctrl+Shift+A"
+  },
+  {
+    "Category": "Cells & Ranges: Entering data",
+    "Action": "Open AutoComplete dropdown list",
+    "Keys": "Alt+\u2193",
+    "Mac": "Alt+\u2193"
+  },
+  {
+    "Category": "Cells & Ranges: Entering data",
+    "Action": "Enter and move to next cell (based on direction set in Excel Options)",
+    "Keys": "Enter",
+    "Mac": "Return"
+  },
+  {
+    "Category": "Cells & Ranges: Entering data",
+    "Action": "Enter and move to previous cell (based on direction set in Excel Options)",
+    "Keys": "Shift+Enter",
+    "Mac": "Shift+Return"
+  },
+  {
+    "Category": "Cells & Ranges: Entering data",
+    "Action": "Enter and move right",
+    "Keys": "Tab",
+    "Mac": "Tab"
+  },
+  {
+    "Category": "Cells & Ranges: Entering data",
+    "Action": "Enter and move left",
+    "Keys": "Shift+Tab",
+    "Mac": "Shift+Tab"
+  },
+  {
+    "Category": "Cells & Ranges: Entering data",
+    "Action": "Insert current date",
+    "Keys": "Ctrl+;",
+    "Mac": "Ctrl+;"
+  },
+  {
+    "Category": "Cells & Ranges: Entering data",
+    "Action": "Insert current time",
+    "Keys": "Ctrl+Shift+;",
+    "Mac": "Cmd+;"
+  },
+  {
+    "Category": "Cells & Ranges: Entering data",
+    "Action": "Copy formula from cell above",
+    "Keys": "Ctrl+'",
+    "Mac": "Ctrl+'"
+  },
+  {
+    "Category": "Cells & Ranges: Entering data",
+    "Action": "Copy value (result of formula) from cell above",
+    "Keys": "Ctrl+Shift+'",
+    "Mac": "Ctrl+Shift+'"
+  },
+  {
+    "Category": "Cells & Ranges: Entering data",
+    "Action": "Fill down from cell above",
+    "Keys": "Ctrl+D",
+    "Mac": "Ctrl+D"
+  },
+  {
+    "Category": "Cells & Ranges: Entering data",
+    "Action": "Fill right",
+    "Keys": "Ctrl+R",
+    "Mac": "Ctrl+R"
+  },
+  {
+    "Category": "Cells & Ranges: Entering data",
+    "Action": "Flash fill",
+    "Keys": "Ctrl+E",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Entering data",
+    "Action": "Stay in same cell when editing cell when single cell is selected",
+    "Keys": "Ctrl+Enter",
+    "Mac": "Ctrl+Return"
+  },
+  {
+    "Category": "Cells & Ranges: Entering data",
+    "Action": "Copy data or formula to all selected cells when editing cell",
+    "Keys": "Ctrl+Enter",
+    "Mac": "Ctrl+Return"
+  },
+  {
+    "Category": "Cells & Ranges: Editing Text",
+    "Action": "Enter a line break (new line) in a cell",
+    "Keys": "Alt+Enter",
+    "Mac": "Ctrl+Alt+Return"
+  },
+  {
+    "Category": "Cells & Ranges: Editing Text",
+    "Action": "Delete character to the left of cursor",
+    "Keys": "Backspace",
+    "Mac": "Delete"
+  },
+  {
+    "Category": "Cells & Ranges: Editing Text",
+    "Action": "Delete character to the right of cursor",
+    "Keys": "Delete",
+    "Mac": "Fn+Delete"
+  },
+  {
+    "Category": "Cells & Ranges: Editing Text",
+    "Action": "Delete to end of line",
+    "Keys": "Ctrl+Delete",
+    "Mac": "Ctrl+Delete"
+  },
+  {
+    "Category": "Cells & Ranges: Editing Text",
+    "Action": "Move text cursor one word to the right",
+    "Keys": "Ctrl+\u2192",
+    "Mac": "Ctrl+\u2192"
+  },
+  {
+    "Category": "Cells & Ranges: Editing Text",
+    "Action": "Move text cursor one word to the left",
+    "Keys": "Ctrl+\u2190",
+    "Mac": "Ctrl+\u2190"
+  },
+  {
+    "Category": "Cells & Ranges: Editing Text",
+    "Action": "Select one word right",
+    "Keys": "Ctrl+Shift+\u2192",
+    "Mac": "Ctrl+Shift+\u2192"
+  },
+  {
+    "Category": "Cells & Ranges: Editing Text",
+    "Action": "Select one word left",
+    "Keys": "Ctrl+Shift+\u2190",
+    "Mac": "Ctrl+Shift+\u2190"
+  },
+  {
+    "Category": "Cells & Ranges: Editing Text",
+    "Action": "Select one character right",
+    "Keys": "Shift+\u2192",
+    "Mac": "Shift+\u2192"
+  },
+  {
+    "Category": "Cells & Ranges: Editing Text",
+    "Action": "Select one character left",
+    "Keys": "Shift+\u2190",
+    "Mac": "Shift+\u2190"
+  },
+  {
+    "Category": "Cells & Ranges: Editing Text",
+    "Action": "Select to beginning of cell",
+    "Keys": "Shift+Home",
+    "Mac": "Fn+Shift+\u2190"
+  },
+  {
+    "Category": "Cells & Ranges: Editing Text",
+    "Action": "Select to end of the text/formula",
+    "Keys": "Shift+End",
+    "Mac": "Fn+Shift+\u2192"
+  },
+  {
+    "Category": "Cells & Ranges: Number Formatting",
+    "Action": "Apply General format to selected cells",
+    "Keys": "Ctrl+Shift+~",
+    "Mac": "Ctrl+Shift+~"
+  },
+  {
+    "Category": "Cells & Ranges: Number Formatting",
+    "Action": "Apply Number format to selected cells",
+    "Keys": "Ctrl+Shift+!",
+    "Mac": "Ctrl+Shift+!"
+  },
+  {
+    "Category": "Cells & Ranges: Number Formatting",
+    "Action": "Apply Date format to selected cells",
+    "Keys": "Ctrl+Shift+#",
+    "Mac": "Ctrl+Shift+#"
+  },
+  {
+    "Category": "Cells & Ranges: Number Formatting",
+    "Action": "Apply Currency format to selected cells",
+    "Keys": "Ctrl+Shift+$",
+    "Mac": "Ctrl+Shift+$"
+  },
+  {
+    "Category": "Cells & Ranges: Number Formatting",
+    "Action": "Apply Percent format/style to selected cells",
+    "Keys": "Ctrl+Shift+%",
+    "Mac": "Ctrl+Shift+%"
+  },
+  {
+    "Category": "Cells & Ranges: Number Formatting",
+    "Action": "Apply Time format to selected cells",
+    "Keys": "Ctrl+Shift+@",
+    "Mac": "Ctrl+Shift+@"
+  },
+  {
+    "Category": "Cells & Ranges: Number Formatting",
+    "Action": "Apply Scientific format to selected cells",
+    "Keys": "Ctrl+Shift+^",
+    "Mac": "Ctrl+Shift+^"
+  },
+  {
+    "Category": "Cells & Ranges: Number Formatting",
+    "Action": "Modify Cell Style of the active cell",
+    "Keys": "Alt+'",
+    "Mac": "Cmd+Shift+L"
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Remove indent",
+    "Keys": "Alt,H,5",
+    "Mac": "Ctrl+Alt+Shift+Tab"
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Indent",
+    "Keys": "Alt,H,6",
+    "Mac": "Ctrl+Alt+Tab"
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Left Align",
+    "Keys": "Alt,H,A,L",
+    "Mac": "Cmd+L"
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Center Align",
+    "Keys": "Alt,H,A,C",
+    "Mac": "Cmd+E"
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Right Align",
+    "Keys": "Alt,H,A,R",
+    "Mac": "Cmd+R"
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Top Align",
+    "Keys": "Alt,H,A,T",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Middle Align",
+    "Keys": "Alt,H,A,M",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Bottom Align",
+    "Keys": "Alt,H,A,B",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Increase Font Size",
+    "Keys": "Alt,H,F,G",
+    "Mac": "Cmd+Shift+>"
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Decrease Font Size",
+    "Keys": "Alt,H,F,K",
+    "Mac": "Cmd+Shift+<"
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Wrap Text",
+    "Keys": "Alt,H,W",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Format Window for cells and objects",
+    "Keys": "Ctrl+1",
+    "Mac": "Cmd+1"
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Apply or remove bold formatting",
+    "Keys": "Ctrl+B",
+    "Mac": "Cmd+B"
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Apply or remove italic formatting",
+    "Keys": "Ctrl+I",
+    "Mac": "Cmd+I"
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Apply or remove underscoring",
+    "Keys": "Ctrl+U",
+    "Mac": "Cmd+U"
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Apply or remove strikethrough formatting",
+    "Keys": "Ctrl+5",
+    "Mac": "Cmd+Shift+X"
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Display Format Cells with Font tab selected",
+    "Keys": "Ctrl+Shift+F",
+    "Mac": "Ctrl+Shift+F"
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Insert or edit Cell Note",
+    "Keys": "Shift+F2",
+    "Mac": "Fn+Shift+F2"
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Insert or reply to Cell Comment",
+    "Keys": "Ctrl+Shift+F2",
+    "Mac": "Fn+Ctrl+Shift+F2"
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Delete comment",
+    "Keys": "Shift+F10,M",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Cell & Font Formatting",
+    "Action": "Add hyperlink",
+    "Keys": "Ctrl+K",
+    "Mac": "Cmd+K"
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "Select all cells in worksheet (unless active cell is in a Table)",
+    "Keys": "Ctrl+A",
+    "Mac": "Ctrl+A"
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "Select entire row",
+    "Keys": "Shift+Space",
+    "Mac": "Shift+Space"
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "Select entire column",
+    "Keys": "Ctrl+Space",
+    "Mac": "Ctrl+Space"
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "Add non-adjacent cells to selection",
+    "Keys": "Ctrl+Click",
+    "Mac": "Cmd+Click"
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "Add adjacent cells to selection",
+    "Keys": "Shift+Click",
+    "Mac": "Shift+Click"
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "Toggle Add or Remove Selection Mode",
+    "Keys": "Shift+F8",
+    "Mac": "Fn+Shift+F8"
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "Same selection in next column",
+    "Keys": "",
+    "Mac": "Opt+Tab"
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "Same selection in previous column",
+    "Keys": "",
+    "Mac": "Opt+Shift+Tab"
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "Move right between non-adjacent selections",
+    "Keys": "",
+    "Mac": "Ctrl+Alt+\u2192"
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "Move left between non-adjacent selections",
+    "Keys": "",
+    "Mac": "Ctrl+Alt+\u2190"
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "Open Insert window",
+    "Keys": "Ctrl++",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "Insert rows (with rows selected)",
+    "Keys": "Ctrl++",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "Insert columns (with columns selected)",
+    "Keys": "Ctrl++",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "Open Delete window",
+    "Keys": "Ctrl+-",
+    "Mac": "Cmd+-"
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "Delete rows (with rows selected)",
+    "Keys": "Ctrl+-",
+    "Mac": "Cmd+-"
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "Delete columns (with columns selected)",
+    "Keys": "Ctrl+-",
+    "Mac": "Cmd+-"
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "Delete cells (with cells selected)",
+    "Keys": "Ctrl+-",
+    "Mac": "Cmd+-"
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "AutoFit Column Width",
+    "Keys": "Alt,H,O,I",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Rows & Columns",
+    "Action": "AutoFit Row Height",
+    "Keys": "Alt,H,O,A",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Group & Hide",
+    "Action": "Group rows or columns (with rows/columns selected)",
+    "Keys": "Shift+Alt+\u2192",
+    "Mac": "Cmd+Shift+K"
+  },
+  {
+    "Category": "Cells & Ranges: Group & Hide",
+    "Action": "Ungroup rows or columns (with rows/columns selected)",
+    "Keys": "Shift+Alt+\u2190",
+    "Mac": "Cmd+Shift+J"
+  },
+  {
+    "Category": "Cells & Ranges: Group & Hide",
+    "Action": "Open Group window (with cell or range selected)",
+    "Keys": "Shift+Alt+\u2192",
+    "Mac": "Cmd+Shift+K"
+  },
+  {
+    "Category": "Cells & Ranges: Group & Hide",
+    "Action": "Open Ungroup window (with cell or range selected)",
+    "Keys": "Shift+Alt+\u2190",
+    "Mac": "Cmd+Shift+J"
+  },
+  {
+    "Category": "Cells & Ranges: Group & Hide",
+    "Action": "Hide or show outline symbols",
+    "Keys": "Ctrl+8",
+    "Mac": "Ctrl+8"
+  },
+  {
+    "Category": "Cells & Ranges: Group & Hide",
+    "Action": "Hide rows",
+    "Keys": "Ctrl+9",
+    "Mac": "Ctrl+9"
+  },
+  {
+    "Category": "Cells & Ranges: Group & Hide",
+    "Action": "Hide columns",
+    "Keys": "Ctrl+0",
+    "Mac": "Ctrl+0"
+  },
+  {
+    "Category": "Cells & Ranges: Group & Hide",
+    "Action": "Unhide rows",
+    "Keys": "Ctrl+Shift+9",
+    "Mac": "Ctrl+Shift+9"
+  },
+  {
+    "Category": "Cells & Ranges: Group & Hide",
+    "Action": "Unhide columns",
+    "Keys": "Ctrl+Shift+0",
+    "Mac": "Ctrl+Shift+0"
+  },
+  {
+    "Category": "Cells & Ranges: Group & Hide",
+    "Action": "Unhide columns (Alternate: Ctrl+Shift+0 does not work on some versions of Windows)",
+    "Keys": "Alt,H,O,U,L",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Active Cell",
+    "Action": "Activate next cell in selected range (based on direction set in Excel Options)",
+    "Keys": "Enter",
+    "Mac": "Return"
+  },
+  {
+    "Category": "Cells & Ranges: Active Cell",
+    "Action": "Activate next cell to right/below in selected range",
+    "Keys": "Tab",
+    "Mac": "Tab"
+  },
+  {
+    "Category": "Cells & Ranges: Active Cell",
+    "Action": "Activate each corner cell in selected range in clockwise direction",
+    "Keys": "Ctrl+.",
+    "Mac": "Ctrl+."
+  },
+  {
+    "Category": "Cells & Ranges: Active Cell",
+    "Action": "Activate previous cell in selection (based on direction set in Excel Options)",
+    "Keys": "Shift+Enter",
+    "Mac": "Shift+Return"
+  },
+  {
+    "Category": "Cells & Ranges: Active Cell",
+    "Action": "Activate previous cell to left/above in selected range",
+    "Keys": "Shift+Tab",
+    "Mac": "Shift+Tab"
+  },
+  {
+    "Category": "Cells & Ranges: Active Cell",
+    "Action": "Scroll active cell into view",
+    "Keys": "Ctrl+Backspace",
+    "Mac": "Cmd+Delete"
+  },
+  {
+    "Category": "Cells & Ranges: Active Cell",
+    "Action": "Select single (active) cell when range is selected",
+    "Keys": "Shift+Backspace",
+    "Mac": "Shift+Delete"
+  },
+  {
+    "Category": "Cells & Ranges: Extend Selection",
+    "Action": "Extend selection by one cell up",
+    "Keys": "Shift+\u2191",
+    "Mac": "Shift+\u2191"
+  },
+  {
+    "Category": "Cells & Ranges: Extend Selection",
+    "Action": "Extend selection by one cell right",
+    "Keys": "Shift+\u2192",
+    "Mac": "Shift+\u2192"
+  },
+  {
+    "Category": "Cells & Ranges: Extend Selection",
+    "Action": "Extend selection by one cell down",
+    "Keys": "Shift+\u2193",
+    "Mac": "Shift+\u2193"
+  },
+  {
+    "Category": "Cells & Ranges: Extend Selection",
+    "Action": "Extend selection by one cell left",
+    "Keys": "Shift+\u2190",
+    "Mac": "Shift+\u2190"
+  },
+  {
+    "Category": "Cells & Ranges: Extend Selection",
+    "Action": "Extend the selection to the last cell up",
+    "Keys": "Ctrl+Shift+\u2191",
+    "Mac": "Ctrl+Shift+\u2191"
+  },
+  {
+    "Category": "Cells & Ranges: Extend Selection",
+    "Action": "Extend the selection to the last cell right",
+    "Keys": "Ctrl+Shift+\u2192",
+    "Mac": "Ctrl+Shift+\u2192"
+  },
+  {
+    "Category": "Cells & Ranges: Extend Selection",
+    "Action": "Extend the selection to the last cell down",
+    "Keys": "Ctrl+Shift+\u2193",
+    "Mac": "Ctrl+Shift+\u2193"
+  },
+  {
+    "Category": "Cells & Ranges: Extend Selection",
+    "Action": "Extend the selection to the last cell left",
+    "Keys": "Ctrl+Shift+\u2190",
+    "Mac": "Ctrl+Shift+\u2190"
+  },
+  {
+    "Category": "Cells & Ranges: Extend Selection",
+    "Action": "Extend selection to first cell in worksheet",
+    "Keys": "Ctrl+Shift+Home",
+    "Mac": "Fn+Ctrl+Shift+\u2190"
+  },
+  {
+    "Category": "Cells & Ranges: Extend Selection",
+    "Action": "Extend selection to last cell in worksheet",
+    "Keys": "Ctrl+Shift+End",
+    "Mac": "Fn+Ctrl+Shift+\u2192"
+  },
+  {
+    "Category": "Cells & Ranges: Extend Selection",
+    "Action": "Extend selection right one screen",
+    "Keys": "Shift+Alt+PgDn",
+    "Mac": "Fn+Shift+Alt+\u2193"
+  },
+  {
+    "Category": "Cells & Ranges: Extend Selection",
+    "Action": "Extend selection left one screen",
+    "Keys": "Shift+Alt+PgUp",
+    "Mac": "Fn+Shift+Alt+\u2191"
+  },
+  {
+    "Category": "Cells & Ranges: Extend Selection",
+    "Action": "Extend selection to start of row",
+    "Keys": "Shift+Home",
+    "Mac": "Fn+Shift+\u2190"
+  },
+  {
+    "Category": "Cells & Ranges: Extend Selection",
+    "Action": "Extend selection down one screen",
+    "Keys": "Shift+PgDn",
+    "Mac": "Fn+Shift+\u2193"
+  },
+  {
+    "Category": "Cells & Ranges: Extend Selection",
+    "Action": "Extend selection up one screen",
+    "Keys": "Shift+PgUp",
+    "Mac": "Fn+Shift+\u2191"
+  },
+  {
+    "Category": "Cells & Ranges: Extend Selection",
+    "Action": "Toggle extend selection mode",
+    "Keys": "F8",
+    "Mac": "Fn+F8"
+  },
+  {
+    "Category": "Cells & Ranges: Extend Selection",
+    "Action": "Select Spill Range",
+    "Keys": "Ctrl+A",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Select Special",
+    "Action": "Open the Go To window",
+    "Keys": "F5 OR Ctrl+G",
+    "Mac": "Ctrl+G"
+  },
+  {
+    "Category": "Cells & Ranges: Select Special",
+    "Action": "Open the Go To Special window",
+    "Keys": "Alt,H,F,D,S OR F5,Alt,S",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Select Special",
+    "Action": "Select visible cells only (when range is selected)",
+    "Keys": "Alt+;",
+    "Mac": "Cmd+Shift+Z"
+  },
+  {
+    "Category": "Cells & Ranges: Select Special",
+    "Action": "Select current region",
+    "Keys": "Ctrl+A",
+    "Mac": "Cmd+A"
+  },
+  {
+    "Category": "Cells & Ranges: Select Special",
+    "Action": "Select current region around active cell",
+    "Keys": "Ctrl+Shift+8",
+    "Mac": "Shift+Ctrl+Space"
+  },
+  {
+    "Category": "Cells & Ranges: Select Special",
+    "Action": "Select current array",
+    "Keys": "Ctrl+/",
+    "Mac": "Ctrl+/"
+  },
+  {
+    "Category": "Cells & Ranges: Select Special",
+    "Action": "Select row differences",
+    "Keys": "Ctrl+\\",
+    "Mac": "Ctrl+\\"
+  },
+  {
+    "Category": "Cells & Ranges: Select Special",
+    "Action": "Select column differences",
+    "Keys": "Ctrl+Shift+\\",
+    "Mac": "Ctrl+Shift+\\"
+  },
+  {
+    "Category": "Cells & Ranges: Select Special",
+    "Action": "Select direct dependents",
+    "Keys": "Ctrl+]",
+    "Mac": "Ctrl+]"
+  },
+  {
+    "Category": "Cells & Ranges: Select Special",
+    "Action": "Select direct precedents",
+    "Keys": "Ctrl+[",
+    "Mac": "Ctrl+["
+  },
+  {
+    "Category": "Cells & Ranges: Select Special",
+    "Action": "Select all precedents",
+    "Keys": "Ctrl+Shift+{",
+    "Mac": "Ctrl+Shift+{"
+  },
+  {
+    "Category": "Cells & Ranges: Select Special",
+    "Action": "Select all dependents",
+    "Keys": "Ctrl+Shift+}",
+    "Mac": "Ctrl+Shift+}"
+  },
+  {
+    "Category": "Cells & Ranges: Select Special",
+    "Action": "Select cells with comments",
+    "Keys": "Ctrl+Shift+O",
+    "Mac": "Fn+Ctrl+Shift+O"
+  },
+  {
+    "Category": "Cells & Ranges: Mouse Shortcuts for Copying & Moving Cells",
+    "Action": "Copy selected range or shape",
+    "Keys": "Ctrl+drag",
+    "Mac": "Alt+drag"
+  },
+  {
+    "Category": "Cells & Ranges: Mouse Shortcuts for Copying & Moving Cells",
+    "Action": "Insert copy of selected range (moves existing cells)",
+    "Keys": "Ctrl+Shift+drag",
+    "Mac": "Alt+Shift+drag"
+  },
+  {
+    "Category": "Cells & Ranges: Mouse Shortcuts for Copying & Moving Cells",
+    "Action": "Drag and cut",
+    "Keys": "drag",
+    "Mac": "drag"
+  },
+  {
+    "Category": "Cells & Ranges: Mouse Shortcuts for Copying & Moving Cells",
+    "Action": "Cut and paste selected range (moves existing cells)",
+    "Keys": "Shift+drag",
+    "Mac": "Shift+drag"
+  },
+  {
+    "Category": "Cells & Ranges: Mouse Shortcuts for Copying & Moving Cells",
+    "Action": "Move selected range to another worksheet",
+    "Keys": "Alt+drag",
+    "Mac": "Cmd+drag"
+  },
+  {
+    "Category": "Cells & Ranges: View",
+    "Action": "Zoom in",
+    "Keys": "Ctrl+Alt++",
+    "Mac": "Alt+Cmd++"
+  },
+  {
+    "Category": "Cells & Ranges: View",
+    "Action": "Zoom out",
+    "Keys": "Ctrl+Alt+-",
+    "Mac": "Alt+Cmd+-"
+  },
+  {
+    "Category": "Cells & Ranges: View",
+    "Action": "Zoom in (with mouse)",
+    "Keys": "Ctrl+Scroll Up",
+    "Mac": "Ctrl+Scroll Up"
+  },
+  {
+    "Category": "Cells & Ranges: View",
+    "Action": "Zoom out (with mouse)",
+    "Keys": "Ctrl+Scroll Down",
+    "Mac": "Ctrl+Scroll Down"
+  },
+  {
+    "Category": "Cells & Ranges: View",
+    "Action": "Zoom to Selection",
+    "Keys": "Alt,W,G",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: View",
+    "Action": "Zoom to Selection",
+    "Keys": "Alt,W,J",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: View",
+    "Action": "Toggle Scroll Lock on/off ScrLk",
+    "Keys": "ScrLk",
+    "Mac": "Fn+Shift+F14"
+  },
+  {
+    "Category": "Cells & Ranges: View",
+    "Action": "Toggle Gridlines on/off",
+    "Keys": "Alt,W,V,G",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: View",
+    "Action": "Toggle Freeze Panes on/off",
+    "Keys": "Alt,W,F,F",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Borders",
+    "Action": "Add Outside Borders to selected cell/range",
+    "Keys": "Ctrl+Shift+&",
+    "Mac": "Cmd+Alt+0"
+  },
+  {
+    "Category": "Cells & Ranges: Borders",
+    "Action": "Remove all borders (apply No Borders) to selection",
+    "Keys": "Ctrl+Shift+_",
+    "Mac": "Cmd+Alt+_"
+  },
+  {
+    "Category": "Cells & Ranges: Borders",
+    "Action": "Open Border dropdown menu on Home Tab",
+    "Keys": "Alt,H,B",
+    "Mac": ""
+  },
+  {
+    "Category": "Cells & Ranges: Borders",
+    "Action": "Add all borders to cells in selected range",
+    "Keys": "Alt,H,B,A",
+    "Mac": "Alt,H,B,A"
+  },
+  {
+    "Category": "Cells & Ranges: Borders",
+    "Action": "Add or remove Bottom Border",
+    "Keys": "Alt,H,B,O",
+    "Mac": "Cmd+Alt+\u2193"
+  },
+  {
+    "Category": "Cells & Ranges: Borders",
+    "Action": "Add or remove Top Border",
+    "Keys": "Alt,H,B,P",
+    "Mac": "Cmd+Alt+\u2191"
+  },
+  {
+    "Category": "Cells & Ranges: Borders",
+    "Action": "Add or remove Left Border",
+    "Keys": "Alt,H,B,L",
+    "Mac": "Cmd+Alt+\u2190"
+  },
+  {
+    "Category": "Cells & Ranges: Borders",
+    "Action": "Add or remove Right Border",
+    "Keys": "Alt,H,B,R",
+    "Mac": "Cmd+Alt+\u2192"
+  },
+  {
+    "Category": "Cells & Ranges: Borders",
+    "Action": "Open Borders tab in Format Cells window (More Borders)",
+    "Keys": "Alt,H,B,M",
+    "Mac": ""
+  },
+  {
+    "Category": "Worksheet Tabs",
+    "Action": "Insert new worksheet",
+    "Keys": "Shift+F11",
+    "Mac": "Fn+Shift+F11"
+  },
+  {
+    "Category": "Worksheet Tabs",
+    "Action": "Delete selected worksheets",
+    "Keys": "Alt,E,L",
+    "Mac": ""
+  },
+  {
+    "Category": "Worksheet Tabs",
+    "Action": "Rename current worksheet",
+    "Keys": "Alt,O,H,R",
+    "Mac": ""
+  },
+  {
+    "Category": "Worksheet Tabs",
+    "Action": "Go to next worksheet",
+    "Keys": "Ctrl+PgDn",
+    "Mac": "Fn+Ctrl+\u2193"
+  },
+  {
+    "Category": "Worksheet Tabs",
+    "Action": "Go to previous worksheet",
+    "Keys": "Ctrl+PgUp",
+    "Mac": "Fn+Ctrl+\u2191"
+  },
+  {
+    "Category": "Worksheet Tabs",
+    "Action": "Select adjacent worksheets",
+    "Keys": "Ctrl+Shift+PgUp/PgDn",
+    "Mac": ""
+  },
+  {
+    "Category": "Worksheet Tabs",
+    "Action": "Select adjacent worksheets (mouse)",
+    "Keys": "Shift+Click",
+    "Mac": "Shift+Click"
+  },
+  {
+    "Category": "Worksheet Tabs",
+    "Action": "Select non-adjacent worksheets (mouse)",
+    "Keys": "Ctrl+Click",
+    "Mac": "Cmd+Click"
+  },
+  {
+    "Category": "Worksheet Tabs",
+    "Action": "Open Move or Copy window for selected sheets",
+    "Keys": "Alt,E,M",
+    "Mac": ""
+  },
+  {
+    "Category": "Worksheet Tabs",
+    "Action": "Duplicate worksheet (mouse)",
+    "Keys": "Ctrl+drag",
+    "Mac": "Alt+drag"
+  },
+  {
+    "Category": "Worksheet Tabs",
+    "Action": "Protect or Unprotect Sheet",
+    "Keys": "Alt,R,P,S",
+    "Mac": ""
+  },
+  {
+    "Category": "Worksheet Tabs",
+    "Action": "Clear print area",
+    "Keys": "Alt,P,R,C",
+    "Mac": ""
+  },
+  {
+    "Category": "Worksheet Tabs",
+    "Action": "Set print area",
+    "Keys": "Alt,P,R,S",
+    "Mac": ""
+  },
+  {
+    "Category": "Workbook: File",
+    "Action": "Create new workbook",
+    "Keys": "Ctrl+N",
+    "Mac": "Cmd+N"
+  },
+  {
+    "Category": "Workbook: File",
+    "Action": "Open workbook",
+    "Keys": "Ctrl+O",
+    "Mac": "Cmd+O"
+  },
+  {
+    "Category": "Workbook: File",
+    "Action": "Save workbook",
+    "Keys": "Ctrl+S",
+    "Mac": "Cmd+S"
+  },
+  {
+    "Category": "Workbook: File",
+    "Action": "Save as",
+    "Keys": "F12",
+    "Mac": "Cmd+Shift+S"
+  },
+  {
+    "Category": "Workbook: File",
+    "Action": "Close current workbook",
+    "Keys": "Ctrl+F4 OR Ctrl+W",
+    "Mac": "Cmd+W"
+  },
+  {
+    "Category": "Workbook: File",
+    "Action": "Close Excel",
+    "Keys": "Alt+F4",
+    "Mac": "Cmd+Q"
+  },
+  {
+    "Category": "Workbook: Print",
+    "Action": "Open print preview window",
+    "Keys": "Ctrl+F2",
+    "Mac": "Ctrl+F2"
+  },
+  {
+    "Category": "Workbook: Print",
+    "Action": "Print File",
+    "Keys": "Ctrl+P",
+    "Mac": "Cmd+P"
+  },
+  {
+    "Category": "Workbook: General",
+    "Action": "Undo last action",
+    "Keys": "Ctrl+Z",
+    "Mac": "Cmd+Z"
+  },
+  {
+    "Category": "Workbook: General",
+    "Action": "Redo last action",
+    "Keys": "Ctrl+Y",
+    "Mac": "Cmd+Y"
+  },
+  {
+    "Category": "Workbook: General",
+    "Action": "Repeat last action",
+    "Keys": "F4",
+    "Mac": "Cmd+Y"
+  },
+  {
+    "Category": "Workbook: General",
+    "Action": "Open Excel Options window",
+    "Keys": "Alt,F,T",
+    "Mac": "Cmd+,"
+  },
+  {
+    "Category": "Workbook: General",
+    "Action": "Open help",
+    "Keys": "F1",
+    "Mac": "Cmd+/"
+  },
+  {
+    "Category": "Workbook: General",
+    "Action": "Open the Control Menu (minimize, maximize, close window)",
+    "Keys": "Alt+Space",
+    "Mac": ""
+  },
+  {
+    "Category": "Workbook: General",
+    "Action": "Open Spelling window (Spell Check)",
+    "Keys": "F7",
+    "Mac": "Fn+F7"
+  },
+  {
+    "Category": "Workbook: General",
+    "Action": "Open Thesaurus dialog box",
+    "Keys": "Shift+F7",
+    "Mac": "Fn+Shift+F7"
+  },
+  {
+    "Category": "Workbook: General",
+    "Action": "Open Right-click menu",
+    "Keys": "Shift+F10 OR Menu Key",
+    "Mac": "Fn+Shift+F10"
+  },
+  {
+    "Category": "Workbook: General",
+    "Action": "Move to next pane in application window",
+    "Keys": "F6",
+    "Mac": "Fn+F6"
+  },
+  {
+    "Category": "Workbook: General",
+    "Action": "Move to previous pane",
+    "Keys": "Shift+F6",
+    "Mac": "Fn+Shift+F6"
+  },
+  {
+    "Category": "Workbook: General",
+    "Action": "Protect and Unprotect Workbook",
+    "Keys": "Alt,R,P,W",
+    "Mac": ""
+  },
+  {
+    "Category": "Workbook: View",
+    "Action": "Minimize current workbook window",
+    "Keys": "Ctrl+F9",
+    "Mac": "Cmd+M"
+  },
+  {
+    "Category": "Workbook: View",
+    "Action": "Maximize or Restore current workbook window (toggle)",
+    "Keys": "Ctrl+F10",
+    "Mac": "Fn+Ctrl+F10"
+  },
+  {
+    "Category": "Workbook: View",
+    "Action": "Toggle full screen",
+    "Keys": "Ctrl+Shift+F1",
+    "Mac": "Ctrl+Cmd+F"
+  },
+  {
+    "Category": "Workbook: View",
+    "Action": "Go to previous workbook",
+    "Keys": "Ctrl+Shift+Tab",
+    "Mac": "Ctrl+Shift+Tab"
+  },
+  {
+    "Category": "Workbook: View",
+    "Action": "Go to next workbook",
+    "Keys": "Ctrl+Tab",
+    "Mac": "Ctrl+Tab"
+  },
+  {
+    "Category": "Tables & Filters",
+    "Action": "Insert Table",
+    "Keys": "Ctrl+T",
+    "Mac": "Ctrl+T"
+  },
+  {
+    "Category": "Tables & Filters",
+    "Action": "Insert Table (select style first)",
+    "Keys": "Alt,H,T",
+    "Mac": ""
+  },
+  {
+    "Category": "Tables & Filters",
+    "Action": "Insert a row above the current row",
+    "Keys": "Alt,H, I, R",
+    "Mac": ""
+  },
+  {
+    "Category": "Tables & Filters",
+    "Action": "Insert a column to the left of the current column",
+    "Keys": "Alt,H, I, C",
+    "Mac": ""
+  },
+  {
+    "Category": "Tables & Filters",
+    "Action": "Select Table Body (Press again to include Headers)",
+    "Keys": "Ctrl+A",
+    "Mac": "Cmd+A"
+  },
+  {
+    "Category": "Tables & Filters",
+    "Action": "Select Table row",
+    "Keys": "Shift+Space",
+    "Mac": "Shift+Space"
+  },
+  {
+    "Category": "Tables & Filters",
+    "Action": "Select Table column",
+    "Keys": "Ctrl+Space",
+    "Mac": "Ctrl+Space"
+  },
+  {
+    "Category": "Tables & Filters",
+    "Action": "Toggle Autofilter on/off",
+    "Keys": "Ctrl+Shift+L",
+    "Mac": "Cmd+Shift+F"
+  },
+  {
+    "Category": "Tables & Filters",
+    "Action": "Open Filter Dropdown Menu (with header cell selected)",
+    "Keys": "Alt+\u2193",
+    "Mac": "Alt+\u2193"
+  },
+  {
+    "Category": "Tables & Filters",
+    "Action": "Open Filter Dropdown Menu (from any cell in a Table)",
+    "Keys": "Shift+Alt+\u2193",
+    "Mac": "Shift+Alt+\u2193"
+  },
+  {
+    "Category": "Tables & Filters",
+    "Action": "Toggle Total Row on/off",
+    "Keys": "Ctrl+Shift+T",
+    "Mac": "Cmd+Shift+T"
+  },
+  {
+    "Category": "Tables & Filters",
+    "Action": "Clear slicer filter (with slicer selected)",
+    "Keys": "Alt+C",
+    "Mac": "Alt+C"
+  },
+  {
+    "Category": "Charts & Shapes",
+    "Action": "Create chart or PivotChart on same worksheet",
+    "Keys": "Alt+F1",
+    "Mac": "Fn+Alt+F1"
+  },
+  {
+    "Category": "Charts & Shapes",
+    "Action": "Create chart in new ChartSheet",
+    "Keys": "F11",
+    "Mac": "Fn+F11"
+  },
+  {
+    "Category": "Charts & Shapes",
+    "Action": "Open Format Chart Area Task Pane",
+    "Keys": "Ctrl+1",
+    "Mac": "Cmd+1"
+  },
+  {
+    "Category": "Charts & Shapes",
+    "Action": "Show or Hide All Field Buttons on PivotChart",
+    "Keys": "Alt,J,T,D,A",
+    "Mac": "Alt,J,T,D,A"
+  },
+  {
+    "Category": "Charts & Shapes",
+    "Action": "Snap to grid",
+    "Keys": "Alt",
+    "Mac": "Cmd+"
+  },
+  {
+    "Category": "Charts & Shapes",
+    "Action": "Hide or show objects (shapes, charts, slicers)",
+    "Keys": "Ctrl+6",
+    "Mac": "Ctrl+6"
+  },
+  {
+    "Category": "Copy & Paste",
+    "Action": "Copy selected object (cells, range, shape)",
+    "Keys": "Ctrl+C",
+    "Mac": "Cmd+C"
+  },
+  {
+    "Category": "Copy & Paste",
+    "Action": "Cut selected object",
+    "Keys": "Ctrl+X",
+    "Mac": "Cmd+X"
+  },
+  {
+    "Category": "Copy & Paste",
+    "Action": "Paste content from clipboard",
+    "Keys": "Ctrl+V",
+    "Mac": "Cmd+V"
+  },
+  {
+    "Category": "Copy & Paste",
+    "Action": "Open the Paste Special window",
+    "Keys": "Ctrl+Alt+V",
+    "Mac": "Cmd+Ctrl+V"
+  },
+  {
+    "Category": "Copy & Paste",
+    "Action": "Duplicate selected object (shapes, charts, slicers)",
+    "Keys": "Ctrl+D",
+    "Mac": "Cmd+D"
+  },
+  {
+    "Category": "Copy & Paste",
+    "Action": "Copy selected objects (mouse)",
+    "Keys": "Ctrl+drag",
+    "Mac": "Cmd+drag"
+  },
+  {
+    "Category": "Copy & Paste",
+    "Action": "Copy selected ojbects and retain vertical or horizontal alignment (mouse)",
+    "Keys": "Ctrl+Shift+drag",
+    "Mac": "Cmd+Shift+Drag"
+  },
+  {
+    "Category": "Copy & Paste",
+    "Action": "Copy selected objects (mouse right-click)",
+    "Keys": "Right-click+Drag",
+    "Mac": "Right-click+Drag"
+  },
+  {
+    "Category": "Copy & Paste",
+    "Action": "Copy selected ojbects and retain vertical or horizontal alignment (right-click mouse) Right-click+Shift+Drag Right-",
+    "Keys": "click+Shift+Drag",
+    "Mac": "click+Shift+Drag"
+  },
+  {
+    "Category": "Pivot Tables",
+    "Action": "Insert Pivot Table",
+    "Keys": "Alt,N,V",
+    "Mac": ""
+  },
+  {
+    "Category": "Pivot Tables",
+    "Action": "Refresh Pivot Table or Query",
+    "Keys": "Alt+F5",
+    "Mac": ""
+  },
+  {
+    "Category": "Pivot Tables",
+    "Action": "Refresh All",
+    "Keys": "Ctrl+Alt+F5",
+    "Mac": ""
+  },
+  {
+    "Category": "Pivot Tables",
+    "Action": "Open pivot table wizard",
+    "Keys": "Alt,D,P",
+    "Mac": "Cmd+Alt+P"
+  },
+  {
+    "Category": "Pivot Tables",
+    "Action": "Select pivot table body",
+    "Keys": "Ctrl+A",
+    "Mac": "Cmd+A"
+  },
+  {
+    "Category": "Pivot Tables",
+    "Action": "Group pivot table items",
+    "Keys": "Shift+Alt+\u2192",
+    "Mac": "Cmd+Shift+K"
+  },
+  {
+    "Category": "Pivot Tables",
+    "Action": "Ungroup pivot table items",
+    "Keys": "Shift+Alt+\u2190",
+    "Mac": "Cmd+Shift+J"
+  },
+  {
+    "Category": "Pivot Tables",
+    "Action": "Unhide (clear filter on) pivot table item",
+    "Keys": "Alt,H,S,C",
+    "Mac": ""
+  },
+  {
+    "Category": "Pivot Tables",
+    "Action": "Filter out (exclude/hide) pivot item",
+    "Keys": "Ctrl+-",
+    "Mac": "Ctrl-"
+  },
+  {
+    "Category": "Pivot Tables",
+    "Action": "Open Filter Dropdown Menu in Pivot Table cells",
+    "Keys": "Alt+\u2193",
+    "Mac": "Alt+\u2193"
+  },
+  {
+    "Category": "Pivot Tables",
+    "Action": "Toggle pivot table field checkbox",
+    "Keys": "Space",
+    "Mac": "Space"
+  },
+  {
+    "Category": "Pivot Tables",
+    "Action": "Insert pivot chart",
+    "Keys": "Alt+F1",
+    "Mac": "Fn+Alt+F1"
+  },
+  {
+    "Category": "Pivot Tables",
+    "Action": "Create pivot chart on new Chart Sheet",
+    "Keys": "F11",
+    "Mac": "Fn+F11"
+  },
+  {
+    "Category": "Ribbon",
+    "Action": "Activate Ribbon shortcut keys",
+    "Keys": "Alt OR Shift+F6",
+    "Mac": ""
+  },
+  {
+    "Category": "Ribbon",
+    "Action": "Move to next ribbon control",
+    "Keys": "Tab",
+    "Mac": "Tab"
+  },
+  {
+    "Category": "Ribbon",
+    "Action": "Move through Ribbon tabs and groups",
+    "Keys": "\u2192 \u2190 \u2191 \u2193",
+    "Mac": ""
+  },
+  {
+    "Category": "Ribbon",
+    "Action": "Open dropdown menu of selected button",
+    "Keys": "Alt+\u2193",
+    "Mac": "Alt+\u2193"
+  },
+  {
+    "Category": "Ribbon",
+    "Action": "Open help window for selected control",
+    "Keys": "F1",
+    "Mac": ""
+  },
+  {
+    "Category": "Ribbon",
+    "Action": "Expand or collapse ribbon",
+    "Keys": "Ctrl+F1",
+    "Mac": "Cmd+Alt+R"
+  },
+  {
+    "Category": "Macros & VBA",
+    "Action": "Open the VB Editor window (VBA)",
+    "Keys": "Alt+F11",
+    "Mac": "Fn+Alt+F11"
+  },
+  {
+    "Category": "Macros & VBA",
+    "Action": "Open the Macro window (run or edit macro)",
+    "Keys": "Alt+F8",
+    "Mac": "Fn+Alt+F8"
+  },
+  {
+    "Category": "Macros & VBA",
+    "Action": "Record Macro",
+    "Keys": "Alt,L,R",
+    "Mac": ""
+  },
+  {
+    "Category": "Macros & VBA",
+    "Action": "Open Excel Add-ins Window",
+    "Keys": "Alt,L,R",
+    "Mac": ""
+  },
+  {
+    "Category": "Macros & VBA",
+    "Action": "Open COM Add-ins Window",
+    "Keys": "Alt,L,J",
+    "Mac": ""
+  },
+  {
+    "Category": "Application: Dialog boxes",
+    "Action": "Move to next",
+    "Keys": "Ctrl+Tab",
+    "Mac": "Ctrl+Tab"
+  },
+  {
+    "Category": "Application: Dialog boxes",
+    "Action": "Move to previous",
+    "Keys": "Ctrl+Shift+Tab",
+    "Mac": "Ctrl+Shift+Tab"
+  },
+  {
+    "Category": "Application: Dialog boxes",
+    "Action": "Move to next control or button",
+    "Keys": "Tab",
+    "Mac": "Tab"
+  },
+  {
+    "Category": "Application: Dialog boxes",
+    "Action": "Move to previous control or button",
+    "Keys": "Shift+Tab",
+    "Mac": "Shift+Tab"
+  },
+  {
+    "Category": "Application: Dialog boxes",
+    "Action": "Press selected control or button",
+    "Keys": "Enter",
+    "Mac": "Return"
+  },
+  {
+    "Category": "Application: Dialog boxes",
+    "Action": "Check and uncheck checkboxes",
+    "Keys": "Space",
+    "Mac": "Space"
+  },
+  {
+    "Category": "Application: Dialog boxes",
+    "Action": "Close the window or dialog box",
+    "Keys": "Esc",
+    "Mac": "Esc"
+  },
+  {
+    "Category": "Power Query",
+    "Action": "Open the Power Query Editor",
+    "Keys": "Alt,A,P,L,N",
+    "Mac": ""
+  },
+  {
+    "Category": "Power Query",
+    "Action": "Press any button in the Power Query Ribbon",
+    "Keys": "Alt, Letter Sequence",
+    "Mac": ""
+  },
+  {
+    "Category": "Power Query",
+    "Action": "Quick Access Toolbar in Power Query",
+    "Keys": "Alt+Number",
+    "Mac": ""
+  },
+  {
+    "Category": "Power Query",
+    "Action": "Rename Column",
+    "Keys": "F2",
+    "Mac": ""
+  },
+  {
+    "Category": "Power Query",
+    "Action": "Remove Column(s)",
+    "Keys": "Delete",
+    "Mac": ""
+  },
+  {
+    "Category": "Power Query",
+    "Action": "Undo last action",
+    "Keys": "Tab (6 times), Delete",
+    "Mac": ""
+  },
+  {
+    "Category": "Power Query",
+    "Action": "Select All Columns",
+    "Keys": "Ctrl+A",
+    "Mac": ""
+  },
+  {
+    "Category": "Power Query",
+    "Action": "Select First Column",
+    "Keys": "Home",
+    "Mac": ""
+  },
+  {
+    "Category": "Power Query",
+    "Action": "Select Last Column",
+    "Keys": "End",
+    "Mac": ""
+  },
+  {
+    "Category": "Power Query",
+    "Action": "Select Multiple Adjacent Columns",
+    "Keys": "Shift+\u2192 or \u2190",
+    "Mac": ""
+  },
+  {
+    "Category": "Power Query",
+    "Action": "Select Multiple Non-Adjacent Columns",
+    "Keys": "Ctrl+\u2192 or \u2190, Space",
+    "Mac": ""
+  },
+  {
+    "Category": "Power Query",
+    "Action": "Open Filter Drop-down Menu",
+    "Keys": "Alt+\u2193",
+    "Mac": ""
+  },
+  {
+    "Category": "Power Query",
+    "Action": "Open Right-click Menus",
+    "Keys": "Menu Key",
+    "Mac": ""
+  },
+  {
+    "Category": "Power Query",
+    "Action": "Open Table Options Menu Select First",
+    "Keys": "Select First Column,\u2190,Space",
+    "Mac": ""
+  },
+  {
+    "Category": "Power Query",
+    "Action": "Select Task Panes & Ribbon ",
+    "Keys": "Tab & Shift+Tab",
+    "Mac": ""
+  },
+  {
+    "Category": "Power Query",
+    "Action": "Close Power Query Window",
+    "Keys": "Alt+F4",
+    "Mac": ""
+  },
+  {
+    "Category": "Power Query",
+    "Action": "Close & Load",
+    "Keys": "Alt,F,Enter",
+    "Mac": ""
+  }
+]
