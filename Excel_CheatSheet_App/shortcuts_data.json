@@ -181,8 +181,8 @@
   },
   {
     "Category": "Cells & Ranges: Formulas",
-    "Action": "Show Formulas instead of Values in cells (toggle) Ctrl+` or",
-    "Keys": "Ctrl+ or Ctrl+~",
+    "Action": "Show Formulas instead of Values in cells (toggle)",
+    "Keys": "Ctrl+` or Ctrl+~",
     "Mac": "Ctrl+`"
   },
   {
