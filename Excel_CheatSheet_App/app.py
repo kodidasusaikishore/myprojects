@@ -395,7 +395,7 @@ st.markdown("""
 
 # --- SIDEBAR NAVIGATION ---
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ["🏠 Home (Search)", "⌨️ Visual Keyboard", "🎮 Shortcut Dojo (Quiz)", "🃏 Flashcards"], label_visibility="collapsed")
+page = st.sidebar.radio("Go to", ["🏠 Home (Search)", "🎮 Shortcut Dojo (Quiz)", "🃏 Flashcards"], label_visibility="collapsed")
 st.sidebar.divider()
 
 # --- GLOBAL PLATFORM STATE ---
@@ -465,68 +465,7 @@ if page == "🏠 Home (Search)":
                 </div>
                 """, unsafe_allow_html=True)
 
-# --- PAGE: VISUAL KEYBOARD ---
-elif page == "⌨️ Visual Keyboard":
-    st.title("⌨️ Interactive Keyboard Map")
-    st.markdown("Click modifier keys (`Ctrl`, `Shift`, `Alt`) to reveal hidden shortcuts!")
-
-    if "active_modifiers" not in st.session_state:
-        st.session_state.active_modifiers = []
-
-    # Keyboard Layout (Simplified)
-    rows = [
-        ["F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12"],
-        ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace"],
-        ["Tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\"],
-        ["Caps", "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "'", "Enter"],
-        ["Shift", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "/", "Shift"],
-        ["Ctrl", "Win", "Alt", "Space", "Alt", "Fn", "Ctrl"]
-    ]
-
-    # Toggle Modifier Function
-    def toggle_mod(key):
-        if key in ["Ctrl", "Shift", "Alt", "Cmd"]:
-            if key in st.session_state.active_modifiers:
-                st.session_state.active_modifiers.remove(key)
-            else:
-                st.session_state.active_modifiers.append(key)
-
-    # Render Keyboard
-    st.write("") # Spacer
-    
-    # Active Modifiers Display
-    active_mods = "+".join(sorted(st.session_state.active_modifiers))
-    st.markdown(f"**Active Modifiers:** `{active_mods if active_mods else 'None'}`")
-
-    # Render Keys
-    for row_idx, row in enumerate(rows):
-        cols = st.columns(len(row))
-        for i, key in enumerate(row):
-            is_active = key in st.session_state.active_modifiers
-            # Basic button for interaction with unique key using coordinates
-            if cols[i].button(key, key=f"kb_{row_idx}_{i}_{key}", type="primary" if is_active else "secondary"):
-                if key in ["Ctrl", "Shift", "Alt", "Cmd"]:
-                    toggle_mod(key)
-                    st.rerun()
-
-    st.divider()
-    
-    # Show Shortcuts for Active Combo
-    if active_mods:
-        query_combo = active_mods + "+"
-        # Filter dataframe for shortcuts starting with this combo
-        matched = df[df['Keys'].str.startswith(query_combo, na=False) | df['Mac'].str.startswith(query_combo, na=False)]
-        
-        if not matched.empty:
-            st.subheader(f"Shortcuts using {active_mods}...")
-            cols = st.columns(3)
-            for i, (index, row) in enumerate(matched.iterrows()):
-                with cols[i % 3]:
-                    st.markdown(f"**{row['Keys']}**: {row['Action']}")
-        else:
-            st.info(f"No specific shortcuts found starting exactly with '{query_combo}' in our database yet.")
-    else:
-        st.info("Click **Ctrl**, **Shift**, or **Alt** above to see what they do!")
+# --- PAGE: VISUAL KEYBOARD --- Removed by request
 
 # --- PAGE: QUIZ DOJO ---
 elif page == "🎮 Shortcut Dojo (Quiz)":
