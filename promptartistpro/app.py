@@ -380,6 +380,46 @@ st.markdown("""
         border-radius: 12px !important;
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
     }
+
+    /* ── Selectbox Styling (Round 3 Fix) ── */
+    /* Target the Streamlit selectbox container */
+    .stSelectbox [data-baseweb="select"] {
+        background-color: #1e293b !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 14px !important;
+    }
+
+    /* Force background for all nested divs to transparent to prevent white layers */
+    .stSelectbox [data-baseweb="select"] div {
+        background-color: transparent !important;
+    }
+
+    /* Target all text elements within the selectbox */
+    .stSelectbox [data-baseweb="select"] span,
+    .stSelectbox [data-baseweb="select"] div {
+        color: #ffffff !important;
+    }
+
+    /* Target the dropdown arrow icon */
+    .stSelectbox [data-baseweb="select"] svg {
+        fill: #ffffff !important;
+        color: #ffffff !important;
+    }
+
+    /* Target the dropdown list (popover) */
+    div[data-baseweb="popover"] ul {
+        background-color: #1e293b !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 12px !important;
+    }
+
+    div[data-baseweb="popover"] li {
+        color: #ffffff !important;
+    }
+
+    div[data-baseweb="popover"] li:hover {
+        background-color: rgba(99, 102, 241, 0.4) !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
