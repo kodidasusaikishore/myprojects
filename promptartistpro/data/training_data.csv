@@ -1,0 +1,390 @@
+text,intent
+write a python script to sort a list,CODING
+generate a python function for binary search,CODING
+create a python class for database connection,CODING
+write a REST API endpoint in Flask,CODING
+help me write a recursive function,CODING
+code a web scraper in python,CODING
+build a python decorator for logging,CODING
+create a data pipeline script,CODING
+write a python script to parse CSV files,CODING
+generate code to connect to PostgreSQL,CODING
+help me write an async function in python,CODING
+create a microservice in FastAPI,CODING
+write a bash script to automate deployment,CODING
+code a linked list implementation,CODING
+build a CLI tool in python,CODING
+write code for file handling operations,CODING
+generate a python module for API integration,CODING
+create error handling middleware,CODING
+write a unit test for my function,TESTING
+create a test case for login functionality,TESTING
+generate cypress test for the registration page,TESTING
+write selenium automation script,TESTING
+build a test suite for the checkout flow,TESTING
+I need test cases for the search feature,TESTING
+create automated tests for the dashboard,TESTING
+write a pytest fixture for database testing,TESTING
+generate integration tests for the payment API,TESTING
+build cypress end-to-end tests,TESTING
+help me write test assertions,TESTING
+create a test plan for the mobile app,TESTING
+write performance tests using locust,TESTING
+generate load testing scripts,TESTING
+automate regression testing,TESTING
+create a BDD test scenario,TESTING
+write a test harness for API endpoints,TESTING
+build a test data generator,TESTING
+create cypress custom commands,TESTING
+write robot framework test cases,TESTING
+help me with test coverage analysis,TESTING
+help me reconcile trade data,DATA_RECONCILIATION
+build a data reconciliation report,DATA_RECONCILIATION
+create a PRISM framework reconciliation,DATA_RECONCILIATION
+match source and target data sets,DATA_RECONCILIATION
+find discrepancies between two databases,DATA_RECONCILIATION
+reconcile position data across systems,DATA_RECONCILIATION
+build a break resolution workflow,DATA_RECONCILIATION
+create a data matching algorithm,DATA_RECONCILIATION
+reconcile cash flows between front and back office,DATA_RECONCILIATION
+identify mismatches in trade confirmations,DATA_RECONCILIATION
+automate daily reconciliation process,DATA_RECONCILIATION
+build a recon dashboard for exceptions,DATA_RECONCILIATION
+match settlement records,DATA_RECONCILIATION
+reconcile NAV calculations,DATA_RECONCILIATION
+create a tolerance-based matching rule,DATA_RECONCILIATION
+build an exception management system,DATA_RECONCILIATION
+reconcile corporate actions data,DATA_RECONCILIATION
+match counterparty confirmations,DATA_RECONCILIATION
+calculate portfolio risk metrics,FINANCE
+generate a PnL attribution report,FINANCE
+build a VaR calculation model,FINANCE
+create a risk dashboard for equity derivatives,FINANCE
+compute mark-to-market valuations,FINANCE
+analyze credit risk exposure,FINANCE
+build a stress testing framework,FINANCE
+calculate regulatory capital requirements,FINANCE
+generate compliance reports,FINANCE
+create a trade lifecycle tracker,FINANCE
+build a margin calculation engine,FINANCE
+compute counterparty credit risk,FINANCE
+analyze market risk factors,FINANCE
+create a financial data aggregation tool,FINANCE
+build a position keeping system,FINANCE
+generate ISDA documentation,FINANCE
+compute swap valuations,FINANCE
+calculate expected shortfall,FINANCE
+write a marketing campaign email,MARKETING
+create social media content strategy,MARKETING
+generate SEO-optimized blog post,MARKETING
+build a content calendar template,MARKETING
+write product launch copy,MARKETING
+create a brand messaging framework,MARKETING
+generate ad copy for Google Ads,MARKETING
+build an email drip campaign,MARKETING
+write a press release template,MARKETING
+create a customer persona document,MARKETING
+generate landing page copy,MARKETING
+build a competitive analysis report,MARKETING
+write newsletter content,MARKETING
+create a marketing funnel strategy,MARKETING
+generate A/B test plan for campaigns,MARKETING
+build a social media posting schedule,MARKETING
+write influencer outreach templates,MARKETING
+create a content distribution plan,MARKETING
+hello how are you,GENERAL
+what can you help me with,GENERAL
+tell me about yourself,GENERAL
+what are your capabilities,GENERAL
+help me with something,GENERAL
+I need assistance,GENERAL
+good morning,GENERAL
+thanks for the help,GENERAL
+can you explain what this tool does,GENERAL
+what domains do you cover,GENERAL
+how does this engine work,GENERAL
+show me available categories,GENERAL
+I have a question,GENERAL
+what prompts do you have,GENERAL
+help me get started,GENERAL
+what is this application,GENERAL
+who built this tool,GENERAL
+give me some examples,GENERAL
+Create a design system with typography and color tokens for a fintech app.,UI_UX_DESIGN
+How do I conduct a usability test for a mobile healthcare application?,UI_UX_DESIGN
+Architect a responsive dashboard for a SaaS product focusing on accessibility.,UI_UX_DESIGN
+Design a series of high-fidelity prototypes for an e-commerce checkout flow.,UI_UX_DESIGN
+What are the best practices for mobile navigation and micro-interactions?,UI_UX_DESIGN
+Develop a brand style guide including iconography and grid systems.,UI_UX_DESIGN
+Perform a heuristic evaluation of our current landing page for conversion.,UI_UX_DESIGN
+Design an inclusive user interface for elderly users with low vision.,UI_UX_DESIGN
+Create a wireframe for a complex data visualization tool in dark mode.,UI_UX_DESIGN
+How to build a scalable component library in Figma for a large dev team?,UI_UX_DESIGN
+Design the user journey for a voice-activated smart home assistant.,UI_UX_DESIGN
+What are the core principles of minimalist UI design for mobile apps?,UI_UX_DESIGN
+Plan a multi-stage user research study for a new gaming social network.,UI_UX_DESIGN
+Define the design language for a futuristic AI terminal interface.,UI_UX_DESIGN
+Audit our design system for WCAG 2.1 Level AA compliance.,UI_UX_DESIGN
+Perform a threat model for a cloud-hosted web application architecture.,CYBERSECURITY
+How to conduct a security audit for a REST API using OWASP Top 10?,CYBERSECURITY
+Design a secure authentication flow with MFA and session protection.,CYBERSECURITY
+Write a penetration testing report for a network infrastructure audit.,CYBERSECURITY
+How to prevent SQL injection and XSS in a Python Flask application?,CYBERSECURITY
+Architect a Zero Trust network for a distributed remote workforce.,CYBERSECURITY
+Respond to a simulated ransomware attack on an enterprise server.,CYBERSECURITY
+Conduct a vulnerability assessment of our containerized microservices.,CYBERSECURITY
+Secure our CI/CD pipeline against supply chain attacks.,CYBERSECURITY
+Implement an automated secrets management system for production keys.,CYBERSECURITY
+Design a SOC incident response plan for a high-traffic fintech startup.,CYBERSECURITY
+How to audit our cloud infrastructure for IAM misconfigurations?,CYBERSECURITY
+Perform a privacy impact assessment for GDPR compliance.,CYBERSECURITY
+Build a secure logging and monitoring system for security event detection.,CYBERSECURITY
+Automate our daily security scans for all public-facing endpoints.,CYBERSECURITY
+Build a sentiment analysis pipeline for customer feedback in real-time.,DATA_SCIENCE
+Design a recommendation engine for a streaming service using collaborative filtering.,DATA_SCIENCE
+Perform exploratory data analysis (EDA) on a large retail dataset.,DATA_SCIENCE
+How to handle missing data and outliers in a predictive modeling task?,DATA_SCIENCE
+Evaluate a random forest classifier using precision-recall curves.,DATA_SCIENCE
+Implement a BERT-based model for named entity recognition (NER).,DATA_SCIENCE
+Optimizing hyperparameters for a gradient boosting machine using Optuna.,DATA_SCIENCE
+Create a data pipeline to ingest streaming data from Kafka into Snowflake.,DATA_SCIENCE
+Build an anomaly detection model for credit card fraud detection.,DATA_SCIENCE
+How to deploy a machine learning model as a scalable microservice?,DATA_SCIENCE
+Perform time-series forecasting for energy consumption with Prophet.,DATA_SCIENCE
+Explain the predictions of a complex neural network using SHAP values.,DATA_SCIENCE
+Design an A/B test framework to measure the impact of a new feature.,DATA_SCIENCE
+Automate the feature engineering process for a credit scoring model.,DATA_SCIENCE
+Build a text summarization tool for legal documents using LLMs.,DATA_SCIENCE
+Create a detailed project roadmap for a multi-quarter product launch.,PROJECT_MANAGEMENT
+Facilitate an agile sprint retrospective and identify actionable improvements.,PROJECT_MANAGEMENT
+Design a stakeholder communication plan for a complex digital transformation.,PROJECT_MANAGEMENT
+How to manage scope creep in a fixed-price software development project?,PROJECT_MANAGEMENT
+Perform a risk assessment and mitigation plan for a global infrastructure project.,PROJECT_MANAGEMENT
+Optimize our team's resource allocation using a Jira-based capacity model.,PROJECT_MANAGEMENT
+Lead a cross-functional team through a product discovery workshop.,PROJECT_MANAGEMENT
+Develop a KPIs dashboard to track project health and team velocity.,PROJECT_MANAGEMENT
+How to handle conflict and misalignment between engineering and product teams?,PROJECT_MANAGEMENT
+Design a change management strategy for a company-wide tool migration.,PROJECT_MANAGEMENT
+Plan and execute a high-stakes leadership offsite for strategic planning.,PROJECT_MANAGEMENT
+Build a RACI matrix for a complex multi-vendor integration project.,PROJECT_MANAGEMENT
+How to prioritize a product backlog using the RICE scoring method?,PROJECT_MANAGEMENT
+Manage the vendor selection process for a new cloud service provider.,PROJECT_MANAGEMENT
+Develop a business case and ROI analysis for a new R&D initiative.,PROJECT_MANAGEMENT
+Write a series of noir detective short stories set in a cyber-punk city.,WRITING_CREATIVE
+Develop a rich world-building guide for a new epic fantasy novel.,WRITING_CREATIVE
+Write a compelling script for a 30-second commercial for a luxury brand.,WRITING_CREATIVE
+"How to create complex, multi-dimensional characters for a novel?",WRITING_CREATIVE
+Compose a series of haikus about the changing of the seasons.,WRITING_CREATIVE
+Write a persuasive long-form essay about the future of human-AI collaboration.,WRITING_CREATIVE
+Design a branching narrative for a text-based adventure game.,WRITING_CREATIVE
+Write a series of high-converting landing page headlines for a SaaS product.,WRITING_CREATIVE
+Develop a brand voice and tone guide for a disruptive tech startup.,WRITING_CREATIVE
+Write a moving eulogy that celebrates a life well-lived.,WRITING_CREATIVE
+Create a series of children's bedtime stories about space exploration.,WRITING_CREATIVE
+Write a dramatic one-act play focusing on a family dinner confrontation.,WRITING_CREATIVE
+Compose a set of professional song lyrics in the style of 80s synth-pop.,WRITING_CREATIVE
+How to use sensory details to make your creative writing more immersive?,WRITING_CREATIVE
+Draft a collection of micro-fiction stories with exactly 50 words each.,WRITING_CREATIVE
+Create a design system focusing on dark mode and accessibility for a crypto terminal.,UI_UX_DESIGN
+Design a user interface for a smart home dashboard with complex device controls.,UI_UX_DESIGN
+How to design a mobile navigation system for an app with 50+ categories?,UI_UX_DESIGN
+Audit our existing UI for color contrast and font legibility issues.,UI_UX_DESIGN
+Create a series of micro-animations for a loading state and success feedback.,UI_UX_DESIGN
+Design a landing page for a premium AI tool using glassmorphism aesthetics.,UI_UX_DESIGN
+Conduct a card sorting exercise to optimize our website information architecture.,UI_UX_DESIGN
+How to build a responsive data grid for tablet and mobile viewports?,UI_UX_DESIGN
+Design a checkout flow that minimizes friction and reduces cart abandonment.,UI_UX_DESIGN
+Create a set of high-quality vector icons for a cybersecurity dashboard.,UI_UX_DESIGN
+Set up an automated vulnerability scanning pipeline using GitHub Actions.,CYBERSECURITY
+Design a secure cloud architecture on AWS using VPCs and Security Groups.,CYBERSECURITY
+How to implement rate limiting and DDoS protection for a high-traffic API?,CYBERSECURITY
+Write a series of secure coding guidelines for our engineering team.,CYBERSECURITY
+Audit our Docker images for known vulnerabilities and misconfigurations.,CYBERSECURITY
+Design an end-to-end encrypted messaging protocol for a mobile app.,CYBERSECURITY
+How to detect and prevent privilege escalation in a Linux environment?,CYBERSECURITY
+Perform a security review of our third-party dependencies and libraries.,CYBERSECURITY
+Implement a robust logging and alerting system for failed login attempts.,CYBERSECURITY
+Design a tabletop exercise for a simulated data breach and legal response.,CYBERSECURITY
+Build a churn prediction model for a subscription-based SaaS product.,DATA_SCIENCE
+How to use LIME or SHAP to interpret a black-box machine learning model?,DATA_SCIENCE
+Clean and preprocess a dirty dataset with missing values and inconsistent formatting.,DATA_SCIENCE
+Perform a cluster analysis on customer data to identify distinct segments.,DATA_SCIENCE
+Design a feature store for a real-time recommendation system.,DATA_SCIENCE
+How to implement a vector database for efficient semantic search?,DATA_SCIENCE
+Optimize a SQL query for a large-scale data aggregation task.,DATA_SCIENCE
+Build a data visualization dashboard using Streamlit and Plotly.,DATA_SCIENCE
+Perform a hypothesis test to compare the performance of two model variants.,DATA_SCIENCE
+How to build a robust data validation pipeline for production models?,DATA_SCIENCE
+Define the project scope and deliverables for a multi-year cloud migration.,PROJECT_MANAGEMENT
+How to manage a project when the lead developer unexpectedly leaves?,PROJECT_MANAGEMENT
+Design a risk register and tracking system for a complex R&D project.,PROJECT_MANAGEMENT
+Facilitate a project kickoff meeting and align all stakeholders on goals.,PROJECT_MANAGEMENT
+Optimize our team's sprint planning process for better predictability.,PROJECT_MANAGEMENT
+How to handle a demanding stakeholder who keeps requesting new features?,PROJECT_MANAGEMENT
+Design a project health report for executive leadership presentations.,PROJECT_MANAGEMENT
+Perform a post-mortem for a failed project and document lessons learned.,PROJECT_MANAGEMENT
+"How to manage a remote, distributed team across multiple time zones?",PROJECT_MANAGEMENT
+Develop a project budget and track actual spend against the baseline.,PROJECT_MANAGEMENT
+Write a compelling short story about an AI that discovers a passion for art.,WRITING_CREATIVE
+"How to use 'Show, Don't Tell' to make your fiction more engaging?",WRITING_CREATIVE
+Develop a series of character profiles for a sci-fi novel set on Mars.,WRITING_CREATIVE
+Write a set of evocative descriptions for a fantasy city built in the clouds.,WRITING_CREATIVE
+Write a series of high-energy commercials for a new fitness energy drink.,WRITING_CREATIVE
+How to write a plot twist that is both surprising and inevitable?,WRITING_CREATIVE
+Write a collection of micro-poems about the beauty of small moments.,WRITING_CREATIVE
+Design a narrative structure for a non-linear interactive movie.,WRITING_CREATIVE
+Write a brand story that connects emotionally with environmentally-conscious Gen Z.,WRITING_CREATIVE
+How to build tension and suspense in a psychological thriller?,WRITING_CREATIVE
+Build a high-performance concurrent task queue in Go using channels.,CODING
+Design a scalable microservices architecture using Kubernetes and gRPC.,CODING
+How to optimize the memory usage of a large-scale Python application?,CODING
+Implement a custom database engine with B-tree indexing and WAL.,CODING
+Design a real-time collaborative editor using WebSockets and CRDTs.,CODING
+Automate performance testing for a legacy monolith using JMeter.,TESTING
+Design a contract-first API testing strategy for a microservices mesh.,TESTING
+How to implement visual regression testing for a cross-platform mobile app?,TESTING
+Audit our test coverage and identify critical paths without automation.,TESTING
+Design a 'Chaos Engineering' experiment to test system resilience.,TESTING
+Model the impact of a carbon tax on a global manufacturing portfolio.,FINANCE
+How to calculate the 'Greeks' for a portfolio of exotic options?,FINANCE
+Design a retirement strategy for a client with complex tax considerations.,FINANCE
+Perform a detailed audit of a fintech's balance sheet for SOC2.,FINANCE
+Model a leveraged buyout (LBO) for a mid-market private equity deal.,FINANCE
+Reconcile 10 years of historical data for a major database migration.,DATA_RECONCILIATION
+How to detect duplicate payments in a multi-currency ERP environment?,DATA_RECONCILIATION
+Design a machine-learning based matching engine for high-volume logs.,DATA_RECONCILIATION
+Audit our internal ledger against external regulatory reports for MiFID II.,DATA_RECONCILIATION
+Reconcile our crypto wallet balances against on-chain transaction data.,DATA_RECONCILIATION
+Design a viral giveaway campaign that drives high-quality lead generation.,MARKETING
+How to audit our brand's social media presence for consistency and reach?,MARKETING
+Build a multi-channel attribution model using Google Analytics 4 data.,MARKETING
+Design a retargeting sequence for users who abandoned their cart.,MARKETING
+Create a influencer marketing brief for a high-end luxury fashion brand.,MARKETING
+Plan a 14-day research expedition to the Amazon rainforest.,GENERAL
+How to prepare a perfect 3-course French dinner for a wedding anniversary?,GENERAL
+Design a 12-week marathon training plan for a first-time runner.,GENERAL
+Translate a technical whitepaper on quantum computing into plain English.,GENERAL
+Optimize your home office for maximum productivity and posture.,GENERAL
+Hi,GENERAL
+Hello,GENERAL
+Hey there,GENERAL
+Hi Indigo,GENERAL
+What color is the sky?,GENERAL
+How are you today?,GENERAL
+Good morning,GENERAL
+Good afternoon,GENERAL
+Good evening,GENERAL
+What's up?,GENERAL
+Hey,GENERAL
+Hello Indigo,GENERAL
+What's the weather like?,GENERAL
+Can you help me?,GENERAL
+Who are you?,GENERAL
+What is your name?,GENERAL
+Are you an AI?,GENERAL
+Tell me a joke,GENERAL
+How does this work?,GENERAL
+What can you do?,GENERAL
+Explain the universe to me.,GENERAL
+How much is 2 plus 2?,GENERAL
+Help,GENERAL
+Greetings,GENERAL
+Hi there!,GENERAL
+Hello!,GENERAL
+Yo,GENERAL
+What's the meaning of life?,GENERAL
+How do I use this app?,GENERAL
+What is a prompt?,GENERAL
+How do I start?,GENERAL
+Who created you?,GENERAL
+What are you?,GENERAL
+Tell me something interesting.,GENERAL
+Show me everything,GENERAL
+Give me some ideas,GENERAL
+Surprise me,GENERAL
+What is your purpose?,GENERAL
+Are you Indigo?,GENERAL
+Hey Indigo!,GENERAL
+optimize a java application for high throughput,CODING
+implement the observer pattern in java,CODING
+refactor legacy java code to use spring boot,CODING
+create a rest api with spring boot and jpa,CODING
+configure spring security with jwt tokens,CODING
+setup a spring boot microservice architecture,CODING
+write a junit 5 test case for a java class,CODING
+handle distributed transactions in spring boot,CODING
+implement a singleton pattern in java,CODING
+connect spring boot to a postgresql database,CODING
+write an entry processor for oracle coherence,DATABASE
+optimize a slow sql query with explain plan,DATABASE
+design a normalized schema for an ecommerce app,DATABASE
+write a postgresql migration script for new columns,DATABASE
+setup a distributed cache with coherence,DATABASE
+implement a composite index in postgresql,DATABASE
+query millions of rows using sql ctes,DATABASE
+analyze query performance in oracle,DATABASE
+create a partitioned table in postgresql,DATABASE
+setup read-through caching in coherence,DATABASE
+write a recursive cte for hierarchical data,DATABASE
+optimize database connection pooling,DATABASE
+design a star schema for data warehousing,DATABASE
+implement row level security in postgresql,DATABASE
+setup a high availability postgresql cluster,DATABASE
+reconcile database records after migration,DATABASE
+tune oracle coherence cluster settings,DATABASE
+write an analytical query using window functions,DATABASE
+compare sql inner vs outer joins performance,DATABASE
+design a database schema for a multi-tenant app,DATABASE
+implement a bloom filter in a database engine,DATABASE
+setup database replication for disaster recovery,DATABASE
+write a sql procedure for data archiving,DATABASE
+optimize temp disk usage in complex queries,DATABASE
+handle deadlocks in a high-concurrency database,DATABASE
+design a secondary index for coherence caches,DATABASE
+implement data sharding for a global database,DATABASE
+write a trigger for data auditing in postgresql,DATABASE
+setup a database buffer cache for performance,DATABASE
+reconcile financial data in a database,DATABASE
+build a database health monitoring script,DATABASE
+java spring boot rest api with postgres,CODING
+spring security oauth2 login,CODING
+hibernate mapping for many-to-many,CODING
+spring boot actuator health check,CODING
+java streams reduce example,CODING
+maven dependency management best practices,CODING
+spring cloud gateway configuration,CODING
+java multithreading and concurrency,CODING
+spring boot conditional bean loading,CODING
+hibernate lazy vs eager loading,CODING
+java functional interfaces and lambdas,CODING
+spring boot profiles implementation,CODING
+java garbage collection tuning,CODING
+spring mvc vs webflux comparison,CODING
+hibernate caching strategies,CODING
+java reflection and introspection,CODING
+spring boot test with mockmvc,CODING
+java generics and type safety,CODING
+spring boot application properties vs yaml,CODING
+java collections framework guide,CODING
+spring data jpa query methods,CODING
+java optional class usage,CODING
+spring boot scheduler example,CODING
+java exception handling patterns,CODING
+spring boot fat jar vs war,CODING
+java annotation processing,CODING
+spring boot auto-configuration explained,CODING
+java design patterns implement observer,CODING
+postgresql full text search index,DATABASE
+oracle sql tuning with hints,DATABASE
+database normalization 3nf vs bcnf,DATABASE
+sql window functions rank and dense_rank,DATABASE
+postgresql logical replication setup,DATABASE
+database vacuum and bloat management,DATABASE
+sql join types inner vs left vs full,DATABASE
+postgresql explain analyze output,DATABASE
+database transaction isolation levels,DATABASE
+sql injection prevention best practices,DATABASE
+database clustering vs replication,DATABASE
+postgresql jsonb vs json performance,DATABASE
+database views vs materialized views,DATABASE
+sql merge statement example,DATABASE
