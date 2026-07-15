@@ -1,0 +1,26 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# SQLite database files (ephemeral on Streamlit Cloud, regenerated on startup)
+*.db
+*.db-shm
+*.db-wal
+
+# Debug logs
+debug.log
+*.log
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

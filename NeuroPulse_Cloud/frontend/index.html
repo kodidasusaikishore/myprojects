@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NeuroPulse: Boost your logic, memory, focus, and arithmetic skills in rapid-fire 1-minute daily brain exercises.">
+    <title>NeuroPulse - 1-Minute Brain Gym</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- HEADER -->
+        <header>
+            <div class="brand" id="btnBrandHome" onclick="gameApp.showHub()">
+                <div class="brand-logo">🧠</div>
+                <div class="brand-text">
+                    <h1>NeuroPulse</h1>
+                    <p>1-Minute Brain Gym</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button type="button" class="icon-btn" id="btnOpenLeaderboard" onclick="gameApp.openLeaderboardsModal()"
+                    title="Leaderboards">🏆</button>
+                <button type="button" class="icon-btn" id="btnOpenAdmin" onclick="gameApp.openAdminModal()"
+                    title="Admin Settings">⚙️</button>
+                <button type="button" class="icon-btn" id="audioToggle" onclick="gameApp.toggleAudio()"
+                    title="Toggle Sound">🔊</button>
+            </div>
+        </header>
+
+        <!-- LOBBY / HUB SCREEN -->
+        <div id="hubScreen" class="screen active">
+            <div class="hub-hero">
+                <h2>Boost Your Brain in 60 Seconds</h2>
+                <p>Pick a rapid-fire challenge below to test logic, focus, memory, speed, and executive function.</p>
+            </div>
+
+            <div class="games-grid">
+                <!-- Game 1: Color Match -->
+                <div class="game-card accent-primary" id="cardGameColor" onclick="gameApp.startGame('color')">
+                    <div class="game-card-header">
+                        <div class="game-icon">🎨</div>
+                        <div class="high-score-badge">🏆 <span id="hs-color">0</span></div>
+                    </div>
+                    <h3>Color Match (Stroop)</h3>
+                    <p>Identify the INK COLOR of the printed word while ignoring the word's meaning!</p>
+                    <button type="button" class="play-btn" id="btnPlayColor">Play Challenge <span>➔</span></button>
+                </div>
+
+                <!-- Game 2: Word Find -->
+                <div class="game-card accent-cyan" id="cardGameWord" onclick="gameApp.startGame('word')">
+                    <div class="game-card-header">
+                        <div class="game-icon">🔍</div>
+                        <div class="high-score-badge">🏆 <span id="hs-word">0</span></div>
+                    </div>
+                    <h3>Word Wend (8-Way)</h3>
+                    <p>Find terms hidden horizontally, vertically, diagonally, or backwards!</p>
+                    <button type="button" class="play-btn" id="btnPlayWord">Play Challenge <span>➔</span></button>
+                </div>
+
+                <!-- Game 3: Memory Flash -->
+                <div class="game-card accent-pink" id="cardGameMemory" onclick="gameApp.startGame('memory')">
+                    <div class="game-card-header">
+                        <div class="game-icon">💡</div>
+                        <div class="high-score-badge">🏆 <span id="hs-memory">0</span></div>
+                    </div>
+                    <h3>Memory Flash</h3>
+                    <p>Memorize glowing tile patterns and recall their exact locations under time pressure.</p>
+                    <button type="button" class="play-btn" id="btnPlayMemory">Play Challenge <span>➔</span></button>
+                </div>
+
+                <!-- Game 4: Speed Math -->
+                <div class="game-card accent-emerald" id="cardGameMath" onclick="gameApp.startGame('math')">
+                    <div class="game-card-header">
+                        <div class="game-icon">➕</div>
+                        <div class="high-score-badge">🏆 <span id="hs-math">0</span></div>
+                    </div>
+                    <h3>Speed Calc</h3>
+                    <p>Solve high-speed mental arithmetic equations and build streak score multipliers.</p>
+                    <button type="button" class="play-btn" id="btnPlayMath">Play Challenge <span>➔</span></button>
+                </div>
+
+                <!-- Game 5: Rule Switch -->
+                <div class="game-card accent-violet" id="cardGameRule" onclick="gameApp.startGame('rule')">
+                    <div class="game-card-header">
+                        <div class="game-icon">🔀</div>
+                        <div class="high-score-badge">🏆 <span id="hs-rule">0</span></div>
+                    </div>
+                    <h3>Rule Switch (Dual)</h3>
+                    <p>Match SHAPE or COLOR based on dynamically shifting rule prompts on each turn!</p>
+                    <button type="button" class="play-btn" id="btnPlayRule">Play Challenge <span>➔</span></button>
+                </div>
+
+                <!-- Game 6: Chrono Rush -->
+                <div class="game-card accent-orange" id="cardGameChrono" onclick="gameApp.startGame('chrono')">
+                    <div class="game-card-header">
+                        <div class="game-icon">⚡</div>
+                        <div class="high-score-badge">🏆 <span id="hs-chrono">0</span></div>
+                    </div>
+                    <h3>Chrono Rush</h3>
+                    <p>Scan and tap randomly scattered numbers from LOWEST to HIGHEST!</p>
+                    <button type="button" class="play-btn" id="btnPlayChrono">Play Challenge <span>➔</span></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- GAMEPLAY STAGE SCREEN -->
+        <div id="stageScreen" class="screen">
+            <div class="stage-header">
+                <button type="button" class="back-btn" id="btnQuitGame" onclick="gameApp.showHub()">✕ Quit</button>
+
+                <div class="timer-container">
+                    <svg class="timer-svg" viewBox="0 0 80 80">
+                        <circle class="timer-bg" cx="40" cy="40" r="35"></circle>
+                        <circle class="timer-progress" id="timerProgress" cx="40" cy="40" r="35"></circle>
+                    </svg>
+                    <div class="timer-text" id="timerText">60</div>
+                </div>
+
+                <div class="stat-box">
+                    <div class="stat-label">Score</div>
+                    <div class="stat-value" id="currentScore">0</div>
+                </div>
+            </div>
+
+            <div class="game-arena" id="gameArena">
+                <!-- Dynamic game markup injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- GAME OVER / TIME UP MODAL -->
+    <div class="modal-overlay" id="gameOverModal">
+        <div class="modal-card">
+            <div class="modal-icon" id="modalIcon">⌛</div>
+            <h2 id="modalTitle">Game Over</h2>
+            <p id="modalSubtitle">Time's Up! Here is your final performance summary.</p>
+
+            <div class="score-display-big">
+                <div class="score-item">
+                    <h4>Your Score</h4>
+                    <div id="modalScore">0</div>
+                </div>
+                <div class="score-item">
+                    <h4>Highest Score</h4>
+                    <div id="modalBest">0</div>
+                    <div class="high-score-holder" id="modalBestHolder"></div>
+                </div>
+            </div>
+
+            <!-- New High Score Name Input -->
+            <div class="name-input-container" id="nameInputContainer">
+                <label id="lblNewRecordAnnouncement">🎉 WOW! NEW HIGH SCORE RECORD!</label>
+                <div class="name-input-box">
+                    <input type="text" id="playerNameInput" placeholder="Enter your name" maxlength="15" />
+                    <button type="button" class="save-name-btn" id="btnSaveScore" onclick="gameApp.saveHighScoreName()">Save</button>
+                </div>
+            </div>
+
+            <div class="modal-buttons">
+                <button type="button" class="modal-btn secondary" id="btnMenuBack" onclick="gameApp.showHub()">Menu</button>
+                <button type="button" class="modal-btn primary" id="btnPlayAgain" onclick="gameApp.restartCurrentGame()">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN PANEL / RESET MODAL -->
+    <div class="modal-overlay" id="adminModal">
+        <div class="modal-card" id="adminCard">
+            <!-- Lock Screen State -->
+            <div id="adminLockState">
+                <div class="modal-icon">🔐</div>
+                <h2>Admin Settings</h2>
+                <p>Enter admin passcode to configure game constants and access developer tools.</p>
+                <div class="admin-box">
+                    <input type="password" id="adminPasscode" placeholder="Passcode (Default: 1234)" />
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="modal-btn secondary" id="btnCancelAdminUnlock" onclick="gameApp.closeAdminModal()">Cancel</button>
+                    <button type="button" class="modal-btn primary" id="btnConfirmAdminUnlock" onclick="gameApp.authenticateAdmin()">Unlock</button>
+                </div>
+            </div>
+
+            <!-- Dashboard State (Initially Hidden) -->
+            <div id="adminDashboardState" style="display: none;">
+                <h2>⚙️ Admin Control Panel</h2>
+                <p class="admin-subtitle">Configure parameters, toggle cheat features, and manage leaderboards.</p>
+                
+                <div class="admin-tabs">
+                    <button type="button" class="admin-tab-btn active" id="btnAdminTabConfig" onclick="gameApp.switchAdminTab('config')">Configurator</button>
+                    <button type="button" class="admin-tab-btn" id="btnAdminTabSandbox" onclick="gameApp.switchAdminTab('sandbox')">Sandbox</button>
+                    <button type="button" class="admin-tab-btn" id="btnAdminTabDatabase" onclick="gameApp.switchAdminTab('database')">Database</button>
+                </div>
+
+                <!-- Tab 1: Configurator Content -->
+                <div id="tab-config" class="admin-tab-content active">
+                    <div class="config-group">
+                        <div class="config-label-row">
+                            <span>Universal Timer (seconds):</span>
+                            <span id="cfgTimerVal">60</span>
+                        </div>
+                        <div class="config-row">
+                            <input type="range" id="cfgTimer" min="30" max="180" step="5" value="60" oninput="document.getElementById('cfgTimerVal').innerText=this.value" />
+                        </div>
+                    </div>
+                    <div class="config-group">
+                        <div class="config-label-row">
+                            <span>Dynamic/Adaptive Difficulty Scaling:</span>
+                            <label class="switch">
+                                <input type="checkbox" id="cfgAdaptive" checked />
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="config-group">
+                        <div class="config-label-row">
+                            <span>Speed Calc Allowed Operators:</span>
+                        </div>
+                        <div class="config-checkbox-group">
+                            <label class="config-checkbox-label">
+                                <input type="checkbox" id="cfgOpAdd" checked /> Addition (+)
+                            </label>
+                            <label class="config-checkbox-label">
+                                <input type="checkbox" id="cfgOpSub" checked /> Subtraction (-)
+                            </label>
+                            <label class="config-checkbox-label">
+                                <input type="checkbox" id="cfgOpMul" checked /> Multiplication (×)
+                            </label>
+                            <label class="config-checkbox-label">
+                                <input type="checkbox" id="cfgOpDiv" /> Division (÷)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="config-group">
+                        <div class="config-label-row">
+                            <span>Word Find Baseline Grid Size:</span>
+                            <span id="cfgWordGridVal">8</span>
+                        </div>
+                        <div class="config-row">
+                            <input type="range" id="cfgWordGrid" min="6" max="10" step="1" value="8" oninput="document.getElementById('cfgWordGridVal').innerText=this.value" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Developer Sandbox Content -->
+                <div id="tab-sandbox" class="admin-tab-content">
+                    <div class="config-group">
+                        <div class="config-label-row">
+                            <span>Cheat Mode (Highlights answers):</span>
+                            <label class="switch">
+                                <input type="checkbox" id="cfgCheat" />
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="config-group">
+                        <span style="font-weight: 600; font-size: 0.95rem;">Active Game Sandbox Controls:</span>
+                        <div class="modal-buttons" style="margin-top: 10px;">
+                            <button type="button" class="modal-btn secondary" id="btnSandboxAddTime" onclick="gameApp.sandboxAddTime(15)" style="font-size:0.9rem; padding:10px;">+15s Time</button>
+                            <button type="button" class="modal-btn secondary" id="btnSandboxSubTime" onclick="gameApp.sandboxAddTime(-15)" style="font-size:0.9rem; padding:10px;">-15s Time</button>
+                            <button type="button" class="modal-btn secondary" id="btnSandboxAddScore" onclick="gameApp.sandboxAddScore(100)" style="font-size:0.9rem; padding:10px;">+100 Score</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Database & Security Content -->
+                <div id="tab-database" class="admin-tab-content">
+                    <div class="config-group">
+                        <span style="font-weight: 600; font-size: 0.95rem;">Security:</span>
+                        <div style="display: flex; gap: 8px; margin-top: 8px;">
+                            <input type="password" id="cfgNewPasscode" placeholder="New Passcode" style="flex:1; background:rgba(15,23,42,0.8); border:1px solid var(--border-glass); border-radius:10px; padding:10px; color:white; outline:none;" />
+                            <button type="button" class="save-name-btn" id="btnSaveNewPasscode" onclick="gameApp.saveNewPasscode()" style="padding:10px 16px;">Set</button>
+                        </div>
+                    </div>
+                    <div class="config-group" style="margin-top:20px;">
+                        <span style="font-weight: 600; font-size: 0.95rem;">Database Control:</span>
+                        <!-- Step 1: Initial button -->
+                        <div id="resetStep1" class="modal-buttons" style="margin-top: 10px;">
+                            <button type="button" class="modal-btn danger" id="btnResetDatabase" onclick="gameApp.showResetConfirm()" style="padding: 12px; font-size:0.9rem;">🗑️ Reset All Leaderboards</button>
+                        </div>
+                        <!-- Step 2: Inline confirmation (hidden by default) -->
+                        <div id="resetStep2" style="display:none; margin-top:12px; background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.4); border-radius:12px; padding:16px;">
+                            <p style="margin:0 0 12px 0; font-size:0.9rem; color:#fca5a5; font-weight:600;">⚠️ Are you sure? This will permanently wipe ALL leaderboard records. This cannot be undone.</p>
+                            <div style="display:flex; gap:10px;">
+                                <button type="button" class="modal-btn secondary" id="btnResetCancel" onclick="gameApp.hideResetConfirm()" style="flex:1; padding:10px;">Cancel</button>
+                                <button type="button" class="modal-btn danger" id="btnResetConfirm" onclick="gameApp.executeReset()" style="flex:1; padding:10px;">Yes, Delete Everything</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Close panel buttons -->
+                <div class="modal-buttons" style="margin-top: 28px; border-top: 1px solid var(--border-glass); padding-top: 20px;">
+                    <button type="button" class="modal-btn primary" id="btnSaveAdminConfig" onclick="gameApp.saveAndCloseAdminPanel()">Save & Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEADERBOARDS MODAL -->
+    <div class="modal-overlay" id="leaderboardsModal">
+        <div class="modal-card wide">
+            <h2>🏆 Leaderboard Rankings</h2>
+            <p class="admin-subtitle">NeuroPulse top 5 historical performances</p>
+
+            <div class="admin-tabs" id="leaderboardTabs">
+                <button type="button" class="admin-tab-btn active" id="tabLblColor" onclick="gameApp.switchLeaderboardTab('color')">Color</button>
+                <button type="button" class="admin-tab-btn" id="tabLblWord" onclick="gameApp.switchLeaderboardTab('word')">Word</button>
+                <button type="button" class="admin-tab-btn" id="tabLblMemory" onclick="gameApp.switchLeaderboardTab('memory')">Memory</button>
+                <button type="button" class="admin-tab-btn" id="tabLblMath" onclick="gameApp.switchLeaderboardTab('math')">Math</button>
+                <button type="button" class="admin-tab-btn" id="tabLblRule" onclick="gameApp.switchLeaderboardTab('rule')">Rule</button>
+                <button type="button" class="admin-tab-btn" id="tabLblChrono" onclick="gameApp.switchLeaderboardTab('chrono')">Chrono</button>
+            </div>
+
+            <!-- Leaderboards Tables Container -->
+            <div id="leaderboardTableContainer" style="min-height: 220px; overflow-y: auto; margin-bottom: 20px; background: rgba(255, 255, 255, 0.03); border-radius: 16px; padding: 12px 20px; border: 1px solid var(--border-glass);">
+                <!-- Dynamic table content injected here -->
+            </div>
+
+            <div class="modal-buttons">
+                <button type="button" class="modal-btn primary" id="btnCloseLeaderboard" onclick="gameApp.closeLeaderboardsModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOAD CUSTOM GAME LOGIC & ENGINE MODULES -->
+    <script src="js/audio.js"></script>
+    <script src="js/games.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
